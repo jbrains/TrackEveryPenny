@@ -15,6 +15,6 @@ public class MyActivityTest {
     @Test
     public void shouldHaveHappySmiles() throws Exception {
         String appName = new MyActivity().getResources().getString(R.string.app_name);
-        assertThat(appName, equalTo("unnamed-personal-finance-project"));
+        assertThat(appName, equalTo("Track Every Penny"));
     }
 }
