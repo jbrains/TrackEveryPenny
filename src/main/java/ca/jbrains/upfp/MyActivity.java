@@ -2,6 +2,8 @@ package ca.jbrains.upfp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 public class MyActivity extends Activity
 {
@@ -11,5 +13,7 @@ public class MyActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        final TextView transactionsCountView = (TextView) findViewById(R.id.transactionsCount);
+        transactionsCountView.setText(String.valueOf(1));
     }
 }
