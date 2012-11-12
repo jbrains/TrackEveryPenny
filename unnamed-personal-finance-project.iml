@@ -70,7 +70,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="jdk" jdkName="Android 4.0.3 Google APIs" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android 4.0.3 Platform" jdkType="Android SDK" />
   </component>
 </module>
 
