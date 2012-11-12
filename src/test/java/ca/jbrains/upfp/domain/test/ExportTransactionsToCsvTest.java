@@ -49,9 +49,14 @@ public class ExportTransactionsToCsvTest {
     }
 
     private void writeTransaction(PrintWriter canvas, Transaction each) {
+        canvas.println(transactionInCsvFormat(each));
+    }
+
+    // Transaction in CSV format
+    private String transactionInCsvFormat(Transaction each) {
         final String dateText = DateTimeFormat.forPattern("yyyy-MM-dd").print(each.date);
         final double amountInDollars = each.amountInCents / 100.0d;
-        canvas.println(String.format("\"%1$s\",\"%2$s\",\"%3$.2f\"", dateText, each.categoryName, amountInDollars));
+        return String.format("\"%1$s\",\"%2$s\",\"%3$.2f\"", dateText, each.categoryName, amountInDollars);
     }
 
     private void writeHeader(PrintWriter canvas) {
