@@ -71,6 +71,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="guava-13.0.1" level="project" />
+    <orderEntry type="library" name="joda-time-2.1" level="project" />
     <orderEntry type="jdk" jdkName="Android 4.0.3 Platform" jdkType="Android SDK" />
   </component>
 </module>
