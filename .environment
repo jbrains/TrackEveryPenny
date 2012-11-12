@@ -1,0 +1,2 @@
+echo "Invoked!"
+export PATH=$PATH:/opt/android-sdk-macosx/tools; export PATH=$PATH:/opt/android-sdk-macosx/platform-tools
