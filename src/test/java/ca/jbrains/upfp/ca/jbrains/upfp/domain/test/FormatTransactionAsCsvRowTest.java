@@ -1,7 +1,7 @@
 package ca.jbrains.upfp.ca.jbrains.upfp.domain.test;
 
 import ca.jbrains.upfp.domain.Transaction;
-import ca.jbrains.upfp.domain.TransactionCsvFormat;
+import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
 import ca.jbrains.upfp.domain.test.TransactionBuilder;
 import org.joda.time.LocalDate;
 import org.junit.Before;
@@ -47,6 +47,6 @@ public class FormatTransactionAsCsvRowTest {
 
 
     private String format(Transaction transaction) {
-        return new TransactionCsvFormat().format(transaction);
+        return new TransactionCsvRowFormat().format(transaction);
     }
 }

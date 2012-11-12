@@ -50,6 +50,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" scope="TEST" name="hamcrest-library-1.3" level="project" />
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
@@ -72,6 +73,7 @@
     </orderEntry>
     <orderEntry type="library" name="guava-13.0.1" level="project" />
     <orderEntry type="library" name="joda-time-2.1" level="project" />
+    <orderEntry type="library" scope="TEST" name="jmock-2.6.0-RC2" level="project" />
     <orderEntry type="jdk" jdkName="Android 4.0.3 Platform" jdkType="Android SDK" />
   </component>
 </module>

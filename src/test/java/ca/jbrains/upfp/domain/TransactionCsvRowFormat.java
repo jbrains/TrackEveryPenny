@@ -2,7 +2,8 @@ package ca.jbrains.upfp.domain;
 
 import org.joda.time.format.DateTimeFormat;
 
-public class TransactionCsvFormat {
+public class TransactionCsvRowFormat implements TransactionTextFormat {
+    @Override
     public String format(Transaction transaction) {
         final String dateText = (transaction.date == null) ? "" : DateTimeFormat.forPattern("yyyy-MM-dd").print(transaction.date);
         final double amountInDollars = transaction.amountInCents / 100.0d;
