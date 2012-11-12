@@ -19,5 +19,6 @@ public class MyActivity extends Activity
     }
 
     public void exportTransactionsToCsv(View clicked) {
+        Toast.makeText(getApplicationContext(), "Export not yet implemented", Toast.LENGTH_LONG).show();
     }
 }
