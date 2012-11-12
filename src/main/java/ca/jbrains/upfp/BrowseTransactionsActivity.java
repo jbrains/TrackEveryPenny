@@ -31,7 +31,11 @@ public class BrowseTransactionsActivity extends Activity {
 
         final File externalStorageDirectory = Environment.getExternalStorageDirectory();
         final File externalDownloadsDirectory = new File(externalStorageDirectory, Environment.DIRECTORY_DOWNLOADS);
+        exportTranasctionsToCsvFileInDirectory(externalDownloadsDirectory);
+    }
 
+    // REUSE Android-free
+    private void exportTranasctionsToCsvFileInDirectory(File externalDownloadsDirectory) {
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
@@ -47,10 +51,12 @@ public class BrowseTransactionsActivity extends Activity {
         }
     }
 
+    // REUSE App-wide
     private void logError(String errorText, Exception logged) {
         Log.e("TrackEveryPenny", errorText, logged);
     }
 
+    // REUSE App-wide
     private void notifyUser(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
