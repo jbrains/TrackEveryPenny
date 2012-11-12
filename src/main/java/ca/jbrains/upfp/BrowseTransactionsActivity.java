@@ -39,9 +39,7 @@ public class BrowseTransactionsActivity extends Activity {
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
-            canvas.println("Eventually, some awesome CSV shit.");
-            canvas.println("Seriously, this will be CSV.");
-            canvas.println("Why can't I see this file on the file manager?!");
+            writeCsvContentsTo(canvas);
             canvas.flush();
             canvas.close();
             notifyUser("Exported transactions to " + transactionsCsvFile.getAbsolutePath());
@@ -49,6 +47,13 @@ public class BrowseTransactionsActivity extends Activity {
             notifyUser("I tried to write to external storage, but failed.");
             logError("Failed to write to external public storage", logged);
         }
+    }
+
+    // REUSE Domain
+    private void writeCsvContentsTo(PrintWriter canvas) {
+        canvas.println("Eventually, some awesome CSV shit.");
+        canvas.println("Seriously, this will be CSV.");
+        canvas.println("Why can't I see this file on the file manager?!");
     }
 
     // REUSE App-wide
