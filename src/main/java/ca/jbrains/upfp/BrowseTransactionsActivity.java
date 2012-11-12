@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import java.io.*;
 
-public class MyActivity extends Activity {
+public class BrowseTransactionsActivity extends Activity {
     /**
      * Called when the activity is first created.
      */
