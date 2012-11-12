@@ -29,8 +29,8 @@ public class BrowseTransactionsActivity extends Activity {
             return;
         }
 
-        final File externalDownloadsDirectory = Environment.getExternalStorageDirectory();
-        externalDownloadsDirectory.mkdirs();
+        final File externalStorageDirectory = Environment.getExternalStorageDirectory();
+        final File externalDownloadsDirectory = new File(externalStorageDirectory, Environment.DIRECTORY_DOWNLOADS);
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);

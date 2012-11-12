@@ -10,8 +10,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
-public class MyActivityTest {
-
+public class ConfigureActionsForBrowseTransactionsActivityTest {
     @Test
     public void shouldHaveHappySmiles() throws Exception {
         String appName = new BrowseTransactionsActivity().getResources().getString(R.string.app_name);
@@ -38,5 +37,4 @@ public class MyActivityTest {
 
         clickOn(browseTransactionsActivity, R.id.newTransactionOnDate);
     }
-
 }
