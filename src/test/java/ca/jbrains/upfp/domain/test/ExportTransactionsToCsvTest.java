@@ -33,7 +33,7 @@ public class ExportTransactionsToCsvTest {
 
     @Test
     public void noTransactions() throws Exception {
-        exportTransactionsToCsv(canvas, null, Lists.<Transaction>newArrayList());
+        exportTransactionsToCsv(canvas, transactionTextFormat, Lists.<Transaction>newArrayList());
         assertEquals("\"Date\",\"Category\",\"Amount\"", contents.toString().trim());
     }
 
@@ -63,14 +63,10 @@ public class ExportTransactionsToCsvTest {
 
 
     private void exportTransactionsToCsv(PrintWriter canvas, TransactionTextFormat transactionTextFormat, Iterable<Transaction> transactions) throws IOException {
-        writeHeader(canvas);
+        canvas.println("\"Date\",\"Category\",\"Amount\"");
         for (Transaction each : transactions) {
             canvas.println(transactionTextFormat.format(each));
         }
-    }
-
-    private void writeHeader(PrintWriter canvas) {
-        canvas.println("\"Date\",\"Category\",\"Amount\"");
     }
 
 }
