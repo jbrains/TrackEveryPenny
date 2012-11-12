@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.domain.test;
 
+import ca.jbrains.upfp.domain.ExportTransactionsToCsvAction;
 import ca.jbrains.upfp.domain.Transaction;
 import ca.jbrains.upfp.domain.TransactionTextFormat;
 import com.google.common.collect.Lists;
@@ -66,20 +67,4 @@ public class ExportTransactionsToCsvTest {
         new ExportTransactionsToCsvAction(transactionTextFormat).execute(transactions, canvas);
     }
 
-    public static class ExportTransactionsToCsvAction {
-        private final TransactionTextFormat transactionTextFormat;
-
-        public ExportTransactionsToCsvAction(TransactionTextFormat transactionTextFormat) {
-            this.transactionTextFormat = transactionTextFormat;
-        }
-
-        public void execute(Iterable<Transaction> transactions, PrintWriter canvas) {
-            // SMELL Different levels of abstraction between header and row
-            // Stops this from becoming more general-purpose
-            canvas.println("\"Date\",\"Category\",\"Amount\"");
-            for (Transaction each : transactions) {
-                canvas.println(transactionTextFormat.format(each));
-            }
-        }
-    }
 }

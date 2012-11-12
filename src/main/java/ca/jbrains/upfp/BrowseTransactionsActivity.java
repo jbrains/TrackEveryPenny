@@ -7,8 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import ca.jbrains.upfp.domain.ExportTransactionsToCsvAction;
+import ca.jbrains.upfp.domain.Transaction;
+import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
+import com.google.common.collect.Lists;
+import org.joda.time.LocalDate;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
 public class BrowseTransactionsActivity extends Activity {
     /**
@@ -39,7 +47,22 @@ public class BrowseTransactionsActivity extends Activity {
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
-            writeCsvContentsTo(canvas);
+            final ArrayList<Transaction> transactions = Lists.newArrayList(
+                    new Transaction(new LocalDate(2012, 11, 5), "Bowling Winnings", 200),
+                    new Transaction(new LocalDate(2012, 11, 5), "Bowling", -1400),
+                    new Transaction(new LocalDate(2012, 11, 7), "Bowling", -1050),
+                    new Transaction(new LocalDate(2012, 11, 7),
+                            "Bowling Winnings", 100),
+                    new Transaction(new LocalDate(2012, 11, 8),
+                            "Groceries", -2500),
+                    new Transaction(new LocalDate(2012, 11, 10),
+                            "Groceries", -11715),
+                    new Transaction(new LocalDate(2012, 11, 12),
+                            "Bowling", -1400),
+                    new Transaction(new LocalDate(2012, 11, 17),
+                            "Groceries", -1350)
+            );
+            writeCsvContentsTo(canvas, transactions);
             canvas.flush();
             canvas.close();
             notifyUser("Exported transactions to " + transactionsCsvFile.getAbsolutePath());
@@ -50,10 +73,12 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     // REUSE Domain
-    private void writeCsvContentsTo(PrintWriter canvas) {
-        canvas.println("Eventually, some awesome CSV shit.");
-        canvas.println("Seriously, this will be CSV.");
-        canvas.println("Why can't I see this file on the file manager?!");
+    private void writeCsvContentsTo(PrintWriter canvas, Iterable<Transaction> transactions) {
+        // SMELL Feels wrong somehow
+        // REFACTOR RowFormat goes with HeaderFormat to make CsvFileFormat,
+        // then export with TransactionCsvFileFormat?
+        new ExportTransactionsToCsvAction(new TransactionCsvRowFormat()).execute(transactions,
+                canvas);
     }
 
     // REUSE App-wide
