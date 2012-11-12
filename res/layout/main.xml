@@ -7,7 +7,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="horizontal"
                   android:layout_width="fill_parent"
-                  android:layout_height="fill_parent"
+                  android:layout_height="wrap_content"
             >
         <TextView
                 android:layout_width="wrap_content"
@@ -24,6 +24,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=" transactions"
+                />
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+            >
+        <Button android:id="@+id/exportToCsvButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Export to CSV"
+                android:onClick="exportTransactionsToCsv"
                 />
     </LinearLayout>
 </LinearLayout>

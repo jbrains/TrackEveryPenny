@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyActivity extends Activity
 {
@@ -15,5 +16,8 @@ public class MyActivity extends Activity
         setContentView(R.layout.main);
         final TextView transactionsCountView = (TextView) findViewById(R.id.transactionsCount);
         transactionsCountView.setText(String.valueOf(1));
+    }
+
+    public void exportTransactionsToCsv(View clicked) {
     }
 }
