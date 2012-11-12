@@ -41,20 +41,14 @@ public class BrowseTransactionsActivity extends Activity {
             canvas.flush();
             canvas.close();
             notifyUser("Exported transactions to " + transactionsCsvFile.getAbsolutePath());
-
-            final BufferedReader bufferedReader = new BufferedReader(new FileReader(transactionsCsvFile));
-            final StringWriter contents = new StringWriter();
-            final PrintWriter readCanvas = new PrintWriter(contents);
-            while (true) {
-                final String line = bufferedReader.readLine();
-                if (line == null) break;
-                readCanvas.println(line);
-            }
-            notifyUser("Contents: " + contents.toString());
         } catch (IOException logged) {
             notifyUser("I tried to write to external storage, but failed.");
-            Log.e("TrackEveryPenny", "Failed to write to external public storage", logged);
+            logError("Failed to write to external public storage", logged);
         }
+    }
+
+    private void logError(String errorText, Exception logged) {
+        Log.e("TrackEveryPenny", errorText, logged);
     }
 
     private void notifyUser(String message) {
