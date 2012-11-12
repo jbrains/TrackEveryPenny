@@ -25,12 +25,13 @@ public class BrowseTransactionsActivity extends Activity {
     public void exportTransactionsToCsv(View clicked) {
         final String externalStorageState = Environment.getExternalStorageState();
         if (!Environment.MEDIA_MOUNTED.equals(externalStorageState)) {
-            Toast.makeText(getApplicationContext(), "There's no external storage available, so I can't export.", Toast.LENGTH_LONG).show();
+            notifyUser("There's no external storage available, so I can't export.");
             return;
         }
 
         final File externalStorageDirectory = Environment.getExternalStorageDirectory();
         final File externalDownloadsDirectory = new File(externalStorageDirectory, Environment.DIRECTORY_DOWNLOADS);
+
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
@@ -39,7 +40,7 @@ public class BrowseTransactionsActivity extends Activity {
             canvas.println("Why can't I see this file on the file manager?!");
             canvas.flush();
             canvas.close();
-            Toast.makeText(getApplicationContext(), "Exported transactions to " + transactionsCsvFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+            notifyUser("Exported transactions to " + transactionsCsvFile.getAbsolutePath());
 
             final BufferedReader bufferedReader = new BufferedReader(new FileReader(transactionsCsvFile));
             final StringWriter contents = new StringWriter();
@@ -49,14 +50,18 @@ public class BrowseTransactionsActivity extends Activity {
                 if (line == null) break;
                 readCanvas.println(line);
             }
-            Toast.makeText(getApplicationContext(), "Contents: " + contents.toString(), Toast.LENGTH_LONG).show();
+            notifyUser("Contents: " + contents.toString());
         } catch (IOException logged) {
-            Toast.makeText(getApplicationContext(), "I tried to write to external storage, but failed.", Toast.LENGTH_LONG).show();
+            notifyUser("I tried to write to external storage, but failed.");
             Log.e("TrackEveryPenny", "Failed to write to external public storage", logged);
         }
     }
 
+    private void notifyUser(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+    }
+
     public void createTransactionOnCurrentDate(View clicked) {
-        Toast.makeText(getApplicationContext(), "Create transaction on current date not yet implemented", Toast.LENGTH_LONG).show();
+        notifyUser("Create transaction on current date not yet implemented");
     }
 }
