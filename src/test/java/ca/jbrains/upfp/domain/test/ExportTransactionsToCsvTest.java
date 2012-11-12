@@ -1,22 +1,15 @@
 package ca.jbrains.upfp.domain.test;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
-import org.joda.time.YearMonthDay;
 import org.joda.time.format.DateTimeFormat;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Calendar;
-import java.util.Collections;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class ExportTransactionsToCsvTest {
     @Test
@@ -54,9 +47,15 @@ public class ExportTransactionsToCsvTest {
 
     // Transaction in CSV format
     private String transactionInCsvFormat(Transaction each) {
-        final String dateText = DateTimeFormat.forPattern("yyyy-MM-dd").print(each.date);
-        final double amountInDollars = each.amountInCents / 100.0d;
-        return String.format("\"%1$s\",\"%2$s\",\"%3$.2f\"", dateText, each.categoryName, amountInDollars);
+        return new TransactionCsvFormat().format(each);
+    }
+
+    public static class TransactionCsvFormat {
+        public String format(Transaction transaction) {
+            final String dateText = DateTimeFormat.forPattern("yyyy-MM-dd").print(transaction.date);
+            final double amountInDollars = transaction.amountInCents / 100.0d;
+            return String.format("\"%1$s\",\"%2$s\",\"%3$.2f\"", dateText, transaction.categoryName, amountInDollars);
+        }
     }
 
     private void writeHeader(PrintWriter canvas) {
