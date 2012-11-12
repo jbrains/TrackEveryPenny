@@ -28,16 +28,16 @@ public class ExportTransactionsToCsvTest {
     public void noTransactions() throws Exception {
         final StringWriter canvas = new StringWriter();
 
-        exportTransactionsToCsv(new PrintWriter(canvas), new TransactionCsvRowFormat(), Lists.<Transaction>newArrayList());
+        exportTransactionsToCsv(new PrintWriter(canvas), null, Lists.<Transaction>newArrayList());
 
         assertEquals("\"Date\",\"Category\",\"Amount\"", canvas.toString().trim());
     }
 
     @Test
     public void oneTransaction() throws Exception {
-        // SMELL Duplicates FormatTransactionAsCsvRowTest
         final StringWriter canvas = new StringWriter();
 
+        // SMELL Duplicates FormatTransactionAsCsvRowTest
         exportTransactionsToCsv(new PrintWriter(canvas), new TransactionCsvRowFormat(), Lists.<Transaction>newArrayList(new TransactionBuilder().withDate(new LocalDate(2012, 11, 17)).withCategory("Groceries").withAmount(-1350).build()));
 
         assertEquals("\"Date\",\"Category\",\"Amount\"\n\"2012-11-17\",\"Groceries\",\"-13.50\"", canvas.toString().trim());
