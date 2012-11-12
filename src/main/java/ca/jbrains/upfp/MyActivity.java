@@ -1,8 +1,8 @@
 package ca.jbrains.upfp;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -23,28 +23,36 @@ public class MyActivity extends Activity {
     }
 
     public void exportTransactionsToCsv(View clicked) {
+        final String externalStorageState = Environment.getExternalStorageState();
+        if (!Environment.MEDIA_MOUNTED.equals(externalStorageState)) {
+            Toast.makeText(getApplicationContext(), "There's no external storage available, so I can't export.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        final File externalDownloadsDirectory = Environment.getExternalStorageDirectory();
+        externalDownloadsDirectory.mkdirs();
+        final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
-            final FileOutputStream fileOutputStream = openFileOutput("TrackEveryPenny.csv", Context.MODE_WORLD_READABLE);
-            final PrintWriter canvas = new PrintWriter(fileOutputStream);
-            canvas.println("Awesome CSV!");
+            final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
+            canvas.println("Eventually, some awesome CSV shit.");
+            canvas.println("Seriously, this will be CSV.");
+            canvas.println("Why can't I see this file on the file manager?!");
             canvas.flush();
             canvas.close();
-            fileOutputStream.close();
+            Toast.makeText(getApplicationContext(), "Exported transactions to " + transactionsCsvFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
 
-            final FileInputStream fileInputStream = openFileInput("TrackEveryPenny.csv");
-            final InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-            final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            final StringBuffer contents = new StringBuffer();
+            final BufferedReader bufferedReader = new BufferedReader(new FileReader(transactionsCsvFile));
+            final StringWriter contents = new StringWriter();
+            final PrintWriter readCanvas = new PrintWriter(contents);
             while (true) {
                 final String line = bufferedReader.readLine();
                 if (line == null) break;
-                contents.append(line);
+                readCanvas.println(line);
             }
             Toast.makeText(getApplicationContext(), "Contents: " + contents.toString(), Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
-            Log.e("TrackEveryPenny", "Couldn't export", e);
-        } catch (IOException e) {
-            Log.e("TrackEveryPenny", "Couldn't export", e);
+        } catch (IOException logged) {
+            Toast.makeText(getApplicationContext(), "I tried to write to external storage, but failed.", Toast.LENGTH_LONG).show();
+            Log.e("TrackEveryPenny", "Failed to write to external public storage", logged);
         }
     }
 
