@@ -63,6 +63,8 @@ public class ExportTransactionsToCsvTest {
 
 
     private void exportTransactionsToCsv(PrintWriter canvas, TransactionTextFormat transactionTextFormat, Iterable<Transaction> transactions) throws IOException {
+        // SMELL Different levels of abstraction between header and row
+        // Stops this from becoming more general-purpose
         canvas.println("\"Date\",\"Category\",\"Amount\"");
         for (Transaction each : transactions) {
             canvas.println(transactionTextFormat.format(each));
