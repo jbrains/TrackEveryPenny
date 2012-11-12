@@ -1,19 +1,11 @@
 package ca.jbrains.upfp.test;
 
-import android.view.View;
 import android.widget.Button;
 import ca.jbrains.upfp.MyActivity;
 import ca.jbrains.upfp.R;
-import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
-import com.xtremelabs.robolectric.shadows.ShadowAbsListView;
-import com.xtremelabs.robolectric.shadows.ShadowView;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.*;
@@ -32,8 +24,20 @@ public class MyActivityTest {
         final MyActivity myActivity = new MyActivity();
         myActivity.onCreate(null);
 
-        final Button exportToCsvButton = (Button) myActivity.findViewById(R.id.exportToCsvButton);
-        exportToCsvButton.performClick();
+        clickOn(myActivity, R.id.exportToCsvButton);
         // should not blow up
     }
+
+    private void clickOn(MyActivity myActivity, int buttonId) {
+        myActivity.findViewById(buttonId).performClick();
+    }
+
+    @Test
+    public void newTransactionOnCurrentDateButtonLaunchesAction() throws Exception {
+        final MyActivity myActivity = new MyActivity();
+        myActivity.onCreate(null);
+
+        clickOn(myActivity, R.id.newTransactionOnDate);
+    }
+
 }

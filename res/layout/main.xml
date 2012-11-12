@@ -65,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:text="New..."
                     android:layout_gravity="center_horizontal"
+                    android:onClick="createTransactionOnCurrentDate"
                 />
         </LinearLayout>
     </LinearLayout>
