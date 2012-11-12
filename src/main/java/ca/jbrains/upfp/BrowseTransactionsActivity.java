@@ -43,6 +43,7 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     // REUSE Android-free
+    // REFACTOR Controller implementation
     private void exportTranasctionsToCsvFileInDirectory(File externalDownloadsDirectory) {
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
