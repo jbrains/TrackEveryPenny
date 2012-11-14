@@ -98,7 +98,7 @@ public class BrowseTransactionsActivity extends Activity {
     public void addTransactionOnCurrentDate(View clicked) {
         final LocalDate date = lookupDate(clicked);
         final int amountInCents = lookupAmount(clicked);
-        final CashDirection cashDirection = lookupCashDirection(clicked);
+        final CashDirection cashDirection = lookupCashDirection();
         final String categoryName = lookupCategoryName(clicked);
 
         notifyUser(String.format("Adding a transaction on %1$s for %2$.2f" +
@@ -119,7 +119,7 @@ public class BrowseTransactionsActivity extends Activity {
         return "Bowling";
     }
 
-    private CashDirection lookupCashDirection(View clicked) {
+    private CashDirection lookupCashDirection() {
         final ToggleButton cashDirectionView = (ToggleButton) findViewById(R
                 .id.cashDirection);
         final CashDirection cashDirection = cashDirectionView.isChecked() ?
