@@ -40,11 +40,30 @@
                       android:layout_gravity="center_horizontal"
                       android:layout_marginTop="10dp"
                 >
+
+            <Button android:id="@+id/moveBackOneDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&lt;"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="moveBackOneDay"
+                    />
+
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="Date Selector"
+                android:text="2012-11-14"
+                android:layout_gravity="center_vertical"
                 />
+
+            <Button android:id="@+id/moveForwardOneDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="&gt;"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="moveForwardOneDay"
+                    />
+
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,6 +71,7 @@
                       android:layout_width="wrap_content"
                       android:layout_height="fill_parent"
                       android:layout_marginTop="10dp"
+                      android:layout_marginBottom="10dp"
                       android:layout_gravity="center_horizontal"
                 >
 
@@ -67,13 +87,6 @@
                       android:layout_width="fill_parent"
                       android:layout_height="wrap_content"
                       android:gravity="center_horizontal">
-
-            <EditText
-                    android:inputType="date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Date"
-                    />
 
             <EditText
                     android:inputType="textCapWords"
