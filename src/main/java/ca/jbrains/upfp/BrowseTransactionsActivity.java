@@ -14,6 +14,7 @@ import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class BrowseTransactionsActivity extends Activity {
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("yyyy-MM-dd");
     // REFACTOR Move down into Android-free model layer
     private final ArrayList<Transaction> transactions = Lists.newArrayList(
             new Transaction(new LocalDate(2012, 11, 5), "Bowling Winnings", 200),
@@ -97,7 +99,7 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
-        final LocalDate date = lookupDate();
+        final LocalDate date = lookupDate(null);
         final int amountInCents = lookupAmount(clicked);
         final CashDirection cashDirection = lookupCashDirection();
         final String categoryName = lookupCategoryName(clicked);
@@ -132,9 +134,13 @@ public class BrowseTransactionsActivity extends Activity {
         return 1050;
     }
 
-    public LocalDate lookupDate() {
-        return DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDate
-                (dateView().getText().toString());
+    public LocalDate lookupDate(LocalDate asOfDate) {
+        try {
+            return DATE_TIME_FORMATTER.parseLocalDate(dateView().getText().toString());
+        } catch (IllegalArgumentException invalidDateText) {
+            dateView().setText(DATE_TIME_FORMATTER.print(asOfDate));
+            return asOfDate;
+        }
     }
 
     public void onCashDirectionToggled(View clicked) {
