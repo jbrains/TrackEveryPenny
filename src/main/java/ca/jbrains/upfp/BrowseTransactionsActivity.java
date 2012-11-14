@@ -13,6 +13,7 @@ import ca.jbrains.upfp.domain.Transaction;
 import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
 
 import java.io.File;
 import java.io.IOException;
@@ -96,7 +97,7 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
-        final LocalDate date = lookupDate(clicked);
+        final LocalDate date = lookupDate();
         final int amountInCents = lookupAmount(clicked);
         final CashDirection cashDirection = lookupCashDirection();
         final String categoryName = lookupCategoryName(clicked);
@@ -131,11 +132,16 @@ public class BrowseTransactionsActivity extends Activity {
         return 1050;
     }
 
-    private LocalDate lookupDate(View clicked) {
-        return new LocalDate(2011, 11, 14);
+    public LocalDate lookupDate() {
+        return DateTimeFormat.forPattern("yyyy-MM-dd").parseLocalDate
+                (dateView().getText().toString());
     }
 
     public void onCashDirectionToggled(View clicked) {
         // Nothing needed?
+    }
+
+    public TextView dateView() {
+        return (TextView) findViewById(R.id.date);
     }
 }
