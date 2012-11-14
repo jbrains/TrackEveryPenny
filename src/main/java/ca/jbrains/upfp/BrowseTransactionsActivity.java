@@ -19,6 +19,23 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class BrowseTransactionsActivity extends Activity {
+    // REFACTOR Move down into Android-free model layer
+    private final ArrayList<Transaction> transactions = Lists.newArrayList(
+            new Transaction(new LocalDate(2012, 11, 5), "Bowling Winnings", 200),
+            new Transaction(new LocalDate(2012, 11, 5), "Bowling", -1400),
+            new Transaction(new LocalDate(2012, 11, 7), "Bowling", -1050),
+            new Transaction(new LocalDate(2012, 11, 7),
+                    "Bowling Winnings", 100),
+            new Transaction(new LocalDate(2012, 11, 8),
+                    "Groceries", -2500),
+            new Transaction(new LocalDate(2012, 11, 10),
+                    "Groceries", -11715),
+            new Transaction(new LocalDate(2012, 11, 12),
+                    "Bowling", -1400),
+            new Transaction(new LocalDate(2012, 11, 17),
+                    "Groceries", -1350)
+    );
+
     /**
      * Called when the activity is first created.
      */
@@ -48,21 +65,6 @@ public class BrowseTransactionsActivity extends Activity {
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
-            final ArrayList<Transaction> transactions = Lists.newArrayList(
-                    new Transaction(new LocalDate(2012, 11, 5), "Bowling Winnings", 200),
-                    new Transaction(new LocalDate(2012, 11, 5), "Bowling", -1400),
-                    new Transaction(new LocalDate(2012, 11, 7), "Bowling", -1050),
-                    new Transaction(new LocalDate(2012, 11, 7),
-                            "Bowling Winnings", 100),
-                    new Transaction(new LocalDate(2012, 11, 8),
-                            "Groceries", -2500),
-                    new Transaction(new LocalDate(2012, 11, 10),
-                            "Groceries", -11715),
-                    new Transaction(new LocalDate(2012, 11, 12),
-                            "Bowling", -1400),
-                    new Transaction(new LocalDate(2012, 11, 17),
-                            "Groceries", -1350)
-            );
             writeCsvContentsTo(canvas, transactions);
             canvas.flush();
             canvas.close();
