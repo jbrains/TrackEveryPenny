@@ -39,12 +39,12 @@ public class BrowseTransactionsActivity extends Activity {
 
         final File externalStorageDirectory = Environment.getExternalStorageDirectory();
         final File externalDownloadsDirectory = new File(externalStorageDirectory, Environment.DIRECTORY_DOWNLOADS);
-        exportTranasctionsToCsvFileInDirectory(externalDownloadsDirectory);
+        exportTransactionsToCsvFileInDirectory(externalDownloadsDirectory);
     }
 
     // REUSE Android-free
     // REFACTOR Controller implementation
-    private void exportTranasctionsToCsvFileInDirectory(File externalDownloadsDirectory) {
+    private void exportTransactionsToCsvFileInDirectory(File externalDownloadsDirectory) {
         final File transactionsCsvFile = new File(externalDownloadsDirectory, "TrackEveryPenny.csv");
         try {
             final PrintWriter canvas = new PrintWriter(transactionsCsvFile);
