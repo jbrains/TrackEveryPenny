@@ -115,6 +115,7 @@ public class BrowseTransactionsActivity extends Activity {
 
             if (categoryName.isEmpty()) {
                 notifyUser("Category name can't be blank.");
+                //categoryView().requestFocus();
                 return;
             }
 

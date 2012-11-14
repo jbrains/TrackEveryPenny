@@ -8,8 +8,8 @@ import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowTextView;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -82,6 +82,8 @@ public class AssembleEnteredTransactionTest {
         assertEquals("1.79", browseTransactionsActivity.amountView().getText().toString());
     }
 
+    // 2 -> 2.00
+
     @Test
     public void lookupCategoryName_HappyPath() throws Exception {
         browseTransactionsActivity.categoryView().setText("Bowling Winnings");
@@ -89,6 +91,7 @@ public class AssembleEnteredTransactionTest {
     }
 
     @Test
+    @Ignore("I can't figure out how to make this test fail")
     public void addTransaction_InvalidCategoryName() throws Exception {
         // SMELL Overriding fixture
         // REFACTOR Separate test class
@@ -112,10 +115,15 @@ public class AssembleEnteredTransactionTest {
         };
         browseTransactionsActivity.onCreate(null);
 
+        // Focus anywhere but the category name view
+        browseTransactionsActivity.categoryView().setText("");
+        Robolectric.shadowOf(browseTransactionsActivity.amountView())
+                .setFocused(true);
         browseTransactionsActivity.addTransactionOnCurrentDate(null);
 
         assertTrue("Why did you accept a blank category name?!",
                 notifyUserInvoked);
+        assertTrue(Robolectric.shadowOf(browseTransactionsActivity
+                .categoryView()).isFocused());
     }
-
 }
