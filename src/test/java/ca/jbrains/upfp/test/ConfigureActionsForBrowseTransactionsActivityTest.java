@@ -29,12 +29,4 @@ public class ConfigureActionsForBrowseTransactionsActivityTest {
     private void clickOn(BrowseTransactionsActivity browseTransactionsActivity, int buttonId) {
         browseTransactionsActivity.findViewById(buttonId).performClick();
     }
-
-    @Test
-    public void newTransactionOnCurrentDateButtonLaunchesAction() throws Exception {
-        final BrowseTransactionsActivity browseTransactionsActivity = new BrowseTransactionsActivity();
-        browseTransactionsActivity.onCreate(null);
-
-        clickOn(browseTransactionsActivity, R.id.newTransactionOnDate);
-    }
 }

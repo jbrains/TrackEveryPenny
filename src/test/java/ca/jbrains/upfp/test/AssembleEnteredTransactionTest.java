@@ -3,10 +3,13 @@ package ca.jbrains.upfp.test;
 import ca.jbrains.hamcrest.RegexMatcher;
 import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.BrowseTransactionsActivity;
+import ca.jbrains.upfp.R;
 import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowTextView;
+import com.xtremelabs.robolectric.shadows.ShadowView;
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,5 +49,17 @@ public class AssembleEnteredTransactionTest {
         } catch (ProgrammerMistake success) {
             assertThat(success.getMessage(), RegexMatcher.matches(".*The user somehow edited the date.*"));
         }
+    }
+
+    @Test
+    public void lookupAmount_HappyPath() throws Exception {
+        final ShadowTextView amountView = (ShadowTextView) Robolectric.shadowOf
+                (browseTransactionsActivity.findViewById(R.id
+                        .amount));
+        amountView.setText("15.00");
+
+        final int amountInCents = browseTransactionsActivity.lookupAmountInCents();
+
+        assertEquals(1500, amountInCents);
     }
 }

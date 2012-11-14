@@ -20,6 +20,8 @@ import org.joda.time.format.DateTimeFormatter;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class BrowseTransactionsActivity extends Activity {
@@ -106,6 +108,9 @@ public class BrowseTransactionsActivity extends Activity {
             final CashDirection cashDirection = lookupCashDirection();
             final String categoryName = lookupCategoryName(clicked);
 
+            // model.addTransactionOnCurrentDate(date, amountInCents,
+            // cashDirection, categoryName)
+
             notifyUser(String.format("Adding a transaction on %1$s for %2$.2f" +
                     " %3$s in %4$s", formatDate(date), amountInCents / 100.0d,
                     formatCashDirection(cashDirection),
@@ -116,6 +121,9 @@ public class BrowseTransactionsActivity extends Activity {
             notifyUser("Wow, this is embarrassing. I'm really sorry. " +
                     "Something went wrong, and I couldn't add your " +
                     "transaction. Try again?");
+        } catch (ParseException wrapped) {
+            throw new ProgrammerMistake("Unhandled exception; lazy " +
+                    "programmer!", wrapped);
         }
     }
 
@@ -139,8 +147,8 @@ public class BrowseTransactionsActivity extends Activity {
         return cashDirection;
     }
 
-    private int lookupAmount(View clicked) {
-        return 1050;
+    private int lookupAmount(View clicked) throws ParseException {
+        return lookupAmountInCents();
     }
 
     public LocalDate lookupDate() {
@@ -159,5 +167,17 @@ public class BrowseTransactionsActivity extends Activity {
 
     public TextView dateView() {
         return (TextView) findViewById(R.id.date);
+    }
+
+    public int lookupAmountInCents() throws ParseException {
+        return Math.round(100.0f * lookupAmountInDollars());
+    }
+
+    private float lookupAmountInDollars() throws ParseException {
+        return NumberFormat.getNumberInstance().parse(amountView().getText().toString()).floatValue();
+    }
+
+    private TextView amountView() {
+        return (TextView) findViewById(R.id.amount);
     }
 }
