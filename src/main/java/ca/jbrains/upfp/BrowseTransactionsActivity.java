@@ -100,17 +100,23 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
-        Log.v("TrackEveryPenny", Log.getStackTraceString(new RuntimeException()));
+        try {
+            final LocalDate date = lookupDate();
+            final int amountInCents = lookupAmount(clicked);
+            final CashDirection cashDirection = lookupCashDirection();
+            final String categoryName = lookupCategoryName(clicked);
 
-        final LocalDate date = lookupDate();
-        final int amountInCents = lookupAmount(clicked);
-        final CashDirection cashDirection = lookupCashDirection();
-        final String categoryName = lookupCategoryName(clicked);
-
-        notifyUser(String.format("Adding a transaction on %1$s for %2$.2f" +
-                " %3$s in %4$s", formatDate(date), amountInCents / 100.0d,
-                formatCashDirection(cashDirection),
-                categoryName));
+            notifyUser(String.format("Adding a transaction on %1$s for %2$.2f" +
+                    " %3$s in %4$s", formatDate(date), amountInCents / 100.0d,
+                    formatCashDirection(cashDirection),
+                    categoryName));
+        } catch (ProgrammerMistake logged) {
+            // SMELL This will be duplicated in every event handler
+            Log.e("TrackEveryPenny", "A programmer made a mistake", logged);
+            notifyUser("Wow, this is embarrassing. I'm really sorry. " +
+                    "Something went wrong, and I couldn't add your " +
+                    "transaction. Try again?");
+        }
     }
 
     private String formatCashDirection(CashDirection cashDirection) {
