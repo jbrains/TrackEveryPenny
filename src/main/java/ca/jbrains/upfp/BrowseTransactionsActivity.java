@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 import ca.jbrains.upfp.domain.ExportTransactionsToCsvAction;
 import ca.jbrains.upfp.domain.Transaction;
 import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
@@ -95,9 +96,46 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
-        notifyUser("Create transaction on current date not yet implemented");
+        final LocalDate date = lookupDate(clicked);
+        final int amountInCents = lookupAmount(clicked);
+        final CashDirection cashDirection = lookupCashDirection(clicked);
+        final String categoryName = lookupCategoryName(clicked);
+
+        notifyUser(String.format("Adding a transaction on %1$s for %2$.2f" +
+                " %3$s in %4$s", formatDate(date), amountInCents / 100.0d,
+                formatCashDirection(cashDirection),
+                categoryName));
+    }
+
+    private String formatCashDirection(CashDirection cashDirection) {
+        return cashDirection == CashDirection.IN ? "IN" : "OUT";
+    }
+
+    private String formatDate(LocalDate date) {
+        return "2011-11-14";
+    }
+
+    private String lookupCategoryName(View clicked) {
+        return "Bowling";
+    }
+
+    private CashDirection lookupCashDirection(View clicked) {
+        final ToggleButton cashDirectionView = (ToggleButton) clicked.findViewById(R.id
+                .cashDirection);
+        final CashDirection cashDirection = cashDirectionView.isChecked() ?
+                CashDirection.IN : CashDirection.OUT;
+        return cashDirection;
+    }
+
+    private int lookupAmount(View clicked) {
+        return 1050;
+    }
+
+    private LocalDate lookupDate(View clicked) {
+        return new LocalDate(2011, 11, 14);
     }
 
     public void onCashDirectionToggled(View clicked) {
+        // Nothing needed?
     }
 }
