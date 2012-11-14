@@ -8,6 +8,7 @@ import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowTextView;
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -75,5 +76,11 @@ public class AssembleEnteredTransactionTest {
         // SMELL We need to do this, but it feels like it's happening in the
         // wrong place
         assertEquals("1.79", browseTransactionsActivity.amountView().getText().toString());
+    }
+
+    @Test
+    public void lookupCategoryName_HappyPath() throws Exception {
+        browseTransactionsActivity.categoryView().setText("Bowling Winnings");
+        assertEquals("Bowling Winnings", browseTransactionsActivity.lookupCategoryName());
     }
 }

@@ -104,9 +104,9 @@ public class BrowseTransactionsActivity extends Activity {
     public void addTransactionOnCurrentDate(View clicked) {
         try {
             final LocalDate date = lookupDate();
-            final int amountInCents = lookupAmount(clicked);
+            final int amountInCents = lookupAmount();
             final CashDirection cashDirection = lookupCashDirection();
-            final String categoryName = lookupCategoryName(clicked);
+            final String categoryName = lookupCategoryName();
 
             // model.addTransactionOnCurrentDate(date, amountInCents,
             // cashDirection, categoryName)
@@ -137,8 +137,8 @@ public class BrowseTransactionsActivity extends Activity {
         return "2011-11-14";
     }
 
-    private String lookupCategoryName(View clicked) {
-        return "Bowling";
+    public String lookupCategoryName() {
+        return categoryView().getText().toString();
     }
 
     private CashDirection lookupCashDirection() {
@@ -149,7 +149,7 @@ public class BrowseTransactionsActivity extends Activity {
         return cashDirection;
     }
 
-    private int lookupAmount(View clicked) throws ParseException {
+    private int lookupAmount() throws ParseException {
         return lookupAmountInCents();
     }
 
@@ -184,5 +184,9 @@ public class BrowseTransactionsActivity extends Activity {
 
     public TextView amountView() {
         return (TextView) findViewById(R.id.amount);
+    }
+
+    public TextView categoryView() {
+        return (TextView) findViewById(R.id.category);
     }
 }
