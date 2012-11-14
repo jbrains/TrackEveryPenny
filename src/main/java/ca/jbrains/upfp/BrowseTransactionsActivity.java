@@ -94,7 +94,7 @@ public class BrowseTransactionsActivity extends Activity {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    public void createTransactionOnCurrentDate(View clicked) {
+    public void addTransactionOnCurrentDate(View clicked) {
         notifyUser("Create transaction on current date not yet implemented");
     }
 }

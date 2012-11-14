@@ -46,6 +46,7 @@
                 android:text="Date Selector"
                 />
         </LinearLayout>
+
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                       android:orientation="vertical"
                       android:layout_width="wrap_content"
@@ -59,15 +60,44 @@
                     android:layout_height="wrap_content"
                     android:text="List of Transactions Today"
                     />
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center_horizontal">
+
+            <EditText
+                    android:inputType="date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Date"
+                    />
+
+            <EditText
+                    android:inputType="textCapWords"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Category"
+                    />
+
+            <EditText
+                    android:inputType="numberSigned|numberDecimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="Amount"
+                    />
 
             <Button android:id="@+id/newTransactionOnDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New..."
+                    android:text="+"
                     android:layout_gravity="center_horizontal"
-                    android:onClick="createTransactionOnCurrentDate"
-                />
+                    android:onClick="addTransactionOnCurrentDate"
+                    />
         </LinearLayout>
+
     </LinearLayout>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="horizontal"
