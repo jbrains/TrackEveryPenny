@@ -63,6 +63,7 @@ public class AssembleEnteredTransactionTest {
 
     @Test
     public void lookupAmount_TooManyDecimalPlaces() throws Exception {
+        // REFACTOR Move this into a filter. See http://stackoverflow.com/questions/5357455/limit-decimal-places-in-android-edittext
         final ShadowTextView amountView = (ShadowTextView) Robolectric.shadowOf
                 (browseTransactionsActivity.findViewById(R.id
                         .amount));
