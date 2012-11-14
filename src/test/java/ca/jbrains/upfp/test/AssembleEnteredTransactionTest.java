@@ -20,14 +20,13 @@ public class AssembleEnteredTransactionTest {
 
     @Before
     public void setUp() throws Exception {
-        browseTransactionsActivity = new
-                BrowseTransactionsActivity();
+        browseTransactionsActivity = new BrowseTransactionsActivity();
         browseTransactionsActivity.onCreate(null);
     }
 
     @Test
     public void lookupDate() throws Exception {
-        final ShadowTextView dateView = (ShadowTextView) Robolectric.shadowOf(browseTransactionsActivity.dateView());
+        final ShadowTextView dateView = Robolectric.shadowOf(browseTransactionsActivity.dateView());
         dateView.setText("2011-11-14");
 
         assertEquals(new LocalDate(2011, 11, 14), browseTransactionsActivity.lookupDate());
