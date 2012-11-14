@@ -1,5 +1,7 @@
 package ca.jbrains.upfp.test;
 
+import ca.jbrains.hamcrest.RegexMatcher;
+import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.BrowseTransactionsActivity;
 import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
@@ -9,8 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class AssembleEnteredTransactionTest {
@@ -34,14 +35,15 @@ public class AssembleEnteredTransactionTest {
 
     @Test
     public void lookupDate_unparseable() throws Exception {
-        final LocalDate today = new LocalDate(1974, 5, 4);
-
-        final ShadowTextView dateView = (ShadowTextView) Robolectric.shadowOf(browseTransactionsActivity.dateView());
+        final ShadowTextView dateView = Robolectric.shadowOf(browseTransactionsActivity.dateView());
         dateView.setText("not a real date");
 
-        assertEquals(today, browseTransactionsActivity.lookupDate(today));
-        assertEquals(today.toString(), browseTransactionsActivity.dateView
-                ().getText());
+        try {
+            browseTransactionsActivity.lookupDate(null);
+            fail("How the hell did you enter a date when it's not an " +
+                    "editable view?!");
+        } catch (ProgrammerMistake success) {
+            assertThat(success.getMessage(), RegexMatcher.matches(".*The user somehow edited the date.*"));
+        }
     }
-
 }

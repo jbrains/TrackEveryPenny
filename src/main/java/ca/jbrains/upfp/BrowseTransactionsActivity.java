@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.domain.ExportTransactionsToCsvAction;
 import ca.jbrains.upfp.domain.Transaction;
 import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
@@ -138,8 +139,9 @@ public class BrowseTransactionsActivity extends Activity {
         try {
             return DATE_TIME_FORMATTER.parseLocalDate(dateView().getText().toString());
         } catch (IllegalArgumentException invalidDateText) {
-            dateView().setText(DATE_TIME_FORMATTER.print(asOfDate));
-            return asOfDate;
+            throw new ProgrammerMistake("The user somehow edited the date, " +
+                    "and entered something that isn't a date.",
+                    invalidDateText);
         }
     }
 
