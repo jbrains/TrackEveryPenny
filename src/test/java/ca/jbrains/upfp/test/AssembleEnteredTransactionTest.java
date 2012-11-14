@@ -35,6 +35,8 @@ public class AssembleEnteredTransactionTest {
 
     @Test
     public void lookupDate_unparseable() throws Exception {
+        // REFACTOR Poka-yoke, motherfucker.
+
         final ShadowTextView dateView = Robolectric.shadowOf(browseTransactionsActivity.dateView());
         dateView.setText("not a real date");
 
