@@ -30,7 +30,7 @@ public class AssembleEnteredTransactionTest {
         final ShadowTextView dateView = (ShadowTextView) Robolectric.shadowOf(browseTransactionsActivity.dateView());
         dateView.setText("2011-11-14");
 
-        assertEquals(new LocalDate(2011, 11, 14), browseTransactionsActivity.lookupDate(null));
+        assertEquals(new LocalDate(2011, 11, 14), browseTransactionsActivity.lookupDate());
     }
 
     @Test
@@ -39,7 +39,7 @@ public class AssembleEnteredTransactionTest {
         dateView.setText("not a real date");
 
         try {
-            browseTransactionsActivity.lookupDate(null);
+            browseTransactionsActivity.lookupDate();
             fail("How the hell did you enter a date when it's not an " +
                     "editable view?!");
         } catch (ProgrammerMistake success) {

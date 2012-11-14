@@ -100,7 +100,7 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
-        final LocalDate date = lookupDate(null);
+        final LocalDate date = lookupDate();
         final int amountInCents = lookupAmount(clicked);
         final CashDirection cashDirection = lookupCashDirection();
         final String categoryName = lookupCategoryName(clicked);
@@ -135,7 +135,7 @@ public class BrowseTransactionsActivity extends Activity {
         return 1050;
     }
 
-    public LocalDate lookupDate(LocalDate asOfDate) {
+    public LocalDate lookupDate() {
         try {
             return DATE_TIME_FORMATTER.parseLocalDate(dateView().getText().toString());
         } catch (IllegalArgumentException invalidDateText) {
