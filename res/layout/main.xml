@@ -50,6 +50,7 @@
                     />
 
             <TextView
+                android:id="@+id/date"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="2012-11-14"
@@ -82,13 +83,14 @@
                     />
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout xmlns="http://schemas.android.com/apk/res/android"
                       android:orientation="horizontal"
                       android:layout_width="fill_parent"
                       android:layout_height="wrap_content"
                       android:gravity="center_horizontal">
 
             <EditText
+                    android:id="@+id/category"
                     android:inputType="textCapWords"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -96,13 +98,24 @@
                     />
 
             <EditText
+                    android:id="@+id/amount"
                     android:inputType="numberSigned|numberDecimal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Amount"
                     />
 
-            <Button android:id="@+id/newTransactionOnDate"
+            <ToggleButton
+                    android:id="@+id/cashDirection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:textOn="In"
+                    android:textOff="Out"
+                    android:onClick="onCashDirectionToggled"
+                    />
+
+            <Button
+                    android:id="@+id/newTransactionOnDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="+"

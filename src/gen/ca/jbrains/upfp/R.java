@@ -14,10 +14,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int exportToCsvButton=0x7f050004;
+        public static final int amount=0x7f050005;
+        public static final int cashDirection=0x7f050006;
+        public static final int category=0x7f050004;
+        public static final int date=0x7f050002;
+        public static final int exportToCsvButton=0x7f050008;
         public static final int moveBackOneDay=0x7f050001;
-        public static final int moveForwardOneDay=0x7f050002;
-        public static final int newTransactionOnDate=0x7f050003;
+        public static final int moveForwardOneDay=0x7f050003;
+        public static final int newTransactionOnDate=0x7f050007;
         public static final int transactionsCount=0x7f050000;
     }
     public static final class layout {

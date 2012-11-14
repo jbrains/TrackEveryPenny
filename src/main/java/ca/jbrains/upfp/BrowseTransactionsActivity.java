@@ -97,4 +97,7 @@ public class BrowseTransactionsActivity extends Activity {
     public void addTransactionOnCurrentDate(View clicked) {
         notifyUser("Create transaction on current date not yet implemented");
     }
+
+    public void onCashDirectionToggled(View clicked) {
+    }
 }
