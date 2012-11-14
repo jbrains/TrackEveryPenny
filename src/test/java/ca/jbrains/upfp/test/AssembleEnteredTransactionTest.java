@@ -7,9 +7,7 @@ import ca.jbrains.upfp.R;
 import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.ShadowTextView;
-import com.xtremelabs.robolectric.shadows.ShadowView;
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -61,5 +59,20 @@ public class AssembleEnteredTransactionTest {
         final int amountInCents = browseTransactionsActivity.lookupAmountInCents();
 
         assertEquals(1500, amountInCents);
+    }
+
+    @Test
+    public void lookupAmount_TooManyDecimalPlaces() throws Exception {
+        final ShadowTextView amountView = (ShadowTextView) Robolectric.shadowOf
+                (browseTransactionsActivity.findViewById(R.id
+                        .amount));
+        amountView.setText("1.789");
+
+        final int amountInCents = browseTransactionsActivity.lookupAmountInCents();
+
+        assertEquals(179, amountInCents);
+        // SMELL We need to do this, but it feels like it's happening in the
+        // wrong place
+        assertEquals("1.79", browseTransactionsActivity.amountView().getText().toString());
     }
 }

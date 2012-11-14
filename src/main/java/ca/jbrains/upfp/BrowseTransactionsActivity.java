@@ -20,7 +20,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.NumberFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -111,8 +111,10 @@ public class BrowseTransactionsActivity extends Activity {
             // model.addTransactionOnCurrentDate(date, amountInCents,
             // cashDirection, categoryName)
 
+            final double amountInDollars = amountInCents / 100.0d;
+
             notifyUser(String.format("Adding a transaction on %1$s for %2$.2f" +
-                    " %3$s in %4$s", formatDate(date), amountInCents / 100.0d,
+                    " %3$s in %4$s", formatDate(date), amountInDollars,
                     formatCashDirection(cashDirection),
                     categoryName));
         } catch (ProgrammerMistake logged) {
@@ -170,14 +172,17 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public int lookupAmountInCents() throws ParseException {
-        return Math.round(100.0f * lookupAmountInDollars());
+        final float amountInDollars = lookupAmountInDollars();
+        final int amountInCents = Math.round(100.0f * amountInDollars);
+        amountView().setText(String.valueOf(amountInCents / 100.0d));
+        return amountInCents;
     }
 
     private float lookupAmountInDollars() throws ParseException {
-        return NumberFormat.getNumberInstance().parse(amountView().getText().toString()).floatValue();
+        return new DecimalFormat("#.##").parse(amountView().getText().toString()).floatValue();
     }
 
-    private TextView amountView() {
+    public TextView amountView() {
         return (TextView) findViewById(R.id.amount);
     }
 }
