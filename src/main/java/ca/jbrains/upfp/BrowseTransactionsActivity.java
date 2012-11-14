@@ -97,11 +97,13 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     // REUSE App-wide
-    private void notifyUser(String message) {
+    public void notifyUser(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
+        // REFACTOR Move all semantic validation here?
+
         try {
             final LocalDate date = lookupDate();
             final int amountInCents = lookupAmount();
@@ -110,6 +112,11 @@ public class BrowseTransactionsActivity extends Activity {
 
             // model.addTransactionOnCurrentDate(date, amountInCents,
             // cashDirection, categoryName)
+
+            if (categoryName.isEmpty()) {
+                notifyUser("Category name can't be blank.");
+                return;
+            }
 
             final double amountInDollars = amountInCents / 100.0d;
 

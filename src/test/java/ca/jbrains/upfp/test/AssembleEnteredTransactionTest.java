@@ -13,12 +13,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.text.ParseException;
+
 import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
 public class AssembleEnteredTransactionTest {
+    // REFACTOR Move semantic validation up the call stack.
 
     private BrowseTransactionsActivity browseTransactionsActivity;
+    private boolean notifyUserInvoked = false;
 
     @Before
     public void setUp() throws Exception {
@@ -83,4 +87,35 @@ public class AssembleEnteredTransactionTest {
         browseTransactionsActivity.categoryView().setText("Bowling Winnings");
         assertEquals("Bowling Winnings", browseTransactionsActivity.lookupCategoryName());
     }
+
+    @Test
+    public void addTransaction_InvalidCategoryName() throws Exception {
+        // SMELL Overriding fixture
+        // REFACTOR Separate test class
+        browseTransactionsActivity = new BrowseTransactionsActivity() {
+            @Override
+            public int lookupAmountInCents() throws ParseException {
+                // SMELL Irrelevant detail! Coupling problem.
+                return 0;
+            }
+
+            @Override
+            public String lookupCategoryName() {
+                return "";
+            }
+
+            @Override
+            public void notifyUser(String message) {
+                AssembleEnteredTransactionTest.this.notifyUserInvoked = true;
+                assertEquals("Category name can't be blank.", message);
+            }
+        };
+        browseTransactionsActivity.onCreate(null);
+
+        browseTransactionsActivity.addTransactionOnCurrentDate(null);
+
+        assertTrue("Why did you accept a blank category name?!",
+                notifyUserInvoked);
+    }
+
 }
