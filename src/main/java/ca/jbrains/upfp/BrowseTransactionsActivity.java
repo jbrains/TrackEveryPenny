@@ -108,7 +108,7 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     private String formatCashDirection(CashDirection cashDirection) {
-        return cashDirection == CashDirection.IN ? "IN" : "OUT";
+        return (cashDirection == CashDirection.IN) ? "IN" : "OUT";
     }
 
     private String formatDate(LocalDate date) {
@@ -120,8 +120,8 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     private CashDirection lookupCashDirection(View clicked) {
-        final ToggleButton cashDirectionView = (ToggleButton) clicked.findViewById(R.id
-                .cashDirection);
+        final ToggleButton cashDirectionView = (ToggleButton) findViewById(R
+                .id.cashDirection);
         final CashDirection cashDirection = cashDirectionView.isChecked() ?
                 CashDirection.IN : CashDirection.OUT;
         return cashDirection;
