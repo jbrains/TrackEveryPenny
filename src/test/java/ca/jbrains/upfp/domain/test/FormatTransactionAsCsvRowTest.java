@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.ca.jbrains.upfp.domain.test;
+package ca.jbrains.upfp.domain.test;
 
 import ca.jbrains.upfp.domain.Transaction;
 import ca.jbrains.upfp.domain.TransactionCsvRowFormat;
