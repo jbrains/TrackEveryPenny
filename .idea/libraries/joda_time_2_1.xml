@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="joda-time-2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/AndroidFree/src/libs/test/joda-time-2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

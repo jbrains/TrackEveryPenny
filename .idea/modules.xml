@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidFree/AndroidFree.iml" filepath="$PROJECT_DIR$/AndroidFree/AndroidFree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unnamed-personal-finance-project.iml" filepath="$PROJECT_DIR$/unnamed-personal-finance-project.iml" />
+    </modules>
+  </component>
+</project>
+
