@@ -100,6 +100,8 @@ public class BrowseTransactionsActivity extends Activity {
     }
 
     public void addTransactionOnCurrentDate(View clicked) {
+        Log.v("TrackEveryPenny", Log.getStackTraceString(new RuntimeException()));
+
         final LocalDate date = lookupDate();
         final int amountInCents = lookupAmount(clicked);
         final CashDirection cashDirection = lookupCashDirection();
