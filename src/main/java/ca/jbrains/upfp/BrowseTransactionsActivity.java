@@ -170,6 +170,7 @@ public class BrowseTransactionsActivity extends Activity
     }
   }
 
+  // REUSE Any Activity
   private void handleError(
       String internalMessage, String userVisibleMessage,
       Throwable cause
@@ -178,12 +179,14 @@ public class BrowseTransactionsActivity extends Activity
     notifyUser(userVisibleMessage);
   }
 
+  // REUSE Any Activity
   private void notifyUser(String message) {
     Toast.makeText(
         getApplicationContext(), message, Toast.LENGTH_LONG)
         .show();
   }
 
+  // REUSE Anywhere in this app
   private void logError(
       String message, Throwable reported
   ) {
