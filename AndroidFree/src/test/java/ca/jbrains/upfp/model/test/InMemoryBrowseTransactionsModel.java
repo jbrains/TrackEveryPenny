@@ -16,7 +16,7 @@ public class InMemoryBrowseTransactionsModel
 
   @Override
   public int countTransactions() {
-    return 0;
+    return transactions.size();
   }
 
   @Override
