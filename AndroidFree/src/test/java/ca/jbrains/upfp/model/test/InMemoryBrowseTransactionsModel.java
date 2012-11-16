@@ -16,7 +16,10 @@ public class InMemoryBrowseTransactionsModel
 
   @Override
   public int countTransactions() {
-    return transactions.size();
+    // Invoking findAllTransactions() instead of using the
+    // field directly ensures that the model throws
+    // exceptions consistently when it fails.
+    return findAllTransactions().size();
   }
 
   @Override

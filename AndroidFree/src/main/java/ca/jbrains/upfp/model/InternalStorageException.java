@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.controller.android;
+package ca.jbrains.upfp.model;
 
 // This is an unchecked exception because any Model method
 // might throw it, and I didn't want to make the resulting
