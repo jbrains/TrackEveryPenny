@@ -4,6 +4,10 @@ public final class Category {
   private final String name;
 
   public Category(String name) {
+    if (name == null)
+      throw new IllegalArgumentException(
+          "name can't be null");
+
     this.name = name;
   }
 
