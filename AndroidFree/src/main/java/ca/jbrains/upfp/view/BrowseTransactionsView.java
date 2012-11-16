@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.mvp;
+package ca.jbrains.upfp.view;
 
 public interface BrowseTransactionsView {
   void displayNumberOfTransactions(

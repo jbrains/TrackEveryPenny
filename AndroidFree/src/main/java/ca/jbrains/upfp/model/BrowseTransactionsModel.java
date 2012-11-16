@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.mvp;
+package ca.jbrains.upfp.model;
 
 import java.util.Collection;
 

@@ -1,4 +1,7 @@
-package ca.jbrains.upfp.mvp;
+package ca.jbrains.upfp.presenter;
+
+import ca.jbrains.upfp.model.BrowseTransactionsModel;
+import ca.jbrains.upfp.view.BrowseTransactionsView;
 
 public class BrowseTransactionsPresenter
     implements RendersView {

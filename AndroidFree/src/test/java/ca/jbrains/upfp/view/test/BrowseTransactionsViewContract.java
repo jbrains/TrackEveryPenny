@@ -1,7 +1,7 @@
 package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.toolkit.ProgrammerMistake;
-import ca.jbrains.upfp.mvp.BrowseTransactionsView;
+import ca.jbrains.upfp.view.BrowseTransactionsView;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

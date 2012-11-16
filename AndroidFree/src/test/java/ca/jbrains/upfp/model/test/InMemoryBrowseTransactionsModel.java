@@ -1,6 +1,6 @@
 package ca.jbrains.upfp.model.test;
 
-import ca.jbrains.upfp.mvp.BrowseTransactionsModel;
+import ca.jbrains.upfp.model.BrowseTransactionsModel;
 
 import java.util.Collection;
 

@@ -1,5 +1,8 @@
-package ca.jbrains.upfp.mvp;
+package ca.jbrains.upfp.presenter.test;
 
+import ca.jbrains.upfp.model.BrowseTransactionsModel;
+import ca.jbrains.upfp.presenter.BrowseTransactionsPresenter;
+import ca.jbrains.upfp.view.BrowseTransactionsView;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;
 import org.junit.Test;

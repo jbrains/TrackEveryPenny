@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.controller;
+package ca.jbrains.upfp.presenter;
 
 public interface ExportAllTransactionsAction {
   void execute();
