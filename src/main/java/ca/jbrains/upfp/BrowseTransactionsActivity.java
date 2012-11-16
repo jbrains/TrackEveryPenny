@@ -138,6 +138,7 @@ public class BrowseTransactionsActivity extends Activity
 
   public void exportAllTransactions(View clicked) {
     try {
+      // REFACTOR Shouldn't a presenter be doing this?
       browseTransactionsModel.findAllTransactions();
       androidDevicePublicStorageGateway
           .findPublicExternalStorageDirectory();
