@@ -13,7 +13,8 @@ public class InMemoryBrowseTransactionsModelTest
   }
 
   @Override
-  protected InMemoryBrowseTransactionsModel createFailingBrowseTransactionsModel(
+  protected InMemoryBrowseTransactionsModel
+  createBrowseTransactionsModelWhereFindAllTransactionsFailsWith(
       final RuntimeException intentionalException
   ) {
 

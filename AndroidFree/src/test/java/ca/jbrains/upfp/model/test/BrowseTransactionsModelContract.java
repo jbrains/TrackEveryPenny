@@ -35,7 +35,7 @@ public abstract class BrowseTransactionsModelContract {
   @Test
   public void findAllTransactionsFails() throws Exception {
     final BrowseTransactionsModel model
-        = createFailingBrowseTransactionsModel(
+        = createBrowseTransactionsModelWhereFindAllTransactionsFailsWith(
         new InternalStorageException());
 
     try {
@@ -52,7 +52,7 @@ public abstract class BrowseTransactionsModelContract {
   );
 
   protected abstract InMemoryBrowseTransactionsModel
-  createFailingBrowseTransactionsModel(
+  createBrowseTransactionsModelWhereFindAllTransactionsFailsWith(
       RuntimeException intentionalException
   );
 }
