@@ -145,31 +145,37 @@ public class BrowseTransactionsActivity extends Activity
       notifyUser(
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv");
     } catch (InternalStorageException reported) {
-      logError(
+      handleError(
           "Couldn't read data from internal storage",
-          reported);
-      notifyUser(
           "Something strange just happened. Try again. You might need to " +
-          "reinstall the application. I feel embarrassed and ashamed.");
-    } catch (PublicStorageMediaNotAvailableException reported) {
-      logError(
-          "Couldn't save a file to public storage; media not available",
+          "reinstall the application. I feel embarrassed and ashamed.",
           reported);
-      notifyUser(
+    } catch (PublicStorageMediaNotAvailableException reported) {
+      handleError(
+          "Couldn't save a file to public storage; media not available",
           "No place to which to export the transactions. Insert an SD card or connect an " +
-          "external storage device and try again.");
+          "external storage device and try again.",
+          reported);
     } catch (PublicStorageMediaNotWritableException reported) {
       final String pathNotWritableAsText = reported
           .getPathNotWritable().getAbsolutePath();
-      logError(
+      handleError(
           String.format(
               "Path %1$s not writable",
-              pathNotWritableAsText), reported);
-      notifyUser(
+              pathNotWritableAsText),
           String.format(
               "Permission denied trying to export the transactions to file %1$s",
-              pathNotWritableAsText));
+              pathNotWritableAsText),
+          reported);
     }
+  }
+
+  private void handleError(
+      String internalMessage, String userVisibleMessage,
+      Throwable cause
+  ) {
+    logError(internalMessage, cause);
+    notifyUser(userVisibleMessage);
   }
 
   private void notifyUser(String message) {
