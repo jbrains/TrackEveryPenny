@@ -26,13 +26,17 @@ public class TransactionCsvFormat
   public String format(Transaction transaction) {
     final List<String> formattedPropertiesInCorrectSequence
         = Lists.newArrayList(
-        dateCsvFormat.format(
-            new LocalDate(
-                2012, 11, 14)), categoryCsvFormat.format(
-        new Category(
-            "Bowling Winnings")), amountCsvFormat.format(
-        Amount.cents(250)));
+        dateCsvFormat.format(transaction.getDate()),
+        categoryCsvFormat.format(transaction.getCategory()),
+        amountCsvFormat.format(transaction.getAmount()));
 
+    return assembleIntoCsvRow(
+        formattedPropertiesInCorrectSequence);
+  }
+
+  private String assembleIntoCsvRow(
+      List<String> formattedPropertiesInCorrectSequence
+  ) {
     return Joiner.on(",").join(
         Collections2.transform(
             formattedPropertiesInCorrectSequence,
