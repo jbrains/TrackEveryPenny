@@ -11,10 +11,14 @@ public class TransactionCsvFormat {
   private final CsvFormat<Category> categoryCsvFormat;
   private final CsvFormat<Amount> amountCsvFormat;
 
-  public TransactionCsvFormat() {
-    dateCsvFormat = new DateCsvFormat();
-    categoryCsvFormat = new CategoryCsvFormat();
-    amountCsvFormat = new AmountCsvFormat();
+  public TransactionCsvFormat(
+      CsvFormat<LocalDate> dateCsvFormat,
+      CsvFormat<Category> categoryCsvFormat,
+      CsvFormat<Amount> amountCsvFormat
+  ) {
+    this.dateCsvFormat = dateCsvFormat;
+    this.categoryCsvFormat = categoryCsvFormat;
+    this.amountCsvFormat = amountCsvFormat;
   }
 
   public String formatTransactionAsCsvRow(
@@ -49,7 +53,7 @@ public class TransactionCsvFormat {
             }));
   }
 
-  private class DateCsvFormat
+  public static class DateCsvFormat
       implements CsvFormat<LocalDate> {
     @Override
     public String format(LocalDate date) {
@@ -57,7 +61,7 @@ public class TransactionCsvFormat {
     }
   }
 
-  private class CategoryCsvFormat
+  public static class CategoryCsvFormat
       implements CsvFormat<Category> {
     @Override
     public String format(Category category) {
@@ -65,7 +69,7 @@ public class TransactionCsvFormat {
     }
   }
 
-  private class AmountCsvFormat
+  public static class AmountCsvFormat
       implements CsvFormat<Amount> {
     @Override
     public String format(Amount amount) {

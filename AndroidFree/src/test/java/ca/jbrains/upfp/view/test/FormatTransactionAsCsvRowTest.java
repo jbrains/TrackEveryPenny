@@ -11,7 +11,10 @@ import static org.junit.Assert.assertThat;
 
 public class FormatTransactionAsCsvRowTest {
   private final TransactionCsvFormat transactionCsvFormat
-      = new TransactionCsvFormat();
+      = new TransactionCsvFormat(
+      new TransactionCsvFormat.DateCsvFormat(),
+      new TransactionCsvFormat.CategoryCsvFormat(),
+      new TransactionCsvFormat.AmountCsvFormat());
 
   @Test
   public void happyPath() throws Exception {
