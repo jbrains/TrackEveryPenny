@@ -10,30 +10,18 @@ public class TransactionCsvFormat {
   public TransactionCsvFormat() {
   }
 
-  private String formatAmount(Amount amount) {
-    return "2.50";
-  }
-
-  private String formatCategory(Category category) {
-    return "Bowling Winnings";
-  }
-
-  private String formatDate(LocalDate date) {
-    return "2012-11-14";
-  }
-
   public String formatTransactionAsCsvRow(
       Transaction transaction,
       FormatTransactionAsCsvRowTest
           formatTransactionAsCsvRowTest
   ) {
-    final String formattedDate = formatDate(
-        new LocalDate(
-            2012, 11, 14));
-    final String formattedCategory = formatCategory(
-        new Category("Bowling Winnings"));
-    final String formattedAmount = formatAmount(
-        Amount.cents(250));
+
+    final String formattedDate = new DateCsvFormat().invoke(
+        new LocalDate(2012, 11, 14));
+    final String formattedCategory = new CategoryCsvFormat()
+        .invoke(new Category("Bowling Winnings"));
+    final String formattedAmount = new AmountCsvFormat()
+        .invoke(Amount.cents(250));
 
     return formatTransactionPropertiesAsCsvRow(
         formattedDate, formattedCategory, formattedAmount);
@@ -54,5 +42,23 @@ public class TransactionCsvFormat {
                 return "\"" + text + "\"";
               }
             }));
+  }
+
+  private class DateCsvFormat {
+    public String invoke(LocalDate date) {
+      return "2012-11-14";
+    }
+  }
+
+  private class CategoryCsvFormat {
+    public String invoke(Category category) {
+      return "Bowling Winnings";
+    }
+  }
+
+  private class AmountCsvFormat {
+    public String invoke(Amount amount) {
+      return "2.50";
+    }
   }
 }
