@@ -1,5 +1,7 @@
 package ca.jbrains.upfp.model.test;
 
+import ca.jbrains.toolkit.ProgrammerMistake;
+
 public final class Category {
   private final String name;
 
@@ -7,6 +9,8 @@ public final class Category {
     if (name == null)
       throw new IllegalArgumentException(
           "name can't be null");
+    if (name.isEmpty()) throw new ProgrammerMistake(
+        "Category name can't be blank.");
 
     this.name = name;
   }
