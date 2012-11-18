@@ -7,12 +7,9 @@ import com.sun.istack.internal.Nullable;
 import org.joda.time.LocalDate;
 
 public class TransactionCsvFormat {
-  private final TransactionCsvFormat.DateCsvFormat
-      dateCsvFormat;
-  private final TransactionCsvFormat.CategoryCsvFormat
-      categoryCsvFormat;
-  private final TransactionCsvFormat.AmountCsvFormat
-      amountCsvFormat;
+  private final CsvFormat<LocalDate> dateCsvFormat;
+  private final CsvFormat<Category> categoryCsvFormat;
+  private final CsvFormat<Amount> amountCsvFormat;
 
   public TransactionCsvFormat() {
     dateCsvFormat = new DateCsvFormat();
@@ -23,7 +20,6 @@ public class TransactionCsvFormat {
   public String formatTransactionAsCsvRow(
       Transaction transaction
   ) {
-
     final String formattedDate = dateCsvFormat.format(
         new LocalDate(2012, 11, 14));
     final String formattedCategory = categoryCsvFormat
