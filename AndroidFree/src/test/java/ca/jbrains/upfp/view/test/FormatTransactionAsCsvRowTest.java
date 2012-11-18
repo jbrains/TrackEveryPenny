@@ -30,12 +30,28 @@ public class FormatTransactionAsCsvRowTest {
   private String formatTransactionAsCsvRow(
       Transaction transaction
   ) {
-    final String formattedDate = "2012-11-14";
-    final String formattedCategory = "Bowling Winnings";
-    final String formattedAmount = "2.50";
+    final String formattedDate = formatDate(
+        new LocalDate(
+            2012, 11, 14));
+    final String formattedCategory = formatCategory(
+        new Category("Bowling Winnings"));
+    final String formattedAmount = formatAmount(
+        Amount.cents(250));
 
     return formatTransactionPropertiesAsCsvRow(
         formattedDate, formattedCategory, formattedAmount);
+  }
+
+  private String formatAmount(Amount amount) {
+    return "2.50";
+  }
+
+  private String formatCategory(Category category) {
+    return "Bowling Winnings";
+  }
+
+  private String formatDate(LocalDate date) {
+    return "2012-11-14";
   }
 
   private String formatTransactionPropertiesAsCsvRow(
