@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.view.test;
 
+import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.model.test.*;
 import com.google.common.base.Joiner;
 import com.google.common.collect.*;
@@ -24,6 +25,9 @@ public class TransactionCsvFormat
   }
 
   public String format(Transaction transaction) {
+    if (transaction == null) throw new ProgrammerMistake(
+        "Can't format a null transaction.");
+
     final List<String> formattedPropertiesInCorrectSequence
         = Lists.newArrayList(
         dateCsvFormat.format(transaction.getDate()),

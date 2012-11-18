@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.view.test;
 
+import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.model.test.*;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;
@@ -10,7 +11,7 @@ import org.junit.runner.RunWith;
 import java.util.regex.Pattern;
 
 import static ca.jbrains.hamcrest.RegexMatcher.matches;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 @RunWith(JMock.class)
 public class FormatTransactionAsCsvRowTest {
@@ -66,4 +67,14 @@ public class FormatTransactionAsCsvRowTest {
             "\\s*\"::the date::\"," +
             "\\s*\"::the category::\",\\s*\"::the amount::\"\\s*")));
   }
+
+  @Test
+  public void nullTransaction() throws Exception {
+    try {
+      transactionCsvFormat.format(null);
+      fail("How did you format a null transaction?!");
+    } catch (ProgrammerMistake success) {
+    }
+  }
+
 }
