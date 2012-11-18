@@ -19,7 +19,8 @@ public class FormatTransactionAsCsvRowTest {
         new LocalDate(2012, 11, 14), new Category(
         "Bowling Winnings"), Amount.cents(250));
     final String rowText = transactionCsvFormat
-        .formatTransactionAsCsvRow(transaction, this);
+        .formatTransactionAsCsvRow(
+            transaction);
     assertThat(
         rowText, matches(
         Pattern.compile(

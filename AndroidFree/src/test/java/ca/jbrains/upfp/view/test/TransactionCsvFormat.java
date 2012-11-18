@@ -21,9 +21,7 @@ public class TransactionCsvFormat {
   }
 
   public String formatTransactionAsCsvRow(
-      Transaction transaction,
-      FormatTransactionAsCsvRowTest
-          formatTransactionAsCsvRowTest
+      Transaction transaction
   ) {
 
     final String formattedDate = dateCsvFormat.format(
