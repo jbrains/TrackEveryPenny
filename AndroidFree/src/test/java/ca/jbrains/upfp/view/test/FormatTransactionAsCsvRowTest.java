@@ -58,14 +58,12 @@ public class FormatTransactionAsCsvRowTest {
     final Transaction transaction = new Transaction(
         anyNonNullDate, anyNonNullCategory,
         anyNonNullAmount);
-    final String rowText = transactionCsvFormat
-        .formatTransactionAsCsvRow(
-            transaction);
+    final String rowText = transactionCsvFormat.format(
+        transaction);
     assertThat(
         rowText, matches(
         Pattern.compile(
             "\\s*\"::the date::\"," +
-            "\\s*\"::the category::\"," +
-            "\\s*\"::the amount::\"\\s*")));
+            "\\s*\"::the category::\",\\s*\"::the amount::\"\\s*")));
   }
 }
