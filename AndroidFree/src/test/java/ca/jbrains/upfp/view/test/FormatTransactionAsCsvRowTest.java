@@ -30,10 +30,23 @@ public class FormatTransactionAsCsvRowTest {
   private String formatTransactionAsCsvRow(
       Transaction transaction
   ) {
+    final String formattedDate = "2012-11-14";
+    final String formattedCategory = "Bowling Winnings";
+    final String formattedAmount = "2.50";
+
+    return formatTransactionPropertiesAsCsvRow(
+        formattedDate, formattedCategory, formattedAmount);
+  }
+
+  private String formatTransactionPropertiesAsCsvRow(
+      String formattedDate, String formattedCategory,
+      String formattedAmount
+  ) {
     return Joiner.on(",").join(
         Collections2.transform(
             Lists.newArrayList(
-                "2012-11-14", "Bowling Winnings", "2.50"),
+                formattedDate, formattedCategory,
+                formattedAmount),
             new Function<String, String>() {
               @Override
               public String apply(@Nullable String text) {
