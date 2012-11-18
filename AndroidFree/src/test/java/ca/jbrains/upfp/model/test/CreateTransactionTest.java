@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.model.test;
 
+import ca.jbrains.toolkit.ProgrammerMistake;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
@@ -31,7 +32,7 @@ public class CreateTransactionTest {
       new Transaction(
           null, anyNonNullCategory, anyNonNullAmount);
       fail("Why can I create a transaction with no date?!");
-    } catch (IllegalArgumentException success) {
+    } catch (ProgrammerMistake success) {
       assertThat(
           success.getMessage(), matches(
           ".*A Transaction must have a date.*"));
@@ -44,8 +45,9 @@ public class CreateTransactionTest {
       new Transaction(
           anyNonNullDate, null, anyNonNullAmount);
       fail(
-          "Why can I create a transaction with no category?!");
-    } catch (IllegalArgumentException success) {
+          "Why can I create a transaction with no " +
+          "category?!");
+    } catch (ProgrammerMistake success) {
       assertThat(
           success.getMessage(), matches(
           ".*A Transaction must have a category.*"));
@@ -58,8 +60,9 @@ public class CreateTransactionTest {
       new Transaction(
           anyNonNullDate, anyNonNullCategory, null);
       fail(
-          "Why can I create a transaction with no amount?!");
-    } catch (IllegalArgumentException success) {
+          "Why can I create a transaction with no " +
+          "amount?!");
+    } catch (ProgrammerMistake success) {
       assertThat(
           success.getMessage(), matches(
           ".*A Transaction must have an amount.*"));

@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.model.test;
 
+import ca.jbrains.toolkit.ProgrammerMistake;
 import org.joda.time.LocalDate;
 
 public class Transaction {
@@ -10,15 +11,12 @@ public class Transaction {
   public Transaction(
       LocalDate date, Category category, Amount amount
   ) {
-    if (date == null)
-      throw new IllegalArgumentException(
-          "A Transaction must have a date.");
-    if (category == null)
-      throw new IllegalArgumentException(
-          "A Transaction must have a category.");
-    if (amount == null)
-      throw new IllegalArgumentException(
-          "A Transaction must have an amount.");
+    if (date == null) throw new ProgrammerMistake(
+        "A Transaction must have a date.");
+    if (category == null) throw new ProgrammerMistake(
+        "A Transaction must have a category.");
+    if (amount == null) throw new ProgrammerMistake(
+        "A Transaction must have an amount.");
 
     this.date = date;
     this.category = category;
