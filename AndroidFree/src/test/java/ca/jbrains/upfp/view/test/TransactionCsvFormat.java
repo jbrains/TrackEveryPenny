@@ -7,7 +7,18 @@ import com.sun.istack.internal.Nullable;
 import org.joda.time.LocalDate;
 
 public class TransactionCsvFormat {
+
+  private final TransactionCsvFormat.DateCsvFormat
+      dateCsvFormat;
+  private final TransactionCsvFormat.CategoryCsvFormat
+      categoryCsvFormat;
+  private final TransactionCsvFormat.AmountCsvFormat
+      amountCsvFormat;
+
   public TransactionCsvFormat() {
+    dateCsvFormat = new DateCsvFormat();
+    categoryCsvFormat = new CategoryCsvFormat();
+    amountCsvFormat = new AmountCsvFormat();
   }
 
   public String formatTransactionAsCsvRow(
@@ -16,12 +27,12 @@ public class TransactionCsvFormat {
           formatTransactionAsCsvRowTest
   ) {
 
-    final String formattedDate = new DateCsvFormat().invoke(
+    final String formattedDate = dateCsvFormat.invoke(
         new LocalDate(2012, 11, 14));
-    final String formattedCategory = new CategoryCsvFormat()
+    final String formattedCategory = categoryCsvFormat
         .invoke(new Category("Bowling Winnings"));
-    final String formattedAmount = new AmountCsvFormat()
-        .invoke(Amount.cents(250));
+    final String formattedAmount = amountCsvFormat.invoke(
+        Amount.cents(250));
 
     return formatTransactionPropertiesAsCsvRow(
         formattedDate, formattedCategory, formattedAmount);
