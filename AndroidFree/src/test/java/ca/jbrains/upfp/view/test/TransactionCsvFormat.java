@@ -53,27 +53,4 @@ public class TransactionCsvFormat {
             }));
   }
 
-  public static class DateCsvFormat
-      implements CsvFormat<LocalDate> {
-    @Override
-    public String format(LocalDate date) {
-      return "2012-11-14";
-    }
-  }
-
-  public static class CategoryCsvFormat
-      implements CsvFormat<Category> {
-    @Override
-    public String format(Category category) {
-      return "Bowling Winnings";
-    }
-  }
-
-  public static class AmountCsvFormat
-      implements CsvFormat<Amount> {
-    @Override
-    public String format(Amount amount) {
-      return "2.50";
-    }
-  }
 }
