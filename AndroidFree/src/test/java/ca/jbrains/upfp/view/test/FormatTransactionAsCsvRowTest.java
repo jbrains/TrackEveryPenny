@@ -15,6 +15,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(JMock.class)
 public class FormatTransactionAsCsvRowTest {
   private final Mockery mockery = new Mockery();
+
   private final CsvFormat<LocalDate> dateFormat = mockery
       .mock(CsvFormat.class, "date format");
   private final CsvFormat<Category> categoryFormat = mockery
@@ -25,6 +26,12 @@ public class FormatTransactionAsCsvRowTest {
       = new TransactionCsvFormat(
       dateFormat, categoryFormat, amountFormat);
 
+  private LocalDate anyNonNullDate = new LocalDate(
+      2012, 11, 14);
+  private Category anyNonNullCategory = new Category(
+      "Bowling Winnings");
+  private Amount anyNonNullAmount = Amount.cents(250);
+
   @Test
   public void happyPath() throws Exception {
     mockery.checking(
@@ -33,30 +40,32 @@ public class FormatTransactionAsCsvRowTest {
               with(
                   any(
                       LocalDate.class)));
-          will(returnValue("2012-11-14"));
+          will(returnValue("::the date::"));
 
           allowing(categoryFormat).format(
               with(
                   any(
                       Category.class)));
-          will(returnValue("Bowling Winnings"));
+          will(returnValue("::the category::"));
 
           allowing(amountFormat).format(
               with(
                   any(
                       Amount.class)));
-          will(returnValue("2.50"));
+          will(returnValue("::the amount::"));
         }});
 
     final Transaction transaction = new Transaction(
-        new LocalDate(2012, 11, 14), new Category(
-        "Bowling Winnings"), Amount.cents(250));
+        anyNonNullDate, anyNonNullCategory,
+        anyNonNullAmount);
     final String rowText = transactionCsvFormat
-        .formatTransactionAsCsvRow(transaction);
+        .formatTransactionAsCsvRow(
+            transaction);
     assertThat(
         rowText, matches(
         Pattern.compile(
-            "\\s*\"2012-11-14\",\\s*\"Bowling Winnings\"," +
-            "\\s*\"2.50\"\\s*")));
+            "\\s*\"::the date::\"," +
+            "\\s*\"::the category::\"," +
+            "\\s*\"::the amount::\"\\s*")));
   }
 }
