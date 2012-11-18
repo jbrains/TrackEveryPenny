@@ -6,6 +6,6 @@ public class CategoryCsvFormat
     implements CsvFormat<Category> {
   @Override
   public String format(Category category) {
-    return "Bowling Winnings";
+    return category.getName();
   }
 }
