@@ -17,10 +17,13 @@ public class FormatTransactionAsCsvRowTest {
   private final Mockery mockery = new Mockery();
   private final CsvFormat<LocalDate> dateFormat = mockery
       .mock(CsvFormat.class, "date format");
+  private final CsvFormat<Category> categoryFormat = mockery
+      .mock(CsvFormat.class, "category format");
+  private final CsvFormat<Amount> amountFormat = mockery
+      .mock(CsvFormat.class, "amount format");
   private final TransactionCsvFormat transactionCsvFormat
       = new TransactionCsvFormat(
-      dateFormat, new CategoryCsvFormat(),
-      new AmountCsvFormat());
+      dateFormat, categoryFormat, amountFormat);
 
   @Test
   public void happyPath() throws Exception {
@@ -31,6 +34,18 @@ public class FormatTransactionAsCsvRowTest {
                   any(
                       LocalDate.class)));
           will(returnValue("2012-11-14"));
+
+          allowing(categoryFormat).format(
+              with(
+                  any(
+                      Category.class)));
+          will(returnValue("Bowling Winnings"));
+
+          allowing(amountFormat).format(
+              with(
+                  any(
+                      Amount.class)));
+          will(returnValue("2.50"));
         }});
 
     final Transaction transaction = new Transaction(
@@ -41,6 +56,7 @@ public class FormatTransactionAsCsvRowTest {
     assertThat(
         rowText, matches(
         Pattern.compile(
-            "\\s*\"2012-11-14\",\\s*\"Bowling Winnings\",\\s*\"2.50\"\\s*")));
+            "\\s*\"2012-11-14\",\\s*\"Bowling Winnings\"," +
+            "\\s*\"2.50\"\\s*")));
   }
 }
