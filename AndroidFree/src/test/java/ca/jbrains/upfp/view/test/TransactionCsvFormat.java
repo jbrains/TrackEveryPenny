@@ -26,12 +26,12 @@ public class TransactionCsvFormat {
           formatTransactionAsCsvRowTest
   ) {
 
-    final String formattedDate = dateCsvFormat.invoke(
+    final String formattedDate = dateCsvFormat.format(
         new LocalDate(2012, 11, 14));
     final String formattedCategory = categoryCsvFormat
-        .invoke(
+        .format(
             new Category("Bowling Winnings"));
-    final String formattedAmount = amountCsvFormat.invoke(
+    final String formattedAmount = amountCsvFormat.format(
         Amount.cents(250));
 
     return formatTransactionPropertiesAsCsvRow(
@@ -58,7 +58,7 @@ public class TransactionCsvFormat {
   private class DateCsvFormat
       implements CsvFormat<LocalDate> {
     @Override
-    public String invoke(LocalDate date) {
+    public String format(LocalDate date) {
       return "2012-11-14";
     }
   }
@@ -66,7 +66,7 @@ public class TransactionCsvFormat {
   private class CategoryCsvFormat
       implements CsvFormat<Category> {
     @Override
-    public String invoke(Category category) {
+    public String format(Category category) {
       return "Bowling Winnings";
     }
   }
@@ -74,7 +74,7 @@ public class TransactionCsvFormat {
   private class AmountCsvFormat
       implements CsvFormat<Amount> {
     @Override
-    public String invoke(Amount amount) {
+    public String format(Amount amount) {
       return "2.50";
     }
   }
