@@ -32,4 +32,21 @@ public class CreateCategoryTest {
               ".*Category name can't be blank.*")));
     }
   }
+
+  @Test
+  public void nameCannotBeOnlyWhitespace()
+      throws Exception {
+    try {
+      new Category("  \t \n   \r ");
+      fail(
+          "Why did you create a Category with a name made" +
+          " up of only whitespace?!");
+    } catch (ProgrammerMistake success) {
+      assertThat(
+          success.getMessage(), matches(
+          Pattern.compile(
+              ".*Category name can't be only whitespace.*")));
+    }
+  }
+
 }

@@ -10,6 +10,8 @@ public final class Category {
         "name can't be null");
     if (name.isEmpty()) throw new ProgrammerMistake(
         "Category name can't be blank.");
+    if (name.trim().isEmpty()) throw new ProgrammerMistake(
+        "Category name can't be only whitespace.");
 
     this.name = name;
   }
