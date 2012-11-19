@@ -24,8 +24,7 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
   private final ExportAllTransactionsAsCsvToFileAction
       exportAllTransactionsAsCsvToFileAction
       = new ExportAllTransactionsAsCsvToFileAction(
-      transactionsFileFormat, writeTextToFileAction,
-      new File("/irrelevant/path"), new WriteTextAction() {
+      transactionsFileFormat, new WriteTextAction() {
     @Override
     public void writeText(String text) throws IOException {
       writeTextToFileAction.writeTextToFile(
