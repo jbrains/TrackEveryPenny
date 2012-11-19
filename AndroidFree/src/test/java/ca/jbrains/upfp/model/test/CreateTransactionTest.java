@@ -1,6 +1,9 @@
 package ca.jbrains.upfp.model.test;
 
 import ca.jbrains.toolkit.ProgrammerMistake;
+import ca.jbrains.upfp.model.Amount;
+import ca.jbrains.upfp.model.Category;
+import ca.jbrains.upfp.model.Transaction;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 

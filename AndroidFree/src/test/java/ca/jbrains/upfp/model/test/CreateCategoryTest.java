@@ -1,6 +1,7 @@
 package ca.jbrains.upfp.model.test;
 
 import ca.jbrains.toolkit.ProgrammerMistake;
+import ca.jbrains.upfp.model.Category;
 import org.junit.Test;
 
 import java.util.regex.Pattern;

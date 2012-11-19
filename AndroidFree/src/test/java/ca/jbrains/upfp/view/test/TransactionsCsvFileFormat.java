@@ -1,7 +1,7 @@
 package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.upfp.Conveniences;
-import ca.jbrains.upfp.model.test.Transaction;
+import ca.jbrains.upfp.model.Transaction;
 import com.google.common.base.*;
 import com.google.common.collect.*;
 import com.sun.istack.internal.Nullable;

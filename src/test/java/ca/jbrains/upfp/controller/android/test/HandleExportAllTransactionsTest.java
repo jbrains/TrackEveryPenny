@@ -12,7 +12,7 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import static ca.jbrains.hamcrest.RegexMatcher.matches;
@@ -64,7 +64,8 @@ public class HandleExportAllTransactionsTest {
           ignoring(androidDevicePublicStorageGateway)
               .findPublicExternalStorageDirectory();
 
-          allowing(exportAllTransactionsAction).execute();
+          allowing(exportAllTransactionsAction).execute(
+              with(any(List.class)));
           // succeeds by not throwing an exception
         }});
 
@@ -155,8 +156,8 @@ public class HandleExportAllTransactionsTest {
           ignoring(browseTransactionsModel);
           ignoring(androidDevicePublicStorageGateway);
 
-          allowing(exportAllTransactionsAction)
-              .execute();
+          allowing(exportAllTransactionsAction).execute(
+              with(any(List.class)));
           will(
               throwException(
                   new InternalStorageException()));

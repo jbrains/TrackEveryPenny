@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.model.test;
+package ca.jbrains.upfp.model;
 
 public final class Amount {
   private final int cents;

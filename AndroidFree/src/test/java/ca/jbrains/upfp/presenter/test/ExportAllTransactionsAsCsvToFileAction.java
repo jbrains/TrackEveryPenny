@@ -1,6 +1,6 @@
 package ca.jbrains.upfp.presenter.test;
 
-import ca.jbrains.upfp.model.test.Transaction;
+import ca.jbrains.upfp.model.Transaction;
 import ca.jbrains.upfp.view.test.CsvFormat;
 
 import java.io.IOException;

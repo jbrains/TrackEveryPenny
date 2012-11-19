@@ -1,6 +1,6 @@
 package ca.jbrains.upfp.view.test;
 
-import ca.jbrains.upfp.model.test.Category;
+import ca.jbrains.upfp.model.Category;
 
 public class CategoryCsvFormat
     implements CsvFormat<Category> {

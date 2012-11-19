@@ -1,7 +1,7 @@
 package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.upfp.Conveniences;
-import ca.jbrains.upfp.model.test.*;
+import ca.jbrains.upfp.model.*;
 import com.google.common.collect.Lists;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;

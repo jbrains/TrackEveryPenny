@@ -13,7 +13,7 @@ import ca.jbrains.upfp.view.BrowseTransactionsView;
 import com.google.common.collect.Lists;
 
 import java.io.File;
-import java.util.Collection;
+import java.util.*;
 
 public class BrowseTransactionsActivity extends Activity
     implements BrowseTransactionsView {
@@ -47,7 +47,7 @@ public class BrowseTransactionsActivity extends Activity
     this.exportAllTransactionsAction
         = new ExportAllTransactionsAction() {
       @Override
-      public void execute() {
+      public void execute(List<Transaction> transactions) {
         // Do nothing, for now
       }
     };
@@ -143,7 +143,8 @@ public class BrowseTransactionsActivity extends Activity
       browseTransactionsModel.findAllTransactions();
       androidDevicePublicStorageGateway
           .findPublicExternalStorageDirectory();
-      exportAllTransactionsAction.execute();
+      exportAllTransactionsAction.execute(
+          Lists.<Transaction>newArrayList());
       notifyUser(
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv");
     } catch (InternalStorageException reported) {

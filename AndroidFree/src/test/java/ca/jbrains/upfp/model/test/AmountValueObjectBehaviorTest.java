@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.model.test;
 
+import ca.jbrains.upfp.model.Amount;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
