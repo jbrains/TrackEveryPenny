@@ -1,5 +1,5 @@
 package ca.jbrains.upfp.view.test;
 
-public interface CsvFormat<ValueType> {
-  String format(ValueType value);
+public interface CsvFormat<T> {
+  String format(T t);
 }
