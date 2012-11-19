@@ -28,7 +28,7 @@ public class WriteTextToFileTest {
     final File file = new File(
         testOutputDirectory, "happyPath.csv");
 
-    new WriteTextToFileActionImpl().writeTextToFile(
+    new WriteTextToFileActionImpl(file).writeTextToFile(
         "::text::", file);
 
     assertEquals(
@@ -41,7 +41,9 @@ public class WriteTextToFileTest {
     final IOException ioFailure = new IOException(
         "Simulating a failure writing to the file.");
     try {
-      new WriteTextToFileActionImpl() {
+      final File file = new File(
+          testOutputDirectory, "anyWritableFile.txt");
+      new WriteTextToFileActionImpl(file) {
         @Override
         protected FileWriter fileWriterOn(File path)
             throws IOException {
@@ -53,9 +55,7 @@ public class WriteTextToFileTest {
             }
           };
         }
-      }.writeTextToFile(
-          "::text::", new File(
-          testOutputDirectory, "anyWritableFile.txt"));
+      }.writeTextToFile("::text::", file);
       fail("How did you survive the I/O failure?!");
     } catch (IOException success) {
       if (success != ioFailure) throw success;
@@ -69,7 +69,7 @@ public class WriteTextToFileTest {
     FileUtils.write(
         file, "There is already something here.");
 
-    new WriteTextToFileActionImpl().writeTextToFile(
+    new WriteTextToFileActionImpl(file).writeTextToFile(
         "::text::", file);
 
     assertEquals(
