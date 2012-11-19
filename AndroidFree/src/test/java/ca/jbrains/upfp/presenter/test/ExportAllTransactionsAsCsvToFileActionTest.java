@@ -19,8 +19,6 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
   private final CsvFormat<List<Transaction>>
       transactionsFileFormat = mockery.mock(
       CsvFormat.class, "transactions file format");
-  private final WriteTextToFileAction writeTextToFileAction
-      = mockery.mock(WriteTextToFileAction.class);
   private final WriteTextAction writeTextAction = mockery
       .mock(WriteTextAction.class);
   private final ExportAllTransactionsAsCsvToFileAction
