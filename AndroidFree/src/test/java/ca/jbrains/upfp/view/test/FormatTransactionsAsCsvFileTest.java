@@ -37,9 +37,8 @@ public class FormatTransactionsAsCsvFileTest {
           will(returnValue("::header::"));
         }});
 
-    final String text = transactionsCsvFileFormat
-        .formatTransactionsAsCsvFile(
-            Collections.<Transaction>emptyList());
+    final String text = transactionsCsvFileFormat.format(
+        Collections.<Transaction>emptyList());
     final List<String> lines = Arrays.asList(
         text.split(
             Conveniences.NEWLINE));
@@ -64,12 +63,11 @@ public class FormatTransactionsAsCsvFileTest {
                   "::row 2::"), returnValue("::row 3::")));
         }});
 
-    final String text = transactionsCsvFileFormat
-        .formatTransactionsAsCsvFile(
-            Lists.newArrayList(
-                createAnyNonNullTransaction(),
-                createAnyNonNullTransaction(),
-                createAnyNonNullTransaction()));
+    final String text = transactionsCsvFileFormat.format(
+        Lists.newArrayList(
+            createAnyNonNullTransaction(),
+            createAnyNonNullTransaction(),
+            createAnyNonNullTransaction()));
 
     final List<String> lines = Arrays.asList(
         text.split(

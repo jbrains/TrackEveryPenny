@@ -8,8 +8,8 @@ import com.sun.istack.internal.Nullable;
 
 import java.util.List;
 
-public class TransactionsCsvFileFormat {
-
+public class TransactionsCsvFileFormat
+    implements CsvFormat<List<Transaction>> {
   private CsvHeaderFormat csvHeaderFormat;
   private CsvFormat<Transaction> transactionCsvFormat;
 
@@ -21,9 +21,8 @@ public class TransactionsCsvFileFormat {
     this.transactionCsvFormat = transactionCsvFormat;
   }
 
-  public String formatTransactionsAsCsvFile(
-      List<Transaction> transactions
-  ) {
+  @Override
+  public String format(List<Transaction> transactions) {
     final List<String> lines = Lists.newArrayList(
         csvHeaderFormat.formatHeader());
     lines.addAll(
