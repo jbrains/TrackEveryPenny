@@ -24,7 +24,8 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
   private final ExportAllTransactionsAsCsvToFileAction
       exportAllTransactionsAsCsvToFileAction
       = new ExportAllTransactionsAsCsvToFileAction(
-      transactionsFileFormat, writeTextToFileAction);
+      transactionsFileFormat, writeTextToFileAction,
+      new File("/irrelevant/path"));
 
   @Test
   public void happyPath() throws Exception {
@@ -48,7 +49,7 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
 
     exportAllTransactionsAsCsvToFileAction
         .exportAllTransactionsAsCsvToFileAction(
-            transactions, path);
+            transactions);
   }
 
   @Test
@@ -72,8 +73,7 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
     try {
       exportAllTransactionsAsCsvToFileAction
           .exportAllTransactionsAsCsvToFileAction(
-              irrelevantTransactions, new File(
-              "/irrelevant/path"));
+              irrelevantTransactions);
       fail(
           "Writing text to disk failed, " +
           "but you don't care?!");
