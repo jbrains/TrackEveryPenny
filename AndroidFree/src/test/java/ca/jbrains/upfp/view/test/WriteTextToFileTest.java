@@ -40,14 +40,14 @@ public class WriteTextToFileTest {
   public void ioFailure() throws Exception {
     final IOException ioFailure = new IOException(
         "Simulating a failure writing to the file.");
+    final File file = new File(
+        testOutputDirectory, "anyWritableFile.txt");
     try {
-      final File file = new File(
-          testOutputDirectory, "anyWritableFile.txt");
       new WriteTextToFileActionImpl(file) {
         @Override
-        protected FileWriter fileWriterOn(File path)
+        protected FileWriter fileWriterOnDestinationFile()
             throws IOException {
-          return new FileWriter(path) {
+          return new FileWriter(file) {
             @Override
             public void write(String str, int off, int len)
                 throws IOException {

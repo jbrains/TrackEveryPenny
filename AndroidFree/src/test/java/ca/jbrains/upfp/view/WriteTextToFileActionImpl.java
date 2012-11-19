@@ -6,20 +6,21 @@ import java.io.*;
 
 public class WriteTextToFileActionImpl
     implements WriteTextAction {
-  private final File file;
+  private final File destinationFile;
 
-  public WriteTextToFileActionImpl(File file) {
-    this.file = file;
+  public WriteTextToFileActionImpl(File destinationFile) {
+    this.destinationFile = destinationFile;
   }
 
-  protected FileWriter fileWriterOn(File path)
+  protected FileWriter fileWriterOnDestinationFile()
       throws IOException {
-    return new FileWriter(path);
+    return new FileWriter(destinationFile);
   }
 
   @Override
   public void writeText(String text) throws IOException {
-    final FileWriter fileWriter = fileWriterOn(file);
+    final FileWriter fileWriter
+        = fileWriterOnDestinationFile();
     fileWriter.write(text);
     fileWriter.flush();
     fileWriter.close();
