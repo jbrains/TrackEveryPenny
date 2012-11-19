@@ -4,6 +4,7 @@ import ca.jbrains.upfp.*;
 import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.model.*;
 import ca.jbrains.upfp.presenter.ExportAllTransactionsAction;
+import ca.jbrains.upfp.test.ObjectMother;
 import com.google.common.collect.Lists;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.*;
@@ -169,6 +170,29 @@ public class HandleExportAllTransactionsTest {
     assertLastToastMatchesRegex(
         "Something strange just happened. Try again. You might need to reinstall the " +
         "application. I feel embarrassed and ashamed.");
+  }
+
+  @Test
+  public void exportWhateverTheModelProvides()
+      throws Exception {
+    final List<Transaction> anyNonEmptyListOfTransactions
+        = ObjectMother.anyNonEmptyListOfTransactions();
+
+    mockery.checking(
+        new Expectations() {{
+          allowing(browseTransactionsModel)
+              .findAllTransactions();
+          will(returnValue(anyNonEmptyListOfTransactions));
+
+          ignoring(androidDevicePublicStorageGateway);
+
+          oneOf(exportAllTransactionsAction).execute(
+              with(
+                  anyNonEmptyListOfTransactions));
+        }});
+
+    pressExportAllTransactionsButton(
+        browseTransactionsActivity);
   }
 
 

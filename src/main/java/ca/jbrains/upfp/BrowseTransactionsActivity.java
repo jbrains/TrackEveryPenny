@@ -13,7 +13,7 @@ import ca.jbrains.upfp.view.BrowseTransactionsView;
 import com.google.common.collect.Lists;
 
 import java.io.File;
-import java.util.*;
+import java.util.List;
 
 public class BrowseTransactionsActivity extends Activity
     implements BrowseTransactionsView {
@@ -39,8 +39,8 @@ public class BrowseTransactionsActivity extends Activity
           }
 
           @Override
-          public Collection<Object> findAllTransactions() {
-            return Lists.newArrayList();
+          public List<Transaction> findAllTransactions() {
+            return Lists.<Transaction>newArrayList();
           }
         }, this);
 
@@ -63,8 +63,9 @@ public class BrowseTransactionsActivity extends Activity
       }
 
       @Override
-      public Collection<Object> findAllTransactions() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      public List<Transaction> findAllTransactions() {
+        return null;  //To change body of implemented
+        // methods use File | Settings | File Templates.
       }
     };
 
@@ -140,11 +141,11 @@ public class BrowseTransactionsActivity extends Activity
   public void exportAllTransactions(View clicked) {
     try {
       // REFACTOR Shouldn't a presenter be doing this?
-      browseTransactionsModel.findAllTransactions();
+      final List<Transaction> transactions
+          = browseTransactionsModel.findAllTransactions();
       androidDevicePublicStorageGateway
           .findPublicExternalStorageDirectory();
-      exportAllTransactionsAction.execute(
-          Lists.<Transaction>newArrayList());
+      exportAllTransactionsAction.execute(transactions);
       notifyUser(
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv");
     } catch (InternalStorageException reported) {

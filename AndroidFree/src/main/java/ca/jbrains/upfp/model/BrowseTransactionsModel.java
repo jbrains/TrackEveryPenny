@@ -1,10 +1,10 @@
 package ca.jbrains.upfp.model;
 
-import java.util.Collection;
+import java.util.List;
 
 public interface BrowseTransactionsModel {
   // CONTRACT: result >= 0
   int countTransactions();
 
-  Collection<Object> findAllTransactions();
+  List<Transaction> findAllTransactions();
 }

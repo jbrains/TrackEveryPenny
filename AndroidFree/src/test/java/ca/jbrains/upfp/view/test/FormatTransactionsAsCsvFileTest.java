@@ -1,11 +1,11 @@
 package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.upfp.Conveniences;
-import ca.jbrains.upfp.model.*;
+import ca.jbrains.upfp.model.Transaction;
+import ca.jbrains.upfp.test.ObjectMother;
 import com.google.common.collect.Lists;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;
-import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -65,9 +65,9 @@ public class FormatTransactionsAsCsvFileTest {
 
     final String text = transactionsCsvFileFormat.format(
         Lists.newArrayList(
-            createAnyNonNullTransaction(),
-            createAnyNonNullTransaction(),
-            createAnyNonNullTransaction()));
+            ObjectMother.createAnyNonNullTransaction(),
+            ObjectMother.createAnyNonNullTransaction(),
+            ObjectMother.createAnyNonNullTransaction()));
 
     final List<String> lines = Arrays.asList(
         text.split(
@@ -80,10 +80,4 @@ public class FormatTransactionsAsCsvFileTest {
     assertThat(text, endsWith(Conveniences.NEWLINE));
   }
 
-  private Transaction createAnyNonNullTransaction() {
-    return new Transaction(
-        new LocalDate(2012, 8, 4), new Category(
-        "irrelevant category"), Amount.cents(
-        26123));
-  }
 }

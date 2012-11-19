@@ -1,12 +1,15 @@
 package ca.jbrains.upfp.model.test;
 
-import java.util.Collection;
+import ca.jbrains.upfp.model.Transaction;
+
+import java.util.List;
 
 public class InMemoryBrowseTransactionsModelTest
     extends BrowseTransactionsModelContract {
   @Override
-  protected InMemoryBrowseTransactionsModel createBrowseTransactionModelWith(
-      Collection<Object> transactions
+  protected InMemoryBrowseTransactionsModel
+  createBrowseTransactionModelWith(
+      List<Transaction> transactions
   ) {
     return new InMemoryBrowseTransactionsModel(
         transactions);
@@ -20,7 +23,7 @@ public class InMemoryBrowseTransactionsModelTest
 
     return new InMemoryBrowseTransactionsModel(null) {
       @Override
-      public Collection<Object> findAllTransactions() {
+      public List<Transaction> findAllTransactions() {
         throw intentionalException;
       }
     };

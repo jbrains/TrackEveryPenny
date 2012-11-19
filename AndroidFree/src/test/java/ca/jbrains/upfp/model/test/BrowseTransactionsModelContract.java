@@ -1,7 +1,7 @@
 package ca.jbrains.upfp.model.test;
 
-import ca.jbrains.upfp.model.InternalStorageException;
-import ca.jbrains.upfp.model.BrowseTransactionsModel;
+import ca.jbrains.upfp.model.*;
+import ca.jbrains.upfp.test.ObjectMother;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public abstract class BrowseTransactionsModelContract {
   public void zeroTransactions() throws Exception {
     final BrowseTransactionsModel model
         = createBrowseTransactionModelWith(
-        Lists.newArrayList());
+        Lists.<Transaction>newArrayList());
     assertEquals(
         Collections.emptyList(),
         model.findAllTransactions());
@@ -23,9 +23,8 @@ public abstract class BrowseTransactionsModelContract {
 
   @Test
   public void manyTransactions() throws Exception {
-    final Collection<Object> transactions = Lists
-        .newArrayList(
-            new Object(), new Object(), new Object());
+    final List<Transaction> transactions = ObjectMother
+        .anyNonEmptyListOfTransactions();
     final InMemoryBrowseTransactionsModel model
         = createBrowseTransactionModelWith(transactions);
     assertEquals(transactions, model.findAllTransactions());
@@ -48,7 +47,7 @@ public abstract class BrowseTransactionsModelContract {
 
   protected abstract InMemoryBrowseTransactionsModel
   createBrowseTransactionModelWith(
-      Collection<Object> transactions
+      List<Transaction> transactions
   );
 
   protected abstract InMemoryBrowseTransactionsModel

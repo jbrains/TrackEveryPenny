@@ -1,15 +1,15 @@
 package ca.jbrains.upfp.model.test;
 
-import ca.jbrains.upfp.model.BrowseTransactionsModel;
+import ca.jbrains.upfp.model.*;
 
-import java.util.Collection;
+import java.util.List;
 
 public class InMemoryBrowseTransactionsModel
     implements BrowseTransactionsModel {
-  private final Collection<Object> transactions;
+  private final List<Transaction> transactions;
 
   public InMemoryBrowseTransactionsModel(
-      Collection<Object> transactions
+      List<Transaction> transactions
   ) {
     this.transactions = transactions;
   }
@@ -23,7 +23,7 @@ public class InMemoryBrowseTransactionsModel
   }
 
   @Override
-  public Collection<Object> findAllTransactions() {
+  public List<Transaction> findAllTransactions() {
     return transactions;
   }
 }
