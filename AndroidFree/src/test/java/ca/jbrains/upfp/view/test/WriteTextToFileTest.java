@@ -4,7 +4,7 @@ import ca.jbrains.upfp.view.WriteTextToFileActionImpl;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 
-import java.io.File;
+import java.io.*;
 
 import static org.junit.Assert.*;
 
@@ -34,5 +34,31 @@ public class WriteTextToFileTest {
     assertEquals(
         "::text::", FileUtils.readFileToString(
         file));
+  }
+
+  @Test
+  public void ioFailure() throws Exception {
+    final IOException ioFailure = new IOException(
+        "Simulating a failure writing to the file.");
+    try {
+      new WriteTextToFileActionImpl() {
+        @Override
+        protected FileWriter fileWriterOn(File path)
+            throws IOException {
+          return new FileWriter(path) {
+            @Override
+            public void write(String str, int off, int len)
+                throws IOException {
+              throw ioFailure;
+            }
+          };
+        }
+      }.writeTextToFile(
+          "::text::", new File(
+          testOutputDirectory, "anyWritableFile.txt"));
+      fail("How did you survive the I/O failure?!");
+    } catch (IOException success) {
+      if (success != ioFailure) throw success;
+    }
   }
 }
