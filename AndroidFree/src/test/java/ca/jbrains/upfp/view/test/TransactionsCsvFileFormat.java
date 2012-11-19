@@ -9,14 +9,20 @@ import com.sun.istack.internal.Nullable;
 import java.util.List;
 
 public class TransactionsCsvFileFormat {
-  public TransactionsCsvFileFormat() {
-  }
 
-  // REFACTOR Parameterise this in terms of Transaction
-  public String formatTransactionsAsCsvFile(
-      List<Transaction> transactions,
+  private CsvHeaderFormat csvHeaderFormat;
+  private CsvFormat<Transaction> transactionCsvFormat;
+
+  public TransactionsCsvFileFormat(
       CsvHeaderFormat csvHeaderFormat,
       final CsvFormat<Transaction> transactionCsvFormat
+  ) {
+    this.csvHeaderFormat = csvHeaderFormat;
+    this.transactionCsvFormat = transactionCsvFormat;
+  }
+
+  public String formatTransactionsAsCsvFile(
+      List<Transaction> transactions
   ) {
     final List<String> lines = Lists.newArrayList(
         csvHeaderFormat.formatHeader());

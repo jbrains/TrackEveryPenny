@@ -26,7 +26,8 @@ public class FormatTransactionsAsCsvFileTest {
           CsvHeaderFormat.class, "header format");
   private final TransactionsCsvFileFormat
       transactionsCsvFileFormat
-      = new TransactionsCsvFileFormat();
+      = new TransactionsCsvFileFormat(
+      csvHeaderFormat, transactionCsvFormat);
 
   @Test
   public void noTransactions() throws Exception {
@@ -38,8 +39,7 @@ public class FormatTransactionsAsCsvFileTest {
 
     final String text = transactionsCsvFileFormat
         .formatTransactionsAsCsvFile(
-            Collections.<Transaction>emptyList(),
-            csvHeaderFormat, transactionCsvFormat);
+            Collections.<Transaction>emptyList());
     final List<String> lines = Arrays.asList(
         text.split(
             Conveniences.NEWLINE));
@@ -69,8 +69,7 @@ public class FormatTransactionsAsCsvFileTest {
             Lists.newArrayList(
                 createAnyNonNullTransaction(),
                 createAnyNonNullTransaction(),
-                createAnyNonNullTransaction()),
-            csvHeaderFormat, transactionCsvFormat);
+                createAnyNonNullTransaction()));
 
     final List<String> lines = Arrays.asList(
         text.split(
