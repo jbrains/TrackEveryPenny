@@ -4,3 +4,4 @@ out
 tmp
 src/gen
 gen
+test/output
