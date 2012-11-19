@@ -29,4 +29,8 @@ public final class Amount {
   public String toString() {
     return String.format("%1d cents", cents);
   }
+
+  public double inDollars() {
+    return cents / 100.0d;
+  }
 }
