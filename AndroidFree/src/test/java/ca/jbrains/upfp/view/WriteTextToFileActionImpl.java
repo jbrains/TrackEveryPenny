@@ -14,10 +14,7 @@ public class WriteTextToFileActionImpl
 
   public void writeTextToFile(String text, File path)
       throws IOException {
-    final FileWriter fileWriter = fileWriterOn(path);
-    fileWriter.write(text);
-    fileWriter.flush();
-    fileWriter.close();
+    writeText(text);
   }
 
   protected FileWriter fileWriterOn(File path)
@@ -27,6 +24,9 @@ public class WriteTextToFileActionImpl
 
   @Override
   public void writeText(String text) throws IOException {
-    writeTextToFile(text, file);
+    final FileWriter fileWriter = fileWriterOn(file);
+    fileWriter.write(text);
+    fileWriter.flush();
+    fileWriter.close();
   }
 }
