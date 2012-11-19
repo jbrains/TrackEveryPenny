@@ -61,4 +61,19 @@ public class WriteTextToFileTest {
       if (success != ioFailure) throw success;
     }
   }
+
+  @Test
+  public void fileAlreadyExists() throws Exception {
+    final File file = new File(
+        testOutputDirectory, "alreadyExists.txt");
+    FileUtils.write(
+        file, "There is already something here.");
+
+    new WriteTextToFileActionImpl().writeTextToFile(
+        "::text::", file);
+
+    assertEquals(
+        "::text::", FileUtils.readFileToString(
+        file));
+  }
 }
