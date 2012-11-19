@@ -11,15 +11,24 @@ public class ExportAllTransactionsAsCsvToFileAction {
       transactionsFileFormat;
   private final WriteTextToFileAction writeTextToFileAction;
   private final File destinationFile;
+  private WriteTextAction writeTextAction;
 
   public ExportAllTransactionsAsCsvToFileAction(
       CsvFormat<List<Transaction>> transactionsFileFormat,
-      WriteTextToFileAction writeTextToFileAction,
-      File destinationFile
+      final WriteTextToFileAction writeTextToFileAction,
+      final File destinationFile
   ) {
     this.transactionsFileFormat = transactionsFileFormat;
     this.writeTextToFileAction = writeTextToFileAction;
     this.destinationFile = destinationFile;
+    writeTextAction = new WriteTextAction() {
+      @Override
+      public void writeText(String text)
+          throws IOException {
+        writeTextToFileAction.writeTextToFile(
+            text, destinationFile);
+      }
+    };
   }
 
   public void exportAllTransactionsAsCsvToFileAction(
@@ -27,13 +36,6 @@ public class ExportAllTransactionsAsCsvToFileAction {
   ) throws IOException {
     final String text = transactionsFileFormat.format(
         transactions);
-    new WriteTextAction() {
-      @Override
-      public void writeText(String text)
-          throws IOException {
-        writeTextToFileAction.writeTextToFile(
-            text, destinationFile);
-      }
-    }.writeText(text);
+    writeTextAction.writeText(text);
   }
 }
