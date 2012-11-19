@@ -2,9 +2,7 @@ package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.upfp.Conveniences;
 import ca.jbrains.upfp.model.test.*;
-import com.google.common.base.*;
 import com.google.common.collect.Lists;
-import com.sun.istack.internal.Nullable;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;
 import org.joda.time.LocalDate;
@@ -14,8 +12,6 @@ import org.junit.runner.RunWith;
 import java.util.*;
 
 import static ca.jbrains.hamcrest.RegexMatcher.matches;
-import static com.google.common.collect.Collections2
-    .transform;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.junit.Assert.*;
 
@@ -28,6 +24,9 @@ public class FormatTransactionsAsCsvFileTest {
   private final CsvHeaderFormat csvHeaderFormat = mockery
       .mock(
           CsvHeaderFormat.class, "header format");
+  private final TransactionsCsvFileFormat
+      transactionsCsvFileFormat
+      = new TransactionsCsvFileFormat();
 
   @Test
   public void noTransactions() throws Exception {
@@ -37,9 +36,10 @@ public class FormatTransactionsAsCsvFileTest {
           will(returnValue("::header::"));
         }});
 
-    final String text = formatTransactionsAsCsvFile(
-        Collections.<Transaction>emptyList(),
-        csvHeaderFormat, transactionCsvFormat);
+    final String text = transactionsCsvFileFormat
+        .formatTransactionsAsCsvFile(
+            Collections.<Transaction>emptyList(),
+            csvHeaderFormat, transactionCsvFormat);
     final List<String> lines = Arrays.asList(
         text.split(
             Conveniences.NEWLINE));
@@ -64,12 +64,13 @@ public class FormatTransactionsAsCsvFileTest {
                   "::row 2::"), returnValue("::row 3::")));
         }});
 
-    final String text = formatTransactionsAsCsvFile(
-        Lists.newArrayList(
-            createAnyNonNullTransaction(),
-            createAnyNonNullTransaction(),
-            createAnyNonNullTransaction()), csvHeaderFormat,
-        transactionCsvFormat);
+    final String text = transactionsCsvFileFormat
+        .formatTransactionsAsCsvFile(
+            Lists.newArrayList(
+                createAnyNonNullTransaction(),
+                createAnyNonNullTransaction(),
+                createAnyNonNullTransaction()),
+            csvHeaderFormat, transactionCsvFormat);
 
     final List<String> lines = Arrays.asList(
         text.split(
@@ -87,30 +88,5 @@ public class FormatTransactionsAsCsvFileTest {
         new LocalDate(2012, 8, 4), new Category(
         "irrelevant category"), Amount.cents(
         26123));
-  }
-
-  // REFACTOR Parameterise this in terms of Transaction
-  private String formatTransactionsAsCsvFile(
-      List<Transaction> transactions,
-      CsvHeaderFormat csvHeaderFormat,
-      final CsvFormat<Transaction> transactionCsvFormat
-  ) {
-    final List<String> lines = Lists.newArrayList(
-        csvHeaderFormat.formatHeader());
-    lines.addAll(
-        transform(
-            transactions,
-            new Function<Transaction, String>() {
-              @Override
-              public String apply(
-                  @Nullable Transaction transaction
-              ) {
-                return transactionCsvFormat.format(
-                    transaction);
-              }
-            }));
-
-    return Joiner.on(Conveniences.NEWLINE).join(lines)
-        .concat(Conveniences.NEWLINE);
   }
 }
