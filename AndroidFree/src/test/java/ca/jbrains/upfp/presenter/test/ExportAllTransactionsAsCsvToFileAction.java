@@ -16,19 +16,13 @@ public class ExportAllTransactionsAsCsvToFileAction {
   public ExportAllTransactionsAsCsvToFileAction(
       CsvFormat<List<Transaction>> transactionsFileFormat,
       final WriteTextToFileAction writeTextToFileAction,
-      final File destinationFile
+      final File destinationFile,
+      WriteTextAction writeTextAction
   ) {
     this.transactionsFileFormat = transactionsFileFormat;
     this.writeTextToFileAction = writeTextToFileAction;
     this.destinationFile = destinationFile;
-    writeTextAction = new WriteTextAction() {
-      @Override
-      public void writeText(String text)
-          throws IOException {
-        writeTextToFileAction.writeTextToFile(
-            text, destinationFile);
-      }
-    };
+    this.writeTextAction = writeTextAction;
   }
 
   public void exportAllTransactionsAsCsvToFileAction(
