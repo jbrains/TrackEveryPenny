@@ -1,17 +1,21 @@
 package ca.jbrains.upfp.view.test;
 
+import ca.jbrains.upfp.Conveniences;
 import ca.jbrains.upfp.model.test.*;
+import com.google.common.base.*;
 import com.google.common.collect.Lists;
+import com.sun.istack.internal.Nullable;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.*;
 import java.util.*;
 
 import static ca.jbrains.hamcrest.RegexMatcher.matches;
+import static com.google.common.collect.Collections2
+    .transform;
 import static org.hamcrest.core.StringEndsWith.endsWith;
 import static org.junit.Assert.*;
 
@@ -22,7 +26,8 @@ public class FormatTransactionsAsCsvFileTest {
   private final CsvFormat<Transaction> transactionCsvFormat
       = mockery.mock(CsvFormat.class, "transaction format");
   private final CsvHeaderFormat csvHeaderFormat = mockery
-      .mock(CsvHeaderFormat.class, "header format");
+      .mock(
+          CsvHeaderFormat.class, "header format");
 
   @Test
   public void noTransactions() throws Exception {
@@ -37,13 +42,10 @@ public class FormatTransactionsAsCsvFileTest {
         csvHeaderFormat, transactionCsvFormat);
     final List<String> lines = Arrays.asList(
         text.split(
-            System.getProperty("line.separator")));
+            Conveniences.NEWLINE));
     assertEquals(1, lines.size());
     assertThat(lines.get(0), matches("::header::"));
-    assertThat(
-        text, endsWith(
-        System.getProperty(
-            "line.separator")));
+    assertThat(text, endsWith(Conveniences.NEWLINE));
   }
 
   @Test
@@ -71,16 +73,13 @@ public class FormatTransactionsAsCsvFileTest {
 
     final List<String> lines = Arrays.asList(
         text.split(
-            System.getProperty("line.separator")));
+            Conveniences.NEWLINE));
     assertEquals(4, lines.size());
     assertThat(lines.get(0), matches("::header::"));
     assertThat(lines.get(1), matches("::row 1::"));
     assertThat(lines.get(2), matches("::row 2::"));
     assertThat(lines.get(3), matches("::row 3::"));
-    assertThat(
-        text, endsWith(
-        System.getProperty(
-            "line.separator")));
+    assertThat(text, endsWith(Conveniences.NEWLINE));
   }
 
   private Transaction createAnyNonNullTransaction() {
@@ -90,19 +89,28 @@ public class FormatTransactionsAsCsvFileTest {
         26123));
   }
 
+  // REFACTOR Parameterise this in terms of Transaction
   private String formatTransactionsAsCsvFile(
       List<Transaction> transactions,
       CsvHeaderFormat csvHeaderFormat,
-      CsvFormat<Transaction> transactionCsvFormat
+      final CsvFormat<Transaction> transactionCsvFormat
   ) {
-    // I'm not sure whether I prefer this to join on line
-    // .separator
-    final StringWriter text = new StringWriter();
-    final PrintWriter canvas = new PrintWriter(text);
-    canvas.println(csvHeaderFormat.formatHeader());
-    for (Transaction each : transactions) {
-      canvas.println(transactionCsvFormat.format(each));
-    }
-    return text.toString();
+    final List<String> lines = Lists.newArrayList(
+        csvHeaderFormat.formatHeader());
+    lines.addAll(
+        transform(
+            transactions,
+            new Function<Transaction, String>() {
+              @Override
+              public String apply(
+                  @Nullable Transaction transaction
+              ) {
+                return transactionCsvFormat.format(
+                    transaction);
+              }
+            }));
+
+    return Joiner.on(Conveniences.NEWLINE).join(lines)
+        .concat(Conveniences.NEWLINE);
   }
 }
