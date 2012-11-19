@@ -1,7 +1,8 @@
 package ca.jbrains.upfp.presenter.test;
 
-import java.io.File;
+import java.io.*;
 
 public interface WriteTextToFileAction {
-  void writeTextToFile(String csvText, File path);
+  void writeTextToFile(String csvText, File path)
+      throws IOException;
 }

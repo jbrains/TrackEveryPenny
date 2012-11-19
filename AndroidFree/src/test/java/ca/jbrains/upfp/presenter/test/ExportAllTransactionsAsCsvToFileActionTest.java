@@ -8,8 +8,10 @@ import org.jmock.integration.junit4.JMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.io.File;
+import java.io.*;
 import java.util.List;
+
+import static org.junit.Assert.*;
 
 @RunWith(JMock.class)
 public class ExportAllTransactionsAsCsvToFileActionTest {
@@ -44,9 +46,40 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
         transactions, path);
   }
 
+  @Test
+  public void writingToFileFails() throws Exception {
+    final IOException ioFailure = new IOException(
+        "You probably ran out of disk space.");
+
+    mockery.checking(
+        new Expectations() {{
+          ignoring(transactionsFileFormat);
+
+          allowing(writeTextToFileAction).writeTextToFile(
+              with(any(String.class)), with(
+              any(
+                  File.class)));
+          will(throwException(ioFailure));
+        }});
+
+    final List<Transaction> irrelevantTransactions = Lists
+        .newArrayList();
+    try {
+      exportAllTransactionsAsCsvToFileAction(
+          irrelevantTransactions, new File(
+          "/irrelevant/path"));
+      fail(
+          "Writing text to disk failed, " +
+          "but you don't care?!");
+    } catch (IOException success) {
+      assertSame(ioFailure, success);
+    }
+  }
+
+
   private void exportAllTransactionsAsCsvToFileAction(
       List<Transaction> transactions, File path
-  ) {
+  ) throws IOException {
     final String text = transactionsFileFormat.format(
         transactions);
     writeTextToFileAction.writeTextToFile(text, path);
