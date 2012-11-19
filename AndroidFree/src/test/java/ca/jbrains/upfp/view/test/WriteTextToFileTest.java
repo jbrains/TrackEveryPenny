@@ -1,6 +1,6 @@
 package ca.jbrains.upfp.view.test;
 
-import ca.jbrains.upfp.view.WriteTextToFileActionImpl;
+import ca.jbrains.upfp.view.WriteTextToFileAction;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
 
@@ -28,8 +28,7 @@ public class WriteTextToFileTest {
     final File file = new File(
         testOutputDirectory, "happyPath.csv");
 
-    new WriteTextToFileActionImpl(file).writeText(
-        "::text::");
+    new WriteTextToFileAction(file).writeText("::text::");
 
     assertEquals(
         "::text::", FileUtils.readFileToString(
@@ -43,7 +42,7 @@ public class WriteTextToFileTest {
     final File file = new File(
         testOutputDirectory, "anyWritableFile.txt");
     try {
-      new WriteTextToFileActionImpl(file) {
+      new WriteTextToFileAction(file) {
         @Override
         protected FileWriter fileWriterOnDestinationFile()
             throws IOException {
@@ -69,8 +68,7 @@ public class WriteTextToFileTest {
     FileUtils.write(
         file, "There is already something here.");
 
-    new WriteTextToFileActionImpl(file).writeText(
-        "::text::");
+    new WriteTextToFileAction(file).writeText("::text::");
 
     assertEquals(
         "::text::", FileUtils.readFileToString(

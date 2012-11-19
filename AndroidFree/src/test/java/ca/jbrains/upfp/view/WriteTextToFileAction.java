@@ -4,11 +4,11 @@ import ca.jbrains.upfp.presenter.test.WriteTextAction;
 
 import java.io.*;
 
-public class WriteTextToFileActionImpl
+public class WriteTextToFileAction
     implements WriteTextAction {
   private final File destinationFile;
 
-  public WriteTextToFileActionImpl(File destinationFile) {
+  public WriteTextToFileAction(File destinationFile) {
     this.destinationFile = destinationFile;
   }
 
