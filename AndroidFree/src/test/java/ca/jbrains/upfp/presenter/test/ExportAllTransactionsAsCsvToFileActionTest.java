@@ -78,10 +78,16 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
 
 
   private void exportAllTransactionsAsCsvToFileAction(
-      List<Transaction> transactions, File path
+      List<Transaction> transactions, final File path
   ) throws IOException {
     final String text = transactionsFileFormat.format(
         transactions);
-    writeTextToFileAction.writeTextToFile(text, path);
+    new WriteTextAction() {
+      @Override
+      public void writeText(String text)
+          throws IOException {
+        writeTextToFileAction.writeTextToFile(text, path);
+      }
+    }.writeText(text);
   }
 }
