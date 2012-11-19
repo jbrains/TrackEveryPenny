@@ -21,6 +21,10 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
       CsvFormat.class, "transactions file format");
   private final WriteTextToFileAction writeTextToFileAction
       = mockery.mock(WriteTextToFileAction.class);
+  private final ExportAllTransactionsAsCsvToFileAction
+      exportAllTransactionsAsCsvToFileAction
+      = new ExportAllTransactionsAsCsvToFileAction(
+      transactionsFileFormat, writeTextToFileAction);
 
   @Test
   public void happyPath() throws Exception {
@@ -42,8 +46,9 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
     final List<Transaction> transactions = Lists
         .newArrayList();
 
-    exportAllTransactionsAsCsvToFileAction(
-        transactions, path);
+    exportAllTransactionsAsCsvToFileAction
+        .exportAllTransactionsAsCsvToFileAction(
+            transactions, path);
   }
 
   @Test
@@ -65,29 +70,15 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
     final List<Transaction> irrelevantTransactions = Lists
         .newArrayList();
     try {
-      exportAllTransactionsAsCsvToFileAction(
-          irrelevantTransactions, new File(
-          "/irrelevant/path"));
+      exportAllTransactionsAsCsvToFileAction
+          .exportAllTransactionsAsCsvToFileAction(
+              irrelevantTransactions, new File(
+              "/irrelevant/path"));
       fail(
           "Writing text to disk failed, " +
           "but you don't care?!");
     } catch (IOException success) {
       assertSame(ioFailure, success);
     }
-  }
-
-
-  private void exportAllTransactionsAsCsvToFileAction(
-      List<Transaction> transactions, final File path
-  ) throws IOException {
-    final String text = transactionsFileFormat.format(
-        transactions);
-    new WriteTextAction() {
-      @Override
-      public void writeText(String text)
-          throws IOException {
-        writeTextToFileAction.writeTextToFile(text, path);
-      }
-    }.writeText(text);
   }
 }
