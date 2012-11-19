@@ -28,8 +28,8 @@ public class WriteTextToFileTest {
     final File file = new File(
         testOutputDirectory, "happyPath.csv");
 
-    new WriteTextToFileActionImpl(file).writeTextToFile(
-        "::text::", file);
+    new WriteTextToFileActionImpl(file).writeText(
+        "::text::");
 
     assertEquals(
         "::text::", FileUtils.readFileToString(
@@ -55,7 +55,7 @@ public class WriteTextToFileTest {
             }
           };
         }
-      }.writeTextToFile("::text::", file);
+      }.writeText("::text::");
       fail("How did you survive the I/O failure?!");
     } catch (IOException success) {
       if (success != ioFailure) throw success;
@@ -69,8 +69,8 @@ public class WriteTextToFileTest {
     FileUtils.write(
         file, "There is already something here.");
 
-    new WriteTextToFileActionImpl(file).writeTextToFile(
-        "::text::", file);
+    new WriteTextToFileActionImpl(file).writeText(
+        "::text::");
 
     assertEquals(
         "::text::", FileUtils.readFileToString(

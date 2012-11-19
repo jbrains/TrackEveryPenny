@@ -12,11 +12,6 @@ public class WriteTextToFileActionImpl
     this.file = file;
   }
 
-  public void writeTextToFile(String text, File path)
-      throws IOException {
-    writeText(text);
-  }
-
   protected FileWriter fileWriterOn(File path)
       throws IOException {
     return new FileWriter(path);
