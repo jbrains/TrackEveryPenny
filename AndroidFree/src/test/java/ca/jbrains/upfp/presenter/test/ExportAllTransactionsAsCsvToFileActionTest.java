@@ -21,17 +21,12 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
       CsvFormat.class, "transactions file format");
   private final WriteTextToFileAction writeTextToFileAction
       = mockery.mock(WriteTextToFileAction.class);
+  private final WriteTextAction writeTextAction = mockery
+      .mock(WriteTextAction.class);
   private final ExportAllTransactionsAsCsvToFileAction
       exportAllTransactionsAsCsvToFileAction
       = new ExportAllTransactionsAsCsvToFileAction(
-      transactionsFileFormat, new WriteTextAction() {
-    @Override
-    public void writeText(String text) throws IOException {
-      writeTextToFileAction.writeTextToFile(
-          text, new File(
-          "/irrelevant/path"));
-    }
-  });
+      transactionsFileFormat, writeTextAction);
 
   @Test
   public void happyPath() throws Exception {
@@ -46,8 +41,7 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
                       List.class)));
           will(returnValue(csvText));
 
-          oneOf(writeTextToFileAction).writeTextToFile(
-              csvText, path);
+          oneOf(writeTextAction).writeText(csvText);
         }});
 
     final List<Transaction> transactions = Lists
@@ -67,10 +61,10 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
         new Expectations() {{
           ignoring(transactionsFileFormat);
 
-          allowing(writeTextToFileAction).writeTextToFile(
-              with(any(String.class)), with(
-              any(
-                  File.class)));
+          allowing(writeTextAction).writeText(
+              with(
+                  any(
+                      String.class)));
           will(throwException(ioFailure));
         }});
 
