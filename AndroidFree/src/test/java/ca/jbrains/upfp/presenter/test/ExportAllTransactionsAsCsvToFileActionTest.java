@@ -45,9 +45,8 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
     final List<Transaction> transactions = Lists
         .newArrayList();
 
-    exportAllTransactionsAsCsvToFileAction
-        .exportAllTransactionsAsCsvToFileAction(
-            transactions);
+    exportAllTransactionsAsCsvToFileAction.execute(
+        transactions);
   }
 
   @Test
@@ -69,9 +68,8 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
     final List<Transaction> irrelevantTransactions = Lists
         .newArrayList();
     try {
-      exportAllTransactionsAsCsvToFileAction
-          .exportAllTransactionsAsCsvToFileAction(
-              irrelevantTransactions);
+      exportAllTransactionsAsCsvToFileAction.execute(
+          irrelevantTransactions);
       fail(
           "Writing text to disk failed, but you don't care?!");
     } catch (IOException success) {

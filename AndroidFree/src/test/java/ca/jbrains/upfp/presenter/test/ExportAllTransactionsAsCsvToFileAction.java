@@ -19,9 +19,8 @@ public class ExportAllTransactionsAsCsvToFileAction {
     this.writeTextAction = writeTextAction;
   }
 
-  public void exportAllTransactionsAsCsvToFileAction(
-      List<Transaction> transactions
-  ) throws IOException {
+  public void execute(List<Transaction> transactions)
+      throws IOException {
     final String text = transactionsFileFormat.format(
         transactions);
     writeTextAction.writeText(text);
