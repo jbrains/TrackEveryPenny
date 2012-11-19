@@ -1,18 +1,17 @@
 package ca.jbrains.upfp.view;
 
-import ca.jbrains.upfp.presenter.test.*;
+import ca.jbrains.upfp.presenter.test.WriteTextAction;
 
 import java.io.*;
 
 public class WriteTextToFileActionImpl
-    implements WriteTextToFileAction, WriteTextAction {
+    implements WriteTextAction {
   private final File file;
 
   public WriteTextToFileActionImpl(File file) {
     this.file = file;
   }
 
-  @Override
   public void writeTextToFile(String text, File path)
       throws IOException {
     final FileWriter fileWriter = fileWriterOn(path);
