@@ -18,6 +18,8 @@ public class DisplayNumberOfTransactionsTest
     extends BrowseTransactionsViewContract {
   @Test
   public void happyPath() throws Exception {
+    // The duplication between this test setup and
+    // initializeView() is incidental; don't remove it
     final BrowseTransactionsActivity
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
@@ -37,7 +39,9 @@ public class DisplayNumberOfTransactionsTest
         "12", transactionsCountView.getText().toString());
   }
 
-
+  // The duplication between initializeView() and the
+  // setup for the other tests is incidental; don't
+  // remove it
   @Override
   protected BrowseTransactionsView initializeView() {
     final BrowseTransactionsActivity
