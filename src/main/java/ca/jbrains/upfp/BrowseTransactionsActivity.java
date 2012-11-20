@@ -107,6 +107,7 @@ public class BrowseTransactionsActivity extends Activity
     setContentView(R.layout.main);
   }
 
+  // REFACTOR Marked to move to an extracted class
   public void displayNumberOfTransactions(
       int transactionCount
   ) {
