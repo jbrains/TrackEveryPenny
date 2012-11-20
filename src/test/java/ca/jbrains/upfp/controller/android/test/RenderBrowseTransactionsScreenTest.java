@@ -2,7 +2,10 @@ package ca.jbrains.upfp.controller.android.test;
 
 import android.widget.Button;
 import ca.jbrains.upfp.*;
-import ca.jbrains.upfp.presenter.RendersView;
+import ca.jbrains.upfp.controller.android
+    .AndroidDevicePublicStorageGateway;
+import ca.jbrains.upfp.model.BrowseTransactionsModel;
+import ca.jbrains.upfp.presenter.*;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.jmock.*;
 import org.junit.Test;
@@ -43,10 +46,30 @@ public class RenderBrowseTransactionsScreenTest {
   @Test
   public void exportAllTransactionsButtonDoesNotBlowUp()
       throws Exception {
+    final ExportAllTransactionsAction
+        exportAllTransactionsAction = mockery.mock(
+        ExportAllTransactionsAction.class);
+    final AndroidDevicePublicStorageGateway
+        androidDevicePublicStorageGateway = mockery.mock(
+        AndroidDevicePublicStorageGateway.class);
+    final BrowseTransactionsModel browseTransactionsModel
+        = mockery.mock(BrowseTransactionsModel.class);
+
     final BrowseTransactionsActivity
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
     browseTransactionsActivity.onCreate(null);
+    browseTransactionsActivity.setCollaborators(
+        exportAllTransactionsAction,
+        androidDevicePublicStorageGateway,
+        browseTransactionsModel);
+
+    mockery.checking(
+        new Expectations() {{
+          ignoring(exportAllTransactionsAction);
+          ignoring(androidDevicePublicStorageGateway);
+          ignoring(browseTransactionsModel);
+        }});
 
     final Button exportAllTransactionsButton
         = (Button) browseTransactionsActivity.findViewById(
