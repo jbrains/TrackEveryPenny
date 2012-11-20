@@ -32,20 +32,6 @@ public class BrowseTransactionsActivity extends Activity
     // We have to wait for super() to be (implicitly)
     // invoked.
 
-    // REFACTOR Delegate BrowseTransactionsView behavior
-    // to a new class
-    this.rendersView = new BrowseTransactionsPresenter(
-        new BrowseTransactionsModel() {
-          @Override
-          public int countTransactions() {
-            return 12;
-          }
-
-          @Override
-          public List<Transaction> findAllTransactions() {
-            return Lists.<Transaction>newArrayList();
-          }
-        }, this);
 
     this.exportAllTransactionsAction
         = new ExportAllTransactionsAction() {
@@ -63,15 +49,19 @@ public class BrowseTransactionsActivity extends Activity
         = new BrowseTransactionsModel() {
       @Override
       public int countTransactions() {
-        return 0;
+        return findAllTransactions().size();
       }
 
       @Override
       public List<Transaction> findAllTransactions() {
-        return null;  //To change body of implemented
-        // methods use File | Settings | File Templates.
+        return Lists.newArrayList();
       }
     };
+
+    // REFACTOR Delegate BrowseTransactionsView behavior
+    // to a new class
+    this.rendersView = new BrowseTransactionsPresenter(
+        this.browseTransactionsModel, this);
 
     this.androidDevicePublicStorageGateway
         = new AndroidDevicePublicStorageGateway() {
