@@ -21,24 +21,6 @@ public class DisplayNumberOfTransactionsTest
     final BrowseTransactionsActivity
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
-    browseTransactionsActivity.onCreate(null);
-
-    browseTransactionsActivity.displayNumberOfTransactions(
-        12);
-
-    final TextView transactionsCountView
-        = (TextView) browseTransactionsActivity
-        .findViewById(R.id.transactionsCount);
-    assertEquals(
-        "12", transactionsCountView.getText().toString());
-  }
-
-  @Test
-  public void happyPathTestingTheViewDirectly()
-      throws Exception {
-    final BrowseTransactionsActivity
-        browseTransactionsActivity
-        = new BrowseTransactionsActivity();
     final AndroidBrowseTransactionsView
         androidBrowseTransactionsView
         = new AndroidBrowseTransactionsView(
