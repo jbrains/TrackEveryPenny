@@ -44,6 +44,10 @@ public class DisplayNumberOfTransactionsTest
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
     browseTransactionsActivity.onCreate(null);
-    return browseTransactionsActivity;
+    final AndroidBrowseTransactionsView
+        androidBrowseTransactionsView
+        = new AndroidBrowseTransactionsView(
+        browseTransactionsActivity);
+    return androidBrowseTransactionsView;
   }
 }
