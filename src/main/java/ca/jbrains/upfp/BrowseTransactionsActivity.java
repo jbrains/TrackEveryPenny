@@ -83,15 +83,6 @@ public class BrowseTransactionsActivity extends Activity
     };
   }
 
-  /**
-   * @deprecated
-   */
-  public BrowseTransactionsActivity(
-      RendersView rendersView
-  ) {
-    this(rendersView, null, null, null);
-  }
-
   public BrowseTransactionsActivity(
       RendersView rendersView,
       ExportAllTransactionsAction
