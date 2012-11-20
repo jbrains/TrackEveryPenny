@@ -23,6 +23,7 @@ public class BrowseTransactionsActivity extends Activity
   private AndroidDevicePublicStorageGateway
       androidDevicePublicStorageGateway;
   private BrowseTransactionsModel browseTransactionsModel;
+  private BrowseTransactionsView browseTransactionsView;
 
   public BrowseTransactionsActivity() {
     // Do all this work in onCreate()
@@ -104,24 +105,37 @@ public class BrowseTransactionsActivity extends Activity
         return new File(".");
       }
     };
+
+    this.browseTransactionsView
+        = new BrowseTransactionsView() {
+      @Override
+      public void displayNumberOfTransactions(
+          int numberOfTransactions
+      ) {
+        if (numberOfTransactions < 0)
+          throw new ProgrammerMistake(
+              new IllegalArgumentException(
+                  String.format(
+                      "number of transactions can't be " +
+                      "negative, but it's %1$d",
+                      numberOfTransactions)));
+
+        final TextView transactionsCountView
+            = (TextView) findViewById(
+            R.id.transactionsCount);
+        transactionsCountView.setText(
+            String.format(
+                "%1$d", numberOfTransactions));
+      }
+    };
   }
 
   // REFACTOR Move to businessDelegate?
   public void displayNumberOfTransactions(
       int transactionCount
   ) {
-    if (transactionCount < 0) throw new ProgrammerMistake(
-        new IllegalArgumentException(
-            String.format(
-                "number of transactions can't be " +
-                "negative, but it's %1$d",
-                transactionCount)));
-
-    final TextView transactionsCountView
-        = (TextView) findViewById(R.id.transactionsCount);
-    transactionsCountView.setText(
-        String.format(
-            "%1$d", transactionCount));
+    browseTransactionsView.displayNumberOfTransactions(
+        transactionCount);
   }
 
   public void exportAllTransactions(View clicked) {
