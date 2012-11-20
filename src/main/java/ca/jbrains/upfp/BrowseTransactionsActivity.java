@@ -25,6 +25,7 @@ public class BrowseTransactionsActivity extends Activity
   private final BrowseTransactionsModel
       browseTransactionsModel;
 
+  // REFACTOR Move this behavior into onCreate()
   public BrowseTransactionsActivity() {
     // We can't chain the constructor,
     // because the instance in the process of being
@@ -73,6 +74,8 @@ public class BrowseTransactionsActivity extends Activity
     };
   }
 
+  // REFACTOR Move this constructor into the "business
+  // delegate"
   public BrowseTransactionsActivity(
       RendersView rendersView,
       ExportAllTransactionsAction
@@ -95,6 +98,7 @@ public class BrowseTransactionsActivity extends Activity
     super.onResume();
     // Arbitrarily, I assume that I should do my work
     // after the superclass, but I don't really know.
+    // REFACTOR Delegate to businessDelegate.renderView()
     rendersView.render();
   }
 
@@ -105,9 +109,12 @@ public class BrowseTransactionsActivity extends Activity
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
+
+    // This seems like a more logical place to initialise
+    // the View, anyway.
   }
 
-  // REFACTOR Marked to move to an extracted class
+  // REFACTOR Move to businessDelegate?
   public void displayNumberOfTransactions(
       int transactionCount
   ) {
@@ -126,8 +133,8 @@ public class BrowseTransactionsActivity extends Activity
   }
 
   public void exportAllTransactions(View clicked) {
+    // I'm not entirely sure where this will end up
     try {
-      // REFACTOR Shouldn't a presenter be doing this?
       final List<Transaction> transactions
           = browseTransactionsModel.findAllTransactions();
       androidDevicePublicStorageGateway
