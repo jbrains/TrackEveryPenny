@@ -1,11 +1,13 @@
 package ca.jbrains.upfp.model.android.test;
 
 import android.os.Environment;
+import ca.jbrains.upfp.controller.android
+    .PublicStorageMediaNotWritableException;
 import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class InitialiseExternalStorageTest {
   @Test
@@ -26,5 +28,34 @@ public class InitialiseExternalStorageTest {
             return externalStoragePublicDirectory;
           }
         }.findPublicExternalStorageDirectory());
+  }
+
+  @Test
+  public void mediaMountedInReadOnlyMode()
+      throws Exception {
+    final File externalStoragePublicDirectory = new File(
+        "/irrelevant/path");
+
+    try {
+      new AndroidDevicePublicStorageGatewayImpl() {
+        @Override
+        public String getExternalStorageState() {
+          return Environment.MEDIA_MOUNTED_READ_ONLY;
+        }
+
+        @Override
+        public File getExternalStoragePublicDirectory() {
+          return externalStoragePublicDirectory;
+        }
+      }.findPublicExternalStorageDirectory();
+      fail(
+          "Why did you give the client a directory that " +
+          "they can't write to?!");
+    } catch (PublicStorageMediaNotWritableException
+        success) {
+      assertEquals(
+          externalStoragePublicDirectory,
+          success.getPathNotWritable());
+    }
   }
 }
