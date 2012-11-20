@@ -16,8 +16,7 @@ import com.google.common.collect.Lists;
 import java.io.File;
 import java.util.List;
 
-public class BrowseTransactionsActivity extends Activity
-    implements BrowseTransactionsView {
+public class BrowseTransactionsActivity extends Activity {
   private RendersView rendersView;
   private ExportAllTransactionsAction
       exportAllTransactionsAction;
@@ -93,10 +92,14 @@ public class BrowseTransactionsActivity extends Activity
       }
     };
 
+    this.browseTransactionsView
+        = new AndroidBrowseTransactionsView(this);
+
     // REFACTOR Delegate BrowseTransactionsView behavior
     // to a new class
     this.rendersView = new BrowseTransactionsPresenter(
-        this.browseTransactionsModel, this);
+        this.browseTransactionsModel,
+        browseTransactionsView);
 
     this.androidDevicePublicStorageGateway
         = new AndroidDevicePublicStorageGateway() {
@@ -107,8 +110,6 @@ public class BrowseTransactionsActivity extends Activity
       }
     };
 
-    this.browseTransactionsView
-        = new AndroidBrowseTransactionsView(this);
   }
 
   // REFACTOR Move to businessDelegate?
