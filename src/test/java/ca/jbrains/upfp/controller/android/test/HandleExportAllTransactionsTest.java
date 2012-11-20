@@ -43,6 +43,10 @@ public class HandleExportAllTransactionsTest {
   @Before
   public void initializeActivity() {
     browseTransactionsActivity.onCreate(null);
+    browseTransactionsActivity.setCollaborators(
+        exportAllTransactionsAction,
+        androidDevicePublicStorageGateway,
+        browseTransactionsModel);
   }
 
   @Test

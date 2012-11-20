@@ -17,61 +17,15 @@ import java.util.List;
 
 public class BrowseTransactionsActivity extends Activity
     implements BrowseTransactionsView {
-  private final RendersView rendersView;
-  private final ExportAllTransactionsAction
+  private RendersView rendersView;
+  private ExportAllTransactionsAction
       exportAllTransactionsAction;
-  private final AndroidDevicePublicStorageGateway
+  private AndroidDevicePublicStorageGateway
       androidDevicePublicStorageGateway;
-  private final BrowseTransactionsModel
-      browseTransactionsModel;
+  private BrowseTransactionsModel browseTransactionsModel;
 
-  // REFACTOR Move this behavior into onCreate()
   public BrowseTransactionsActivity() {
-    // We can't chain the constructor,
-    // because the instance in the process of being
-    // created is itself the view.
-    // We have to wait for super() to be (implicitly)
-    // invoked.
-
-
-    this.exportAllTransactionsAction
-        = new ExportAllTransactionsAction() {
-      @Override
-      public void execute(List<Transaction> transactions) {
-        // Do nothing, for now
-      }
-    };
-
-    // SMELL I have to initialize this because I can't
-    // use constructor chaining yet.
-    // This has to be anything that won't throw a stupid
-    // exception.
-    this.browseTransactionsModel
-        = new BrowseTransactionsModel() {
-      @Override
-      public int countTransactions() {
-        return findAllTransactions().size();
-      }
-
-      @Override
-      public List<Transaction> findAllTransactions() {
-        return Lists.newArrayList();
-      }
-    };
-
-    // REFACTOR Delegate BrowseTransactionsView behavior
-    // to a new class
-    this.rendersView = new BrowseTransactionsPresenter(
-        this.browseTransactionsModel, this);
-
-    this.androidDevicePublicStorageGateway
-        = new AndroidDevicePublicStorageGateway() {
-      @Override
-      public File findPublicExternalStorageDirectory()
-          throws PublicStorageMediaNotAvailableException {
-        return new File(".");
-      }
-    };
+    // Do all this work in onCreate()
   }
 
   // REFACTOR Move this constructor into the "business
@@ -112,6 +66,44 @@ public class BrowseTransactionsActivity extends Activity
 
     // This seems like a more logical place to initialise
     // the View, anyway.
+    this.exportAllTransactionsAction
+        = new ExportAllTransactionsAction() {
+      @Override
+      public void execute(List<Transaction> transactions) {
+        // Do nothing, for now
+      }
+    };
+
+    // SMELL I have to initialize this because I can't
+    // use constructor chaining yet.
+    // This has to be anything that won't throw a stupid
+    // exception.
+    this.browseTransactionsModel
+        = new BrowseTransactionsModel() {
+      @Override
+      public int countTransactions() {
+        return findAllTransactions().size();
+      }
+
+      @Override
+      public List<Transaction> findAllTransactions() {
+        return Lists.newArrayList();
+      }
+    };
+
+    // REFACTOR Delegate BrowseTransactionsView behavior
+    // to a new class
+    this.rendersView = new BrowseTransactionsPresenter(
+        this.browseTransactionsModel, this);
+
+    this.androidDevicePublicStorageGateway
+        = new AndroidDevicePublicStorageGateway() {
+      @Override
+      public File findPublicExternalStorageDirectory()
+          throws PublicStorageMediaNotAvailableException {
+        return new File(".");
+      }
+    };
   }
 
   // REFACTOR Move to businessDelegate?
@@ -194,5 +186,22 @@ public class BrowseTransactionsActivity extends Activity
       String message, Throwable reported
   ) {
     Log.e("TrackEveryPenny", message, reported);
+  }
+
+  // SMELL Programming by accident
+  // This should disappear after moving other behavior
+  // into the businessDelegate.
+  public void setCollaborators(
+      ExportAllTransactionsAction
+          exportAllTransactionsAction,
+      AndroidDevicePublicStorageGateway
+          androidDevicePublicStorageGateway,
+      BrowseTransactionsModel browseTransactionsModel
+  ) {
+    this.exportAllTransactionsAction
+        = exportAllTransactionsAction;
+    this.androidDevicePublicStorageGateway
+        = androidDevicePublicStorageGateway;
+    this.browseTransactionsModel = browseTransactionsModel;
   }
 }
