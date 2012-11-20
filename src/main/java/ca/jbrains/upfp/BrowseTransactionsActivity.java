@@ -14,6 +14,7 @@ import ca.jbrains.upfp.view.*;
 import ca.jbrains.upfp.view.android
     .AndroidBrowseTransactionsView;
 import com.google.common.collect.Lists;
+import org.joda.time.LocalDate;
 
 import java.io.*;
 import java.util.List;
@@ -132,7 +133,16 @@ public class BrowseTransactionsActivity extends Activity {
 
       @Override
       public List<Transaction> findAllTransactions() {
-        return Lists.newArrayList();
+        return Lists.newArrayList(
+            new Transaction(
+                new LocalDate(2012, 11, 19), new Category(
+                "Groceries"), Amount.cents(
+                -11748)), new Transaction(
+            new LocalDate(
+                2012, 11, 19), new Category("Books"),
+            Amount.cents(-799)), new Transaction(
+            new LocalDate(2012, 11, 19), new Category(
+            "Utilities"), Amount.cents(-21034)));
       }
     };
 
