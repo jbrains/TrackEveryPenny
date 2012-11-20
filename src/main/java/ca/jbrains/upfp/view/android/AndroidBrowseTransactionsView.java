@@ -2,19 +2,16 @@ package ca.jbrains.upfp.view.android;
 
 import android.widget.TextView;
 import ca.jbrains.toolkit.ProgrammerMistake;
-import ca.jbrains.upfp.*;
 import ca.jbrains.upfp.view.BrowseTransactionsView;
 
 public class AndroidBrowseTransactionsView
     implements BrowseTransactionsView {
-  private BrowseTransactionsActivity
-      browseTransactionsActivity;
+  private final TextView transactionsCountView;
 
   public AndroidBrowseTransactionsView(
-      BrowseTransactionsActivity browseTransactionsActivity
+      TextView transactionsCountView
   ) {
-    this.browseTransactionsActivity
-        = browseTransactionsActivity;
+    this.transactionsCountView = transactionsCountView;
   }
 
   @Override
@@ -29,10 +26,6 @@ public class AndroidBrowseTransactionsView
                   "negative, but it's %1$d",
                   numberOfTransactions)));
 
-    final TextView transactionsCountView
-        = (TextView) browseTransactionsActivity
-        .findViewById(
-            R.id.transactionsCount);
     transactionsCountView.setText(
         String.format(
             "%1$d", numberOfTransactions));

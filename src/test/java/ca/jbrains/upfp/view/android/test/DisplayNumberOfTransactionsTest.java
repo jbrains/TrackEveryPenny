@@ -21,18 +21,18 @@ public class DisplayNumberOfTransactionsTest
     final BrowseTransactionsActivity
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
+    browseTransactionsActivity.onCreate(null);
+    final TextView transactionsCountView
+        = (TextView) browseTransactionsActivity
+        .findViewById(R.id.transactionsCount);
     final AndroidBrowseTransactionsView
         androidBrowseTransactionsView
         = new AndroidBrowseTransactionsView(
-        browseTransactionsActivity);
-    browseTransactionsActivity.onCreate(null);
+        transactionsCountView);
 
     androidBrowseTransactionsView
         .displayNumberOfTransactions(12);
 
-    final TextView transactionsCountView
-        = (TextView) browseTransactionsActivity
-        .findViewById(R.id.transactionsCount);
     assertEquals(
         "12", transactionsCountView.getText().toString());
   }
@@ -44,10 +44,13 @@ public class DisplayNumberOfTransactionsTest
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
     browseTransactionsActivity.onCreate(null);
+    final TextView transactionsCountView
+        = (TextView) browseTransactionsActivity
+        .findViewById(R.id.transactionsCount);
     final AndroidBrowseTransactionsView
         androidBrowseTransactionsView
         = new AndroidBrowseTransactionsView(
-        browseTransactionsActivity);
+        transactionsCountView);
     return androidBrowseTransactionsView;
   }
 }

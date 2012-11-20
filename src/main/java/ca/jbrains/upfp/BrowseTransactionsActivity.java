@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.*;
 import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.model.*;
 import ca.jbrains.upfp.presenter.*;
@@ -93,7 +93,8 @@ public class BrowseTransactionsActivity extends Activity {
     };
 
     this.browseTransactionsView
-        = new AndroidBrowseTransactionsView(this);
+        = new AndroidBrowseTransactionsView(
+        transactionsCountView());
 
     // REFACTOR Delegate BrowseTransactionsView behavior
     // to a new class
@@ -110,6 +111,10 @@ public class BrowseTransactionsActivity extends Activity {
       }
     };
 
+  }
+
+  private TextView transactionsCountView() {
+    return (TextView) findViewById(R.id.transactionsCount);
   }
 
   // REFACTOR Move to businessDelegate?
