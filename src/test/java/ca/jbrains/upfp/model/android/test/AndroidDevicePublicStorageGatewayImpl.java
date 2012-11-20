@@ -19,11 +19,15 @@ public class AndroidDevicePublicStorageGatewayImpl
   public File findPublicExternalStorageDirectory()
       throws PublicStorageMediaNotAvailableException,
              PublicStorageMediaNotWritableException {
+    if (Environment.MEDIA_MOUNTED.equals(
+        getExternalStorageState()))
+      return getExternalStoragePublicDirectory();
+
     if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(
         getExternalStorageState()))
       throw new PublicStorageMediaNotWritableException(
           getExternalStoragePublicDirectory());
 
-    return getExternalStoragePublicDirectory();
+    throw new PublicStorageMediaNotAvailableException();
   }
 }
