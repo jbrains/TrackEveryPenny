@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.view.test;
+package ca.jbrains.upfp.view;
 
 import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.model.*;

@@ -1,6 +1,7 @@
 package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.upfp.model.Amount;
+import ca.jbrains.upfp.view.AmountCsvFormat;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.presenter.test;
+package ca.jbrains.upfp.presenter;
 
 import java.io.IOException;
 

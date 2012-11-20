@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.view.test;
+package ca.jbrains.upfp.view;
 
 public interface CsvHeaderFormat {
   String formatHeader();

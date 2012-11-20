@@ -1,6 +1,6 @@
 package ca.jbrains.upfp.view;
 
-import ca.jbrains.upfp.presenter.test.WriteTextAction;
+import ca.jbrains.upfp.presenter.WriteTextAction;
 
 import java.io.*;
 

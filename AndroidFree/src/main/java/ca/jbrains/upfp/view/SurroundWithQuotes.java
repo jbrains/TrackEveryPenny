@@ -1,9 +1,9 @@
-package ca.jbrains.upfp.view.test;
+package ca.jbrains.upfp.view;
 
 import com.google.common.base.Function;
 import com.sun.istack.internal.Nullable;
 
-class SurroundWithQuotes
+public class SurroundWithQuotes
     implements Function<String, String> {
   public static final SurroundWithQuotes INSTANCE
       = new SurroundWithQuotes();

@@ -1,6 +1,7 @@
 package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.upfp.model.Category;
+import ca.jbrains.upfp.view.CategoryCsvFormat;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

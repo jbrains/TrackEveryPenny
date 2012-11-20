@@ -1,5 +1,6 @@
 package ca.jbrains.upfp.view.test;
 
+import ca.jbrains.upfp.view.TransactionsCsvHeader;
 import org.junit.Test;
 
 import static ca.jbrains.hamcrest.RegexMatcher.matches;

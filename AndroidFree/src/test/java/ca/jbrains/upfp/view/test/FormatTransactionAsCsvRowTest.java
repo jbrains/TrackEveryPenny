@@ -2,6 +2,7 @@ package ca.jbrains.upfp.view.test;
 
 import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.model.*;
+import ca.jbrains.upfp.view.*;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;
 import org.joda.time.LocalDate;

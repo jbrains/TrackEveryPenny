@@ -1,5 +1,7 @@
-package ca.jbrains.upfp.view.test;
+package ca.jbrains.upfp.view;
 
+import ca.jbrains.upfp.view.CsvHeaderFormat;
+import ca.jbrains.upfp.view.SurroundWithQuotes;
 import com.google.common.base.Joiner;
 import com.google.common.collect.*;
 

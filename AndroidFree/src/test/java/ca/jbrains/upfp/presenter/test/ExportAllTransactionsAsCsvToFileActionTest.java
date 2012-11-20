@@ -1,7 +1,9 @@
 package ca.jbrains.upfp.presenter.test;
 
 import ca.jbrains.upfp.model.Transaction;
-import ca.jbrains.upfp.view.test.CsvFormat;
+import ca.jbrains.upfp.presenter.ExportAllTransactionsAsCsvToFileAction;
+import ca.jbrains.upfp.presenter.WriteTextAction;
+import ca.jbrains.upfp.view.CsvFormat;
 import com.google.common.collect.Lists;
 import org.jmock.*;
 import org.jmock.integration.junit4.JMock;

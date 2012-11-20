@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.view.test;
+package ca.jbrains.upfp.view;
 
 import ca.jbrains.upfp.Conveniences;
 import ca.jbrains.upfp.model.Transaction;

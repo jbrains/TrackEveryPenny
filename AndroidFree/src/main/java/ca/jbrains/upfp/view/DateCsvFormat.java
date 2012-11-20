@@ -1,5 +1,6 @@
-package ca.jbrains.upfp.view.test;
+package ca.jbrains.upfp.view;
 
+import ca.jbrains.upfp.view.CsvFormat;
 import org.joda.time.LocalDate;
 import org.joda.time.format.*;
 
