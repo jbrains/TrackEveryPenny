@@ -8,12 +8,12 @@ import android.widget.*;
 import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.model.*;
 import ca.jbrains.upfp.presenter.*;
-import ca.jbrains.upfp.view.BrowseTransactionsView;
+import ca.jbrains.upfp.view.*;
 import ca.jbrains.upfp.view.android
     .AndroidBrowseTransactionsView;
 import com.google.common.collect.Lists;
 
-import java.io.File;
+import java.io.*;
 import java.util.List;
 
 public class BrowseTransactionsActivity extends Activity {
@@ -67,13 +67,61 @@ public class BrowseTransactionsActivity extends Activity {
 
     // This seems like a more logical place to initialise
     // the View, anyway.
-    this.exportAllTransactionsAction
-        = new ExportAllTransactionsAction() {
+
+    // SMELL This has to happen before instantiating the
+    // WriteTextToFileAction
+    this.androidDevicePublicStorageGateway
+        = new AndroidDevicePublicStorageGateway() {
       @Override
-      public void execute(List<Transaction> transactions) {
-        // Do nothing, for now
+      public File findPublicExternalStorageDirectory()
+          throws PublicStorageMediaNotAvailableException {
+        return new File(".");
       }
     };
+
+    // SMELL This needs the
+    // AndroidDevicePublicStorageGateway,
+    // but doesn't depend directly on it
+    final File exportedTransactionsPath;
+    try {
+      exportedTransactionsPath = new File(
+          androidDevicePublicStorageGateway
+              .findPublicExternalStorageDirectory(),
+          "TrackEveryPenny.csv");
+    } catch (PublicStorageMediaNotAvailableException
+        reported) {
+      handleError(
+          "Couldn't save a file to public storage; media " +
+          "not available",
+          "No place to which to export the transactions. " +
+          "Insert an SD card or connect an external " +
+          "storage device and try again.",
+          reported);
+      return;
+    } catch (PublicStorageMediaNotWritableException
+        reported) {
+      final String pathNotWritableAsText = reported
+          .getPathNotWritable().getAbsolutePath();
+      handleError(
+          String.format(
+              "Path %1$s not writable",
+              pathNotWritableAsText), String.format(
+          "Permission denied trying to export the " +
+          "transactions to file %1$s",
+          pathNotWritableAsText), reported);
+      return;
+    }
+
+    this.exportAllTransactionsAction
+        = new ExportAllTransactionsAsCsvToFileAction(
+        new TransactionsCsvFileFormat(
+            new TransactionsCsvHeader(),
+            new TransactionCsvFormat(
+                new DateCsvFormat(),
+                new CategoryCsvFormat(),
+                new AmountCsvFormat())),
+        new WriteTextToFileAction(
+            exportedTransactionsPath));
 
     // SMELL I have to initialize this because I can't
     // use constructor chaining yet.
@@ -101,16 +149,6 @@ public class BrowseTransactionsActivity extends Activity {
     this.rendersView = new BrowseTransactionsPresenter(
         this.browseTransactionsModel,
         browseTransactionsView);
-
-    this.androidDevicePublicStorageGateway
-        = new AndroidDevicePublicStorageGateway() {
-      @Override
-      public File findPublicExternalStorageDirectory()
-          throws PublicStorageMediaNotAvailableException {
-        return new File(".");
-      }
-    };
-
   }
 
   private TextView transactionsCountView() {
@@ -155,6 +193,8 @@ public class BrowseTransactionsActivity extends Activity {
           "Permission denied trying to export the " +
           "transactions to file %1$s",
           pathNotWritableAsText), reported);
+    } catch (IOException unhandled) {
+      throw new RuntimeException(unhandled);
     }
   }
 
@@ -187,8 +227,7 @@ public class BrowseTransactionsActivity extends Activity {
   public void setCollaborators(
       ExportAllTransactionsAction
           exportAllTransactionsAction,
-      AndroidDevicePublicStorageGateway
-          androidDevicePublicStorageGateway,
+      AndroidDevicePublicStorageGateway androidDevicePublicStorageGateway,
       BrowseTransactionsModel browseTransactionsModel
   ) {
     this.exportAllTransactionsAction
@@ -197,4 +236,5 @@ public class BrowseTransactionsActivity extends Activity {
         = androidDevicePublicStorageGateway;
     this.browseTransactionsModel = browseTransactionsModel;
   }
+
 }

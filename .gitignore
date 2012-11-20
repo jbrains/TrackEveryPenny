@@ -5,3 +5,5 @@ tmp
 src/gen
 gen
 test/output
+test/data
+TrackEveryPenny.csv
