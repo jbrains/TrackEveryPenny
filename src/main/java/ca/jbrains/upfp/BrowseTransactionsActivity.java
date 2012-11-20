@@ -4,12 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.*;
-import ca.jbrains.toolkit.ProgrammerMistake;
+import android.widget.Toast;
 import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.model.*;
 import ca.jbrains.upfp.presenter.*;
 import ca.jbrains.upfp.view.BrowseTransactionsView;
+import ca.jbrains.upfp.view.android
+    .AndroidBrowseTransactionsView;
 import com.google.common.collect.Lists;
 
 import java.io.File;
@@ -107,27 +108,7 @@ public class BrowseTransactionsActivity extends Activity
     };
 
     this.browseTransactionsView
-        = new BrowseTransactionsView() {
-      @Override
-      public void displayNumberOfTransactions(
-          int numberOfTransactions
-      ) {
-        if (numberOfTransactions < 0)
-          throw new ProgrammerMistake(
-              new IllegalArgumentException(
-                  String.format(
-                      "number of transactions can't be " +
-                      "negative, but it's %1$d",
-                      numberOfTransactions)));
-
-        final TextView transactionsCountView
-            = (TextView) findViewById(
-            R.id.transactionsCount);
-        transactionsCountView.setText(
-            String.format(
-                "%1$d", numberOfTransactions));
-      }
-    };
+        = new AndroidBrowseTransactionsView(this);
   }
 
   // REFACTOR Move to businessDelegate?
