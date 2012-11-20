@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.*;
 import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.model.*;
+import ca.jbrains.upfp.model.android
+    .AndroidDevicePublicStorageGatewayImpl;
 import ca.jbrains.upfp.presenter.*;
 import ca.jbrains.upfp.view.*;
 import ca.jbrains.upfp.view.android
@@ -71,13 +73,7 @@ public class BrowseTransactionsActivity extends Activity {
     // SMELL This has to happen before instantiating the
     // WriteTextToFileAction
     this.androidDevicePublicStorageGateway
-        = new AndroidDevicePublicStorageGateway() {
-      @Override
-      public File findPublicExternalStorageDirectory()
-          throws PublicStorageMediaNotAvailableException {
-        return new File(".");
-      }
-    };
+        = new AndroidDevicePublicStorageGatewayImpl();
 
     // SMELL This needs the
     // AndroidDevicePublicStorageGateway,

@@ -2,6 +2,8 @@ package ca.jbrains.upfp.model.android.test;
 
 import android.os.Environment;
 import ca.jbrains.upfp.controller.android.*;
+import ca.jbrains.upfp.model.android
+    .AndroidDevicePublicStorageGatewayImpl;
 import org.junit.Test;
 
 import java.io.File;

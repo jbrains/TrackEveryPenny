@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.model.android.test;
+package ca.jbrains.upfp.model.android;
 
 import android.os.Environment;
 import ca.jbrains.upfp.controller.android.*;
