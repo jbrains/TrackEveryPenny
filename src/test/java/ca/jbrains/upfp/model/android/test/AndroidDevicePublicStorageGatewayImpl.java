@@ -8,11 +8,12 @@ import java.io.File;
 public class AndroidDevicePublicStorageGatewayImpl
     implements AndroidDevicePublicStorageGateway {
   public String getExternalStorageState() {
-    throw new UnsupportedOperationException();
+    return Environment.getExternalStorageState();
   }
 
   public File getExternalStoragePublicDirectory() {
-    throw new UnsupportedOperationException();
+    return Environment.getExternalStoragePublicDirectory(
+        Environment.DIRECTORY_DOWNLOADS);
   }
 
   @Override
