@@ -117,14 +117,6 @@ public class BrowseTransactionsActivity extends Activity {
     return (TextView) findViewById(R.id.transactionsCount);
   }
 
-  // REFACTOR Move to businessDelegate?
-  public void displayNumberOfTransactions(
-      int transactionCount
-  ) {
-    browseTransactionsView.displayNumberOfTransactions(
-        transactionCount);
-  }
-
   public void exportAllTransactions(View clicked) {
     // I'm not entirely sure where this will end up
     try {
