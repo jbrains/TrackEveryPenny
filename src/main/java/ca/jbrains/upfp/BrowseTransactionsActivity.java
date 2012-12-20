@@ -250,6 +250,13 @@ public class BrowseTransactionsActivity extends Activity {
   public void displayNumberOfTransactions(
       int transactionCount
   ) {
+    if (transactionCount < 0)
+      throw new ProgrammerMistake(
+          new IllegalArgumentException(
+              String.format(
+                  "number of transactions can't be negative, but it's %1$d",
+                  transactionCount)));
+
     final TextView transactionsCountView
         = (TextView) findViewById(R.id.transactionsCount);
 

@@ -15,4 +15,8 @@ public class ProgrammerMistake extends RuntimeException {
         "allowing this to happen: " + detailMessage,
         throwable);
   }
+
+  public ProgrammerMistake(Throwable throwable) {
+    super(throwable);
+  }
 }
