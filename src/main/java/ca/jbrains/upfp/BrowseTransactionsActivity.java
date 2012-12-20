@@ -246,4 +246,15 @@ public class BrowseTransactionsActivity extends Activity {
   public TextView categoryView() {
     return (TextView) findViewById(R.id.category);
   }
+
+  public void displayNumberOfTransactions(
+      int transactionCount
+  ) {
+    final TextView transactionsCountView
+        = (TextView) findViewById(R.id.transactionsCount);
+
+    transactionsCountView.setText(
+        String.format(
+            "%1$d", transactionCount));
+  }
 }
