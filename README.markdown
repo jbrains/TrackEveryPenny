@@ -8,15 +8,13 @@ for yourself.
 
 ## How to read along with the book
 
-I've labeled each code sample with a tag that looks like
-`snap_nn`, where `nn` is a number. In an homage to BASIC,
-I've numbered the "snaps" (or *snapshots*) starting at 10
-and in increments of 10, just in case I have to insert a
-code sample between two others.
-
-If you want to explore the code at any point of the book,
-then look for the snapshot number in a code sample--say
-120--and check out tag `snap_120`.
+Before introducing a group of code samples, I've indicated
+which "snapshot" the code comes from. I've labeled these
+snapshots in increments of 10, just like we did with line
+numbers in BASIC, just in case I need to insert a code
+sample between two others. The code just following the
+heading "Snapshot 120" corresponds to the tag `snapshot_120`
+in this repository.
 
 ## Toolset
 
