@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         >
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="vertical"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_marginTop="10dp"
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             >
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="horizontal"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center_horizontal"
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 >
             <TextView
                     android:layout_width="wrap_content"
@@ -33,12 +36,13 @@
                     android:text=" transactions"
                     />
         </LinearLayout>
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="horizontal"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:layout_gravity="center_horizontal"
-                      android:layout_marginTop="10dp"
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 >
 
             <Button android:id="@+id/moveBackOneDay"
@@ -50,12 +54,12 @@
                     />
 
             <TextView
-                android:id="@+id/date"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="2012-11-14"
-                android:layout_gravity="center_vertical"
-                />
+                    android:id="@+id/date"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2012-11-14"
+                    android:layout_gravity="center_vertical"
+                    />
 
             <Button android:id="@+id/moveForwardOneDay"
                     android:layout_width="wrap_content"
@@ -67,13 +71,14 @@
 
         </LinearLayout>
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="vertical"
-                      android:layout_width="wrap_content"
-                      android:layout_height="fill_parent"
-                      android:layout_marginTop="10dp"
-                      android:layout_marginBottom="10dp"
-                      android:layout_gravity="center_horizontal"
+        <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center_horizontal"
                 >
 
             <TextView
@@ -83,11 +88,12 @@
                     />
         </LinearLayout>
 
-        <LinearLayout xmlns="http://schemas.android.com/apk/res/android"
-                      android:orientation="horizontal"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:gravity="center_horizontal">
+        <LinearLayout
+                xmlns="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
             <EditText
                     android:id="@+id/category"
@@ -125,12 +131,13 @@
         </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                  android:orientation="horizontal"
-                  android:layout_width="fill_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentBottom="true"
-                  android:layout_marginTop="10dp"
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
             >
         <Button android:id="@+id/exportToCsvButton"
                 android:layout_width="fill_parent"
