@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import ca.jbrains.toolkit.ProgrammerMistake;
+import ca.jbrains.upfp.controller.android.test.RendersView;
 import ca.jbrains.upfp.domain.*;
 import ca.jbrains.upfp.mvp.BrowseTransactionsView;
 import com.google.common.collect.Lists;
@@ -47,6 +48,24 @@ public class BrowseTransactionsActivity extends Activity
               new LocalDate(2012, 11, 17),
               "Groceries", -1350)
       );
+  private final RendersView rendersView;
+
+  public BrowseTransactionsActivity() {
+    this(null);
+  }
+
+  public BrowseTransactionsActivity(
+      RendersView rendersView
+  ) {
+    this.rendersView = rendersView;
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    // Arbitrarily, I assume that I should do my work after the superclass, but I don't really know.
+    rendersView.render();
+  }
 
   /**
    * Called when the activity is first created.
