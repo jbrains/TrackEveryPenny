@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.*;
 import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.domain.*;
+import ca.jbrains.upfp.mvp.BrowseTransactionsView;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 import org.joda.time.format.*;
@@ -15,7 +16,8 @@ import java.io.*;
 import java.text.*;
 import java.util.ArrayList;
 
-public class BrowseTransactionsActivity extends Activity {
+public class BrowseTransactionsActivity extends Activity
+    implements BrowseTransactionsView {
   public static final DateTimeFormatter DATE_TIME_FORMATTER
       = DateTimeFormat.forPattern("yyyy-MM-dd");
   // REFACTOR Move down into Android-free model layer
