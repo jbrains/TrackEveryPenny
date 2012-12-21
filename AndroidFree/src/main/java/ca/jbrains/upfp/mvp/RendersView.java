@@ -1,4 +1,4 @@
-package ca.jbrains.upfp.controller.android.test;
+package ca.jbrains.upfp.mvp;
 
 public interface RendersView {
   void render();

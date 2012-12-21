@@ -6,9 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.*;
 import ca.jbrains.toolkit.ProgrammerMistake;
-import ca.jbrains.upfp.controller.android.test.RendersView;
 import ca.jbrains.upfp.domain.*;
-import ca.jbrains.upfp.mvp.BrowseTransactionsView;
+import ca.jbrains.upfp.mvp.*;
 import com.google.common.collect.Lists;
 import org.joda.time.LocalDate;
 import org.joda.time.format.*;
@@ -51,7 +50,15 @@ public class BrowseTransactionsActivity extends Activity
   private final RendersView rendersView;
 
   public BrowseTransactionsActivity() {
-    this(null);
+    // We can't chain the constructor, because the instance in the process of being created is itself the view.
+    // We have to wait for super() to be (implicitly) invoked.
+    this.rendersView = new BrowseTransactionsPresenter(
+        new BrowseTransactionsModel() {
+          @Override
+          public int countTransactions() {
+            return 12;
+          }
+        }, this);
   }
 
   public BrowseTransactionsActivity(

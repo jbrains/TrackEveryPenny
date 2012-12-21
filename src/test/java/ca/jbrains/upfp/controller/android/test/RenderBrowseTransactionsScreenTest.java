@@ -1,6 +1,7 @@
 package ca.jbrains.upfp.controller.android.test;
 
 import ca.jbrains.upfp.BrowseTransactionsActivity;
+import ca.jbrains.upfp.mvp.RendersView;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.jmock.*;
 import org.junit.Test;
