@@ -23,7 +23,7 @@ public class RenderYouHaveNTransactionsOnBrowseTransactionsScreenTest {
           allowing(model).countTransactions();
           will(returnValue(0));
 
-          oneOf(view).setNumberOfTransactions(0);
+          oneOf(view).displayNumberOfTransactions(0);
         }});
 
     presenter.render();

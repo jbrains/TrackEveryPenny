@@ -13,6 +13,7 @@ public class BrowseTransactionsPresenter {
   }
 
   public void render() {
-    view.setNumberOfTransactions(model.countTransactions());
+    view.displayNumberOfTransactions(
+        model.countTransactions());
   }
 }
