@@ -81,9 +81,6 @@ public class BrowseTransactionsActivity extends Activity
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
-    final TextView transactionsCountView
-        = (TextView) findViewById(R.id.transactionsCount);
-    transactionsCountView.setText(String.valueOf(1));
   }
 
   public void exportTransactionsToCsv(View clicked) {
