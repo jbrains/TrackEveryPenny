@@ -1,16 +1,19 @@
 package ca.jbrains.upfp.view.android.test;
 
 import android.widget.TextView;
-import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.*;
+import ca.jbrains.upfp.mvp.BrowseTransactionsView;
+import ca.jbrains.upfp.view.test.BrowseTransactionsViewContract;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
-public class DisplayNumberOfTransactionsTest {
+public class DisplayNumberOfTransactionsTest
+    extends BrowseTransactionsViewContract {
+
   @Test
   public void happyPath() throws Exception {
     final BrowseTransactionsActivity
@@ -31,24 +34,14 @@ public class DisplayNumberOfTransactionsTest {
     );
   }
 
-  @Test
-  public void rejectNegativeNumber() throws Exception {
+  @Override
+  protected BrowseTransactionsView initializeView() {
     final BrowseTransactionsActivity
         browseTransactionsActivity
         = new BrowseTransactionsActivity();
 
     browseTransactionsActivity.onCreate(null);
 
-    try {
-      browseTransactionsActivity
-          .displayNumberOfTransactions(-1);
-      fail(
-          "Why did you display a negative number of transactions?! " +
-          "That's crazy talk!");
-    } catch (ProgrammerMistake success) {
-      assertTrue(
-          success.getCause()
-              instanceof IllegalArgumentException);
-    }
+    return browseTransactionsActivity;
   }
 }
