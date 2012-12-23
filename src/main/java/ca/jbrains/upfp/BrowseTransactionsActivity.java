@@ -12,7 +12,8 @@ public class BrowseTransactionsActivity extends Activity
   private final RendersView rendersView;
 
   public BrowseTransactionsActivity() {
-    // We can't chain the constructor, because the instance in the process of being created is itself the view.
+    // We can't chain the constructor, because the instance
+    // in the process of being created is itself the view.
     // We have to wait for super() to be (implicitly) invoked.
     this.rendersView = new BrowseTransactionsPresenter(
         new BrowseTransactionsModel() {
@@ -32,7 +33,8 @@ public class BrowseTransactionsActivity extends Activity
   @Override
   protected void onResume() {
     super.onResume();
-    // Arbitrarily, I assume that I should do my work after the superclass, but I don't really know.
+    // Arbitrarily, I assume that I should do my work after
+    // the superclass, but I don't really know.
     rendersView.render();
   }
 
