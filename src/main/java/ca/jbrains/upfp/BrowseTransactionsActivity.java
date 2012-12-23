@@ -3,9 +3,13 @@ package ca.jbrains.upfp;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.*;
 import ca.jbrains.toolkit.ProgrammerMistake;
+import ca.jbrains.upfp.controller.ExportAllTransactionsAction;
 import ca.jbrains.upfp.mvp.*;
+import com.google.common.collect.Lists;
+
+import java.util.Collection;
 
 public class BrowseTransactionsActivity extends Activity
     implements BrowseTransactionsView {
@@ -21,12 +25,28 @@ public class BrowseTransactionsActivity extends Activity
           public int countTransactions() {
             return 12;
           }
+
+          @Override
+          public Collection<Object> findAllTransactions() {
+            return Lists.newArrayList();
+          }
         }, this);
   }
 
+  /**
+   * @deprecated
+   */
   public BrowseTransactionsActivity(
       RendersView rendersView
   ) {
+    this(rendersView, null);
+  }
+
+  public BrowseTransactionsActivity(
+      RendersView rendersView, ExportAllTransactionsAction
+      exportAllTransactionsAction
+  ) {
+
     this.rendersView = rendersView;
   }
 
@@ -66,6 +86,9 @@ public class BrowseTransactionsActivity extends Activity
   }
 
   public void exportAllTransactions(View clicked) {
-    // Nothing yet
+    Toast.makeText(
+        getApplicationContext(),
+        "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv",
+        Toast.LENGTH_LONG).show();
   }
 }
