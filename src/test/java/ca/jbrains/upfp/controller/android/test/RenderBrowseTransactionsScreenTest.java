@@ -1,6 +1,7 @@
 package ca.jbrains.upfp.controller.android.test;
 
-import ca.jbrains.upfp.BrowseTransactionsActivity;
+import android.widget.Button;
+import ca.jbrains.upfp.*;
 import ca.jbrains.upfp.mvp.RendersView;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import org.jmock.*;
@@ -36,5 +37,22 @@ public class RenderBrowseTransactionsScreenTest {
     }.onResume();
 
     mockery.assertIsSatisfied();
+  }
+
+  @Test
+  public void exportAllTransactionsButtonDoesNotBlowUp()
+      throws Exception {
+    final BrowseTransactionsActivity
+        browseTransactionsActivity
+        = new BrowseTransactionsActivity();
+    browseTransactionsActivity.onCreate(null);
+
+    final Button exportAllTransactionsButton
+        = (Button) browseTransactionsActivity.findViewById(
+        R.id
+            .exportAllTransactionsButton);
+    exportAllTransactionsButton.performClick();
+
+    // don't blow up
   }
 }

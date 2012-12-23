@@ -46,7 +46,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
             >
-        <Button android:id="@+id/exportTransactionsButton"
+        <Button android:id="@+id/exportAllTransactionsButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

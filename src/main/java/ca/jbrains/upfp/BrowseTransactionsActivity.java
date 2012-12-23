@@ -2,6 +2,7 @@ package ca.jbrains.upfp;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import ca.jbrains.toolkit.ProgrammerMistake;
 import ca.jbrains.upfp.mvp.*;
@@ -60,5 +61,9 @@ public class BrowseTransactionsActivity extends Activity
     transactionsCountView.setText(
         String.format(
             "%1$d", transactionCount));
+  }
+
+  public void exportAllTransactions(View clicked) {
+    // Nothing yet
   }
 }
