@@ -145,7 +145,9 @@ public class BrowseTransactionsActivity extends Activity
       notifyUser(
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv");
     } catch (InternalStorageException reported) {
-      wtf(reported);
+      logError(
+          "Couldn't read data from internal storage",
+          reported);
       notifyUser(
           "Something strange just happened. Try again. You might need to " +
           "reinstall the application. I feel embarrassed and ashamed.");
@@ -180,9 +182,5 @@ public class BrowseTransactionsActivity extends Activity
       String message, Throwable reported
   ) {
     Log.e("TrackEveryPenny", message, reported);
-  }
-
-  private void wtf(Throwable reported) {
-    Log.wtf("TrackEveryPenny", reported);
   }
 }
