@@ -4,5 +4,6 @@ import java.io.File;
 
 public interface AndroidDevicePublicStorageGateway {
   File findPublicExternalStorageDirectory()
-      throws PublicStorageMediaNotAvailableException;
+      throws PublicStorageMediaNotAvailableException,
+             PublicStorageMediaNotWritableException;
 }

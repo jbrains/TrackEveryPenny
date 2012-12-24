@@ -11,6 +11,7 @@ import org.jmock.*;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
@@ -96,6 +97,32 @@ public class HandleExportAllTransactionsTest {
         "No place to which to export the transactions. " +
         "Insert an SD card or connect an " +
         "external storage device and try again.");
+  }
+
+  @Test
+  public void mediaNotWritable() throws Exception {
+    mockery.checking(
+        new Expectations() {{
+          allowing(browseTransactionsModel)
+              .findAllTransactions();
+
+          allowing(androidDevicePublicStorageGateway)
+              .findPublicExternalStorageDirectory();
+          will(
+              throwException(
+                  new PublicStorageMediaNotWritableException(
+                      new File(
+                          "/mnt/sdcard/TrackEveryPenny.csv"))));
+
+          never(exportAllTransactionsAction);
+        }});
+
+    pressExportAllTransactionsButton(
+        browseTransactionsActivity);
+
+    assertLastToastMatchesRegex(
+        "Permission denied trying to export the transactions to file " +
+        "/mnt/sdcard/TrackEveryPenny.csv");
   }
 
   private void pressExportAllTransactionsButton(

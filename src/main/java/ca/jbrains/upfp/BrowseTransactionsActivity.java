@@ -136,6 +136,19 @@ public class BrowseTransactionsActivity extends Activity
           "No place to which to export the transactions. Insert an SD card or connect an " +
           "external storage device and try again.",
           Toast.LENGTH_LONG).show();
+    } catch (PublicStorageMediaNotWritableException reported) {
+      final String pathNotWritableAsText = reported
+          .getPathNotWritable().getAbsolutePath();
+      Log.e(
+          "TrackEveryPenny", String.format(
+          "Path %1$s not writable",
+          pathNotWritableAsText));
+      Toast.makeText(
+          getApplicationContext(),
+          String.format(
+              "Permission denied trying to export the transactions to file %1$s",
+              pathNotWritableAsText), Toast.LENGTH_LONG
+      ).show();
     }
   }
 }
