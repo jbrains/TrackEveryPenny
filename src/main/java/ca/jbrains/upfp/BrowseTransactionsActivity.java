@@ -147,15 +147,14 @@ public class BrowseTransactionsActivity extends Activity
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv",
           Toast.LENGTH_LONG).show();
     } catch (InternalStorageException reported) {
-      Log.wtf("TrackEveryPenny", reported);
+      wtf(reported);
       Toast.makeText(
           getApplicationContext(),
           "Something strange just happened. Try again. You might need to " +
           "reinstall the application. I feel embarrassed and ashamed.",
           Toast.LENGTH_LONG).show();
     } catch (PublicStorageMediaNotAvailableException reported) {
-      Log.e(
-          "TrackEveryPenny",
+      logError(
           "Couldn't save a file to public storage; media not available",
           reported);
       Toast.makeText(
@@ -166,10 +165,10 @@ public class BrowseTransactionsActivity extends Activity
     } catch (PublicStorageMediaNotWritableException reported) {
       final String pathNotWritableAsText = reported
           .getPathNotWritable().getAbsolutePath();
-      Log.e(
-          "TrackEveryPenny", String.format(
-          "Path %1$s not writable", pathNotWritableAsText),
-          reported);
+      logError(
+          String.format(
+              "Path %1$s not writable",
+              pathNotWritableAsText), reported);
       Toast.makeText(
           getApplicationContext(),
           String.format(
@@ -177,5 +176,15 @@ public class BrowseTransactionsActivity extends Activity
               pathNotWritableAsText), Toast.LENGTH_LONG
       ).show();
     }
+  }
+
+  private void logError(
+      String message, Throwable reported
+  ) {
+    Log.e("TrackEveryPenny", message, reported);
+  }
+
+  private void wtf(Throwable reported) {
+    Log.wtf("TrackEveryPenny", reported);
   }
 }
