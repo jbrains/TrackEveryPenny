@@ -17,6 +17,8 @@ import java.util.Collection;
 public class BrowseTransactionsActivity extends Activity
     implements BrowseTransactionsView {
   private final RendersView rendersView;
+  private final ExportAllTransactionsAction
+      exportAllTransactionsAction;
   private final AndroidDevicePublicStorageGateway
       androidDevicePublicStorageGateway;
   private final BrowseTransactionsModel
@@ -40,6 +42,14 @@ public class BrowseTransactionsActivity extends Activity
             return Lists.newArrayList();
           }
         }, this);
+
+    this.exportAllTransactionsAction
+        = new ExportAllTransactionsAction() {
+      @Override
+      public void execute() {
+        // Do nothing, for now
+      }
+    };
 
     // SMELL I have to initialize this because I can't use
     // constructor chaining yet. This has to be anything
@@ -84,6 +94,8 @@ public class BrowseTransactionsActivity extends Activity
   ) {
 
     this.rendersView = rendersView;
+    this.exportAllTransactionsAction
+        = exportAllTransactionsAction;
     this.androidDevicePublicStorageGateway
         = androidDevicePublicStorageGateway;
     this.browseTransactionsModel = browseTransactionsModel;
@@ -129,6 +141,7 @@ public class BrowseTransactionsActivity extends Activity
       browseTransactionsModel.findAllTransactions();
       androidDevicePublicStorageGateway
           .findPublicExternalStorageDirectory();
+      exportAllTransactionsAction.execute();
       Toast.makeText(
           getApplicationContext(),
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv",

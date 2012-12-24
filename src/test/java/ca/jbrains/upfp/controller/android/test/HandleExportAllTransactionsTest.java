@@ -146,6 +146,30 @@ public class HandleExportAllTransactionsTest {
         "application. I feel embarrassed and ashamed.");
   }
 
+  @Test
+  public void exportActionBlowsUpInAnUnavoidableWay()
+      throws Exception {
+    mockery.checking(
+        new Expectations() {{
+          // SMELL How can I ignore these irrelevant details?
+          ignoring(browseTransactionsModel);
+          ignoring(androidDevicePublicStorageGateway);
+
+          allowing(exportAllTransactionsAction)
+              .execute();
+          will(
+              throwException(
+                  new InternalStorageException()));
+        }});
+
+    pressExportAllTransactionsButton(
+        browseTransactionsActivity);
+
+    assertLastToastMatchesRegex(
+        "Something strange just happened. Try again. You might need to reinstall the " +
+        "application. I feel embarrassed and ashamed.");
+  }
+
 
   private void pressExportAllTransactionsButton(
       BrowseTransactionsActivity browseTransactionsActivity
