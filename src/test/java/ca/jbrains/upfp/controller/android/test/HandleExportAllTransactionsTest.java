@@ -2,12 +2,13 @@ package ca.jbrains.upfp.controller.android.test;
 
 import ca.jbrains.upfp.*;
 import ca.jbrains.upfp.controller.ExportAllTransactionsAction;
+import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.mvp.BrowseTransactionsModel;
 import com.google.common.collect.Lists;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 import com.xtremelabs.robolectric.shadows.*;
 import org.jmock.*;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 
 import java.util.Collection;
@@ -19,15 +20,30 @@ import static org.junit.Assert.assertThat;
 @RunWith(RobolectricTestRunner.class)
 public class HandleExportAllTransactionsTest {
   private Mockery mockery = new Mockery();
+  private final BrowseTransactionsModel
+      browseTransactionsModel = mockery.mock(
+      BrowseTransactionsModel.class);
+  private final ExportAllTransactionsAction
+      exportAllTransactionsAction = mockery.mock(
+      ExportAllTransactionsAction.class);
+  private final AndroidDevicePublicStorageGateway
+      androidDevicePublicStorageGateway = mockery.mock(
+      AndroidDevicePublicStorageGateway.class);
+
+  private final BrowseTransactionsActivity
+      browseTransactionsActivity
+      = new BrowseTransactionsActivity(
+      null, exportAllTransactionsAction,
+      androidDevicePublicStorageGateway
+  );
+
+  @Before
+  public void initializeActivity() {
+    browseTransactionsActivity.onCreate(null);
+  }
 
   @Test
   public void happyPath() throws Exception {
-    final BrowseTransactionsModel browseTransactionsModel
-        = mockery.mock(BrowseTransactionsModel.class);
-    final ExportAllTransactionsAction
-        exportAllTransactionsAction = mockery.mock(
-        ExportAllTransactionsAction.class);
-
     final Collection<Object>
         anyValidNonTrivialCollectionOfTransactions = Lists
         .newArrayList(
@@ -42,25 +58,60 @@ public class HandleExportAllTransactionsTest {
               returnValue(
                   anyValidNonTrivialCollectionOfTransactions));
 
+          // SMELL Irrelevant detail
+          ignoring(androidDevicePublicStorageGateway)
+              .findPublicExternalStorageDirectory();
+
           allowing(exportAllTransactionsAction).execute();
           // succeeds by not throwing an exception
         }});
 
-    final BrowseTransactionsActivity
-        browseTransactionsActivity
-        = new BrowseTransactionsActivity
-        (null, exportAllTransactionsAction);
-    browseTransactionsActivity.onCreate(null);
+    pressExportAllTransactionsButton(
+        browseTransactionsActivity);
 
+    assertLastToastMatchesRegex(
+        "Exported all transactions to (.+)\\.csv");
+  }
+
+  @Test
+  public void mediaNotAvailable() throws Exception {
+    mockery.checking(
+        new Expectations() {{
+          allowing(browseTransactionsModel)
+              .findAllTransactions();
+
+          allowing(androidDevicePublicStorageGateway)
+              .findPublicExternalStorageDirectory();
+          will(
+              throwException(
+                  new PublicStorageMediaNotAvailableException()));
+
+          never(exportAllTransactionsAction);
+        }});
+
+    pressExportAllTransactionsButton(
+        browseTransactionsActivity);
+
+    assertLastToastMatchesRegex(
+        "No place to which to export the transactions. " +
+        "Insert an SD card or connect an " +
+        "external storage device and try again.");
+  }
+
+  private void pressExportAllTransactionsButton(
+      BrowseTransactionsActivity browseTransactionsActivity
+  ) {
     browseTransactionsActivity.exportAllTransactions(
         browseTransactionsActivity.findViewById(
             R.id.exportAllTransactionsButton));
+  }
 
+  public static void assertLastToastMatchesRegex(
+      String patternText
+  ) {
     ShadowHandler.idleMainLooper();
     assertThat(
         ShadowToast.getTextOfLatestToast(),
-        matches(
-            Pattern.compile(
-                "Exported all transactions to (.+)\\.csv")));
+        matches(Pattern.compile(patternText)));
   }
 }
