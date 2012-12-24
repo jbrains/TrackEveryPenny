@@ -19,6 +19,8 @@ public class BrowseTransactionsActivity extends Activity
   private final RendersView rendersView;
   private final AndroidDevicePublicStorageGateway
       androidDevicePublicStorageGateway;
+  private final BrowseTransactionsModel
+      browseTransactionsModel;
 
   public BrowseTransactionsActivity() {
     // We can't chain the constructor, because the instance
@@ -42,6 +44,19 @@ public class BrowseTransactionsActivity extends Activity
     // SMELL I have to initialize this because I can't use
     // constructor chaining yet. This has to be anything
     // that won't throw a stupid exception.
+    this.browseTransactionsModel
+        = new BrowseTransactionsModel() {
+      @Override
+      public int countTransactions() {
+        return 0;
+      }
+
+      @Override
+      public Collection<Object> findAllTransactions() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+      }
+    };
+
     this.androidDevicePublicStorageGateway
         = new AndroidDevicePublicStorageGateway() {
       @Override
@@ -58,29 +73,20 @@ public class BrowseTransactionsActivity extends Activity
   public BrowseTransactionsActivity(
       RendersView rendersView
   ) {
-    this(rendersView, null, null);
-  }
-
-  /**
-   * @deprecated
-   */
-  public BrowseTransactionsActivity(
-      RendersView rendersView, ExportAllTransactionsAction
-      exportAllTransactionsAction
-  ) {
-
-    this(rendersView, exportAllTransactionsAction, null);
+    this(rendersView, null, null, null);
   }
 
   public BrowseTransactionsActivity(
       RendersView rendersView,
       ExportAllTransactionsAction exportAllTransactionsAction,
-      AndroidDevicePublicStorageGateway androidDevicePublicStorageGateway
+      AndroidDevicePublicStorageGateway androidDevicePublicStorageGateway,
+      BrowseTransactionsModel browseTransactionsModel
   ) {
 
     this.rendersView = rendersView;
     this.androidDevicePublicStorageGateway
         = androidDevicePublicStorageGateway;
+    this.browseTransactionsModel = browseTransactionsModel;
   }
 
   @Override
@@ -120,11 +126,19 @@ public class BrowseTransactionsActivity extends Activity
 
   public void exportAllTransactions(View clicked) {
     try {
+      browseTransactionsModel.findAllTransactions();
       androidDevicePublicStorageGateway
           .findPublicExternalStorageDirectory();
       Toast.makeText(
           getApplicationContext(),
           "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv",
+          Toast.LENGTH_LONG).show();
+    } catch (InternalStorageException reported) {
+      Log.wtf("TrackEveryPenny", reported);
+      Toast.makeText(
+          getApplicationContext(),
+          "Something strange just happened. Try again. You might need to " +
+          "reinstall the application. I feel embarrassed and ashamed.",
           Toast.LENGTH_LONG).show();
     } catch (PublicStorageMediaNotAvailableException reported) {
       Log.e(

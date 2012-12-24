@@ -35,7 +35,8 @@ public class HandleExportAllTransactionsTest {
       browseTransactionsActivity
       = new BrowseTransactionsActivity(
       null, exportAllTransactionsAction,
-      androidDevicePublicStorageGateway
+      androidDevicePublicStorageGateway,
+      browseTransactionsModel
   );
 
   @Before
@@ -124,6 +125,27 @@ public class HandleExportAllTransactionsTest {
         "Permission denied trying to export the transactions to file " +
         "/mnt/sdcard/TrackEveryPenny.csv");
   }
+
+  @Test
+  public void modelBlowsUpInAnUnavoidableWay()
+      throws Exception {
+    mockery.checking(
+        new Expectations() {{
+          allowing(browseTransactionsModel)
+              .findAllTransactions();
+          will(
+              throwException(
+                  new InternalStorageException()));
+        }});
+
+    pressExportAllTransactionsButton(
+        browseTransactionsActivity);
+
+    assertLastToastMatchesRegex(
+        "Something strange just happened. Try again. You might need to reinstall the " +
+        "application. I feel embarrassed and ashamed.");
+  }
+
 
   private void pressExportAllTransactionsButton(
       BrowseTransactionsActivity browseTransactionsActivity

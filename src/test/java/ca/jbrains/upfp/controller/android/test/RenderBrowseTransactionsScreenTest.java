@@ -25,7 +25,8 @@ public class RenderBrowseTransactionsScreenTest {
           oneOf(rendersView).render();
         }});
 
-    new BrowseTransactionsActivity(rendersView) {
+    new BrowseTransactionsActivity(
+        rendersView, null, null, null) {
       // Make this method visible so that I can invoke it
       // in the test.
       //
