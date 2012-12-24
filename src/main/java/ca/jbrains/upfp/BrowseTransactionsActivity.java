@@ -155,8 +155,8 @@ public class BrowseTransactionsActivity extends Activity
           .getPathNotWritable().getAbsolutePath();
       Log.e(
           "TrackEveryPenny", String.format(
-          "Path %1$s not writable",
-          pathNotWritableAsText));
+          "Path %1$s not writable", pathNotWritableAsText),
+          reported);
       Toast.makeText(
           getApplicationContext(),
           String.format(
