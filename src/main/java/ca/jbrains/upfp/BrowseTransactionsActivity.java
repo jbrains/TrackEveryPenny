@@ -142,26 +142,20 @@ public class BrowseTransactionsActivity extends Activity
       androidDevicePublicStorageGateway
           .findPublicExternalStorageDirectory();
       exportAllTransactionsAction.execute();
-      Toast.makeText(
-          getApplicationContext(),
-          "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv",
-          Toast.LENGTH_LONG).show();
+      notifyUser(
+          "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv");
     } catch (InternalStorageException reported) {
       wtf(reported);
-      Toast.makeText(
-          getApplicationContext(),
+      notifyUser(
           "Something strange just happened. Try again. You might need to " +
-          "reinstall the application. I feel embarrassed and ashamed.",
-          Toast.LENGTH_LONG).show();
+          "reinstall the application. I feel embarrassed and ashamed.");
     } catch (PublicStorageMediaNotAvailableException reported) {
       logError(
           "Couldn't save a file to public storage; media not available",
           reported);
-      Toast.makeText(
-          getApplicationContext(),
+      notifyUser(
           "No place to which to export the transactions. Insert an SD card or connect an " +
-          "external storage device and try again.",
-          Toast.LENGTH_LONG).show();
+          "external storage device and try again.");
     } catch (PublicStorageMediaNotWritableException reported) {
       final String pathNotWritableAsText = reported
           .getPathNotWritable().getAbsolutePath();
@@ -169,13 +163,17 @@ public class BrowseTransactionsActivity extends Activity
           String.format(
               "Path %1$s not writable",
               pathNotWritableAsText), reported);
-      Toast.makeText(
-          getApplicationContext(),
+      notifyUser(
           String.format(
               "Permission denied trying to export the transactions to file %1$s",
-              pathNotWritableAsText), Toast.LENGTH_LONG
-      ).show();
+              pathNotWritableAsText));
     }
+  }
+
+  private void notifyUser(String message) {
+    Toast.makeText(
+        getApplicationContext(), message, Toast.LENGTH_LONG)
+        .show();
   }
 
   private void logError(
