@@ -4,3 +4,13 @@ out
 tmp
 src/gen
 gen
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse
+.project
+.classpath
+
+# Mac
+.DS_Store
