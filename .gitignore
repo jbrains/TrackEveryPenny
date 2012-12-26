@@ -1,9 +1,13 @@
 .idea/workspace.xml
-bin
+
 out
 tmp
 src/gen
+
+# Android
+bin
 gen
+local.properties
 
 # Local configuration file (sdk path, etc)
 local.properties
