@@ -18,11 +18,14 @@ public class FormatTransactionAsCsvRowTest {
   private final Mockery mockery = new Mockery();
 
   private final CsvFormat<LocalDate> dateFormat = mockery
-      .mock(CsvFormat.class, "date format");
+      .mock(
+          CsvFormat.class, "date format");
   private final CsvFormat<Category> categoryFormat = mockery
-      .mock(CsvFormat.class, "category format");
+      .mock(
+          CsvFormat.class, "category format");
   private final CsvFormat<Amount> amountFormat = mockery
-      .mock(CsvFormat.class, "amount format");
+      .mock(
+          CsvFormat.class, "amount format");
   private final TransactionCsvFormat transactionCsvFormat
       = new TransactionCsvFormat(
       dateFormat, categoryFormat, amountFormat);
@@ -65,7 +68,8 @@ public class FormatTransactionAsCsvRowTest {
         rowText, matches(
         Pattern.compile(
             "\\s*\"::the date::\"," +
-            "\\s*\"::the category::\",\\s*\"::the amount::\"\\s*")));
+            "\\s*\"::the category::\"," +
+            "\\s*\"::the amount::\"\\s*")));
   }
 
   @Test
