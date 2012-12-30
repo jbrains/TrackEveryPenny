@@ -73,8 +73,7 @@ public class ExportAllTransactionsAsCsvToFileActionTest {
           .exportAllTransactionsAsCsvToFileAction(
               irrelevantTransactions);
       fail(
-          "Writing text to disk failed, " +
-          "but you don't care?!");
+          "Writing text to disk failed, but you don't care?!");
     } catch (IOException success) {
       assertSame(ioFailure, success);
     }
