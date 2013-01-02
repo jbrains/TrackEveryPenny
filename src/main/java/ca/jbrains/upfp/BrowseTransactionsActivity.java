@@ -26,11 +26,14 @@ public class BrowseTransactionsActivity extends Activity
       browseTransactionsModel;
 
   public BrowseTransactionsActivity() {
-    // We can't chain the constructor, because the instance
-    // in the process of being created is itself the view.
-    // We have to wait for super() to be (implicitly) invoked.
+    // We can't chain the constructor,
+    // because the instance in the process of being
+    // created is itself the view.
+    // We have to wait for super() to be (implicitly)
+    // invoked.
 
-    // REFACTOR Delegate BrowseTransactionsView behavior to a new class
+    // REFACTOR Delegate BrowseTransactionsView behavior
+    // to a new class
     this.rendersView = new BrowseTransactionsPresenter(
         new BrowseTransactionsModel() {
           @Override
@@ -52,9 +55,10 @@ public class BrowseTransactionsActivity extends Activity
       }
     };
 
-    // SMELL I have to initialize this because I can't use
-    // constructor chaining yet. This has to be anything
-    // that won't throw a stupid exception.
+    // SMELL I have to initialize this because I can't
+    // use constructor chaining yet.
+    // This has to be anything that won't throw a stupid
+    // exception.
     this.browseTransactionsModel
         = new BrowseTransactionsModel() {
       @Override
@@ -90,8 +94,10 @@ public class BrowseTransactionsActivity extends Activity
 
   public BrowseTransactionsActivity(
       RendersView rendersView,
-      ExportAllTransactionsAction exportAllTransactionsAction,
-      AndroidDevicePublicStorageGateway androidDevicePublicStorageGateway,
+      ExportAllTransactionsAction
+          exportAllTransactionsAction,
+      AndroidDevicePublicStorageGateway
+          androidDevicePublicStorageGateway,
       BrowseTransactionsModel browseTransactionsModel
   ) {
 
@@ -106,8 +112,8 @@ public class BrowseTransactionsActivity extends Activity
   @Override
   protected void onResume() {
     super.onResume();
-    // Arbitrarily, I assume that I should do my work after
-    // the superclass, but I don't really know.
+    // Arbitrarily, I assume that I should do my work
+    // after the superclass, but I don't really know.
     rendersView.render();
   }
 
@@ -123,16 +129,15 @@ public class BrowseTransactionsActivity extends Activity
   public void displayNumberOfTransactions(
       int transactionCount
   ) {
-    if (transactionCount < 0)
-      throw new ProgrammerMistake(
-          new IllegalArgumentException(
-              String.format(
-                  "number of transactions can't be negative, but it's %1$d",
-                  transactionCount)));
+    if (transactionCount < 0) throw new ProgrammerMistake(
+        new IllegalArgumentException(
+            String.format(
+                "number of transactions can't be " +
+                "negative, but it's %1$d",
+                transactionCount)));
 
     final TextView transactionsCountView
         = (TextView) findViewById(R.id.transactionsCount);
-
     transactionsCountView.setText(
         String.format(
             "%1$d", transactionCount));
@@ -147,30 +152,35 @@ public class BrowseTransactionsActivity extends Activity
           .findPublicExternalStorageDirectory();
       exportAllTransactionsAction.execute(transactions);
       notifyUser(
-          "Exported all transactions to /mnt/sdcard/TrackEveryPenny.csv");
+          "Exported all transactions to " +
+          "/mnt/sdcard/TrackEveryPenny.csv");
     } catch (InternalStorageException reported) {
       handleError(
           "Couldn't read data from internal storage",
-          "Something strange just happened. Try again. You might need to " +
-          "reinstall the application. I feel embarrassed and ashamed.",
+          "Something strange just happened. Try again. " +
+          "You might need to reinstall the application. I" +
+          " feel embarrassed and ashamed.",
           reported);
-    } catch (PublicStorageMediaNotAvailableException reported) {
+    } catch (PublicStorageMediaNotAvailableException
+        reported) {
       handleError(
-          "Couldn't save a file to public storage; media not available",
-          "No place to which to export the transactions. Insert an SD card or connect an " +
-          "external storage device and try again.",
+          "Couldn't save a file to public storage; media " +
+          "not available",
+          "No place to which to export the transactions. " +
+          "Insert an SD card or connect an external " +
+          "storage device and try again.",
           reported);
-    } catch (PublicStorageMediaNotWritableException reported) {
+    } catch (PublicStorageMediaNotWritableException
+        reported) {
       final String pathNotWritableAsText = reported
           .getPathNotWritable().getAbsolutePath();
       handleError(
           String.format(
               "Path %1$s not writable",
-              pathNotWritableAsText),
-          String.format(
-              "Permission denied trying to export the transactions to file %1$s",
-              pathNotWritableAsText),
-          reported);
+              pathNotWritableAsText), String.format(
+          "Permission denied trying to export the " +
+          "transactions to file %1$s",
+          pathNotWritableAsText), reported);
     }
   }
 

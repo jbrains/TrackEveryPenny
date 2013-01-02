@@ -3,7 +3,8 @@ package ca.jbrains.upfp.controller.android.test;
 import ca.jbrains.upfp.*;
 import ca.jbrains.upfp.controller.android.*;
 import ca.jbrains.upfp.model.*;
-import ca.jbrains.upfp.presenter.ExportAllTransactionsAction;
+import ca.jbrains.upfp.presenter
+    .ExportAllTransactionsAction;
 import ca.jbrains.upfp.test.ObjectMother;
 import com.google.common.collect.Lists;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
@@ -37,8 +38,7 @@ public class HandleExportAllTransactionsTest {
       = new BrowseTransactionsActivity(
       null, exportAllTransactionsAction,
       androidDevicePublicStorageGateway,
-      browseTransactionsModel
-  );
+      browseTransactionsModel);
 
   @Before
   public void initializeActivity() {
@@ -50,15 +50,228 @@ public class HandleExportAllTransactionsTest {
     final Collection<Object>
         anyValidNonTrivialCollectionOfTransactions = Lists
         .newArrayList(
-            new Object(), new Object(),
-            new Object());
+            new Object(), new Object(), new Object());
 
     mockery.checking(
         new Expectations() {{
           allowing(browseTransactionsModel)
               .findAllTransactions();
+
           will(
               returnValue(
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                   anyValidNonTrivialCollectionOfTransactions));
 
           // SMELL Irrelevant detail
@@ -97,8 +310,7 @@ public class HandleExportAllTransactionsTest {
         browseTransactionsActivity);
 
     assertLastToastMatchesRegex(
-        "No place to which to export the transactions. " +
-        "Insert an SD card or connect an " +
+        "No place to which to export the transactions. Insert an SD card or connect an " +
         "external storage device and try again.");
   }
 
@@ -209,7 +421,8 @@ public class HandleExportAllTransactionsTest {
   ) {
     ShadowHandler.idleMainLooper();
     assertThat(
-        ShadowToast.getTextOfLatestToast(),
-        matches(Pattern.compile(patternText)));
+        ShadowToast.getTextOfLatestToast(), matches(
+        Pattern.compile(patternText)));
   }
+
 }
